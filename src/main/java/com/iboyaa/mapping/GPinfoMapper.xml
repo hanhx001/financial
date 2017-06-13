@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iboyaa.dao.IGPinfoDao" >
+  <resultMap id="BaseResultMap" type="com.iboyaa.pojo.GPinfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="sum" property="sum" jdbcType="VARCHAR" />
+    <result column="money" property="money" jdbcType="DOUBLE" />
+    <result column="costprice" property="costprice" jdbcType="DOUBLE" />
+    <result column="currentprice" property="currentprice" jdbcType="DOUBLE" />
+    <result column="daypercent" property="daypercent" jdbcType="DOUBLE" />
+    <result column="percent" property="percent" jdbcType="DOUBLE" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="customer" property="customer" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="num" property="num" jdbcType="VARCHAR" />
+    <result column="comment" property="comment" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="zsprice" property="zsprice" jdbcType="VARCHAR" />
+    <result column="ccstate" property="ccstate" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, name, code, sum, money, costprice, currentprice, daypercent, percent, manager, 
+    customer, phone, num, comment, createtime, updatetime, zsprice, ccstate
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gpinfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectAllByC" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from gpinfo
+    where ccstate = #{ccstate,jdbcType=INTEGER}
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from gpinfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iboyaa.pojo.GPinfo" >
+    insert into gpinfo (id, name, code, 
+      sum, money, costprice, 
+      currentprice, daypercent, percent, 
+      manager, customer, phone, 
+      num, comment, createtime, 
+      updatetime, zsprice, ccstate
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{code,jdbcType=VARCHAR}, 
+      #{sum,jdbcType=VARCHAR}, #{money,jdbcType=DOUBLE}, #{costprice,jdbcType=DOUBLE}, 
+      #{currentprice,jdbcType=DOUBLE}, #{daypercent,jdbcType=DOUBLE}, #{percent,jdbcType=DOUBLE}, 
+      #{manager,jdbcType=VARCHAR}, #{customer,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{num,jdbcType=VARCHAR}, #{comment,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
+      #{updatetime,jdbcType=TIMESTAMP}, #{zsprice,jdbcType=VARCHAR}, #{ccstate,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.iboyaa.pojo.GPinfo" >
+    insert into gpinfo
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="sum != null" >
+        sum,
+      </if>
+      <if test="money != null" >
+        money,
+      </if>
+      <if test="costprice != null" >
+        costprice,
+      </if>
+      <if test="currentprice != null" >
+        currentprice,
+      </if>
+      <if test="daypercent != null" >
+        daypercent,
+      </if>
+      <if test="percent != null" >
+        percent,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="customer != null" >
+        customer,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="num != null" >
+        num,
+      </if>
+      <if test="comment != null" >
+        comment,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="zsprice != null" >
+        zsprice,
+      </if>
+      <if test="ccstate != null" >
+        ccstate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="sum != null" >
+        #{sum,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="costprice != null" >
+        #{costprice,jdbcType=DOUBLE},
+      </if>
+      <if test="currentprice != null" >
+        #{currentprice,jdbcType=DOUBLE},
+      </if>
+      <if test="daypercent != null" >
+        #{daypercent,jdbcType=DOUBLE},
+      </if>
+      <if test="percent != null" >
+        #{percent,jdbcType=DOUBLE},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null" >
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsprice != null" >
+        #{zsprice,jdbcType=VARCHAR},
+      </if>
+      <if test="ccstate != null" >
+        #{ccstate,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iboyaa.pojo.GPinfo" >
+    update gpinfo
+    <set >
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="sum != null" >
+        sum = #{sum,jdbcType=VARCHAR},
+      </if>
+      <if test="money != null" >
+        money = #{money,jdbcType=DOUBLE},
+      </if>
+      <if test="costprice != null" >
+        costprice = #{costprice,jdbcType=DOUBLE},
+      </if>
+      <if test="currentprice != null" >
+        currentprice = #{currentprice,jdbcType=DOUBLE},
+      </if>
+      <if test="daypercent != null" >
+        daypercent = #{daypercent,jdbcType=DOUBLE},
+      </if>
+      <if test="percent != null" >
+        percent = #{percent,jdbcType=DOUBLE},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null" >
+        customer = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="num != null" >
+        num = #{num,jdbcType=VARCHAR},
+      </if>
+      <if test="comment != null" >
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="zsprice != null" >
+        zsprice = #{zsprice,jdbcType=VARCHAR},
+      </if>
+      <if test="ccstate != null" >
+        ccstate = #{ccstate,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iboyaa.pojo.GPinfo" >
+    update gpinfo
+    set name = #{name,jdbcType=VARCHAR},
+      code = #{code,jdbcType=VARCHAR},
+      sum = #{sum,jdbcType=VARCHAR},
+      money = #{money,jdbcType=DOUBLE},
+      costprice = #{costprice,jdbcType=DOUBLE},
+      currentprice = #{currentprice,jdbcType=DOUBLE},
+      daypercent = #{daypercent,jdbcType=DOUBLE},
+      percent = #{percent,jdbcType=DOUBLE},
+      manager = #{manager,jdbcType=VARCHAR},
+      customer = #{customer,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      num = #{num,jdbcType=VARCHAR},
+      comment = #{comment,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      zsprice = #{zsprice,jdbcType=VARCHAR},
+      ccstate = #{ccstate,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
