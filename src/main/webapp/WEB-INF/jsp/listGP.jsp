@@ -16,10 +16,19 @@
  	<div class="easyui-tabs" data-options="tabWidth:120" style="width:100%">
 		<div title="持仓" style="padding:10px">
 			<table class="easyui-datagrid"  
-			data-options="rownumbers:true,singleSelect:true,url:'../gp/showJsonData?code=1',method:'get',toolbar:'#tb'">
+			data-options="rownumbers:true,
+			singleSelect:true,
+			url:'../gp/showJsonData?code=1',
+			method:'get',
+			toolbar:'#tb',
+			multiSort:true
+			"
+			pagination="true"
+			>
 		<thead>
 			<tr>
-				<th data-options="field:'createtime',width:140,align:'center'">建仓日期</th>
+			    <th data-options="field:'ck',checkbox:true"></th>
+				<th data-options="field:'createtime',width:140,align:'center',sortable:true">建仓日期</th>
 				<th data-options="field:'code',width:90,align:'center'">股票代码</th>
 				<th data-options="field:'name',width:90,align:'center'">股票名称</th>
 				<th data-options="field:'num',width:60,align:'center'">股票数量</th>
@@ -28,8 +37,8 @@
 				<th data-options="field:'currentprice',width:60,align:'center'">现价</th>
 				
 				<th data-options="field:'zsprice',width:60,align:'center'">止损价</th>
-				<th data-options="field:'daypercent',width:90,align:'center'">当日盈亏率</th>	
-				<th data-options="field:'percent',width:90,align:'center'">总盈亏率</th>	
+				<th data-options="field:'daypercent',width:90,align:'center', formatter:formatPrice ,sortable:true">当日盈亏率</th>	
+				<th data-options="field:'percent',width:90,align:'center', formatter:formatPrice,sortable:true">总盈亏率</th>	
 				<th data-options="field:'ccstate',width:60,align:'center'">持仓状况</th>	
 				
 				<th data-options="field:'customer',width:70,align:'center'">客户姓名</th>
@@ -38,6 +47,7 @@
 				<th data-options="field:'comment',width:300,align:'center'">备注</th>
 			 
 			</tr>
+			
 		</thead>
 		 
 	</table>
@@ -75,3 +85,12 @@
 	
 </body>
 </html>
+<script>
+		function formatPrice(val,row){
+			if (val > 0){
+				return '<span style="color:red;">'+val+'</span>';
+			} else {
+				return val;
+			}
+		}
+	</script>

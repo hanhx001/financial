@@ -46,11 +46,11 @@
 	    			<td>成本价：</td>
 	    			<td><input class="easyui-textbox" type="text" name="costprice" data-options="required:true,validType:'numberCheckSub'"></input></td>
 	    		</tr>
-	    		
+	    		<!--  
 	    		<tr>
 	    			<td>金额：</td>
 	    			<td><input class="easyui-textbox" type="text" name="money" data-options="required:true,validType:'numberCheckSub'"></input></td>
-	    		</tr>
+	    		</tr>-->
 	    		<tr>
 	    			<td>电话：</td>
 	    			<td><input class="easyui-textbox" type="text" name="phone" data-options="required:true,validType:'mobile'"></input></td>

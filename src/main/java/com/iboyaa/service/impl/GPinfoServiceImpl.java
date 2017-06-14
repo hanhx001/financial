@@ -122,7 +122,7 @@ public class GPinfoServiceImpl implements IGPinfoService {
 					 
 						String openPrice = newData[1].toString();
 						double closePrice = Double.parseDouble(StringIsNull.isNULL(newData[2].toString()) ? "0":newData[2].toString());
-						double currentPrice = Double.parseDouble(StringIsNull.isNULL(newData[3].toString()) ? "0":newData[2].toString());
+						double currentPrice = Double.parseDouble(StringIsNull.isNULL(newData[3].toString()) ? "0":newData[3].toString());
 						
 						info.setName(newData[0].replaceAll("\"", "").trim());//股票名称
 						info.setCurrentprice( currentPrice);

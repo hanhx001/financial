@@ -96,7 +96,10 @@ public class GPController {
 		info.setName(name);
 		info.setManager(manager);
 		info.setCostprice(StringIsNull.isNotNull(costprice) ? Double.parseDouble(costprice):0);
-		info.setMoney(StringIsNull.isNotNull(money) ? Double.parseDouble(money):0);
+		
+		 
+		
+		info.setMoney(Double.parseDouble(costprice) * Double.parseDouble(num));
 		info.setPhone(phone);
 		info.setComment(comment);	
 		info.setCreatetime(new Date());
