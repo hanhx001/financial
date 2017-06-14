@@ -17,7 +17,7 @@
 	 <div style="margin:100px 5px 15px 20px;">
 	<div class="easyui-panel" title="录入股票基本信息" style="width:400px">
 		<div style="padding:10px 60px 20px 60px">
-	    <form id="ff" name="myForm" class="easyui-form" method="post" data-options="novalidate:true" action="add">
+	    <form id="ff" name="myForm" class="easyui-form" method="post" data-options="novalidate:true" action="addgp">
 	    	<table cellpadding="5">
 	    		<tr>
 	    			<td>股票代码：</td>
@@ -134,6 +134,9 @@
 			$('#ff').form('submit',{
 				onSubmit:function(){
 					return $(this).form('enableValidation').form('validate');
+				},
+				success:function(){
+					window.location.href="${pageContext.request.contextPath}/gp/showAll";
 				}
 			});
 		}

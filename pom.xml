@@ -181,6 +181,6 @@
                 </configuration>  
             </plugin>  
         </plugins>  
-		<finalName>com.iboyaa</finalName>
+		<finalName>financial</finalName>
 	</build>
 </project>

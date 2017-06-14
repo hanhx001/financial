@@ -18,6 +18,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.alibaba.fastjson.JSON;
 import com.iboyaa.pojo.GPinfo;
@@ -44,23 +46,16 @@ public class GPController {
 			//更新新浪服务器股票数据
 		String gpName = gPinfoService.searchRemoteGpData(code);
 		 
-		 
 		return gpName;
-			
 	}
 	
 	
 	
 	
-	@RequestMapping("/showAll")
+	@RequestMapping(value ="/showAll",method = RequestMethod.GET)
 	public String toIndex(HttpServletRequest request,Model model){
-		
-//		//更新新浪服务器股票数据
-//		gPinfoService.updateRemoteGpData();
-//		
-//		List<GPinfo> data = gPinfoService.selectAll(1);
-//		
-//		model.addAttribute("data", data);
+	 
+		System.out.println("进入跳转页面");
 		return "listGP";
 		
 	}
@@ -80,8 +75,8 @@ public class GPController {
 	}
 	
 	// 新建股票逻辑
-	@RequestMapping("/add")
-	public String add(HttpServletRequest request,HttpServletResponse response){
+	@RequestMapping(value = "/addgp",method = RequestMethod.POST)
+	public String  add(HttpServletRequest request,Model model ){
 		 
 		String  code = request.getParameter("code");
 		
@@ -112,10 +107,7 @@ public class GPController {
  
 		gPinfoService.insert(info);
 		 
-		
-		return "listGP";
-		
-		
+		return null;
 	}
 	
 	// 新建股票界面
