@@ -4,7 +4,9 @@
 package com.iboyaa.controller;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,8 +52,6 @@ public class GPController {
 	}
 	
 	
-	
-	
 	@RequestMapping(value ="/showAll",method = RequestMethod.GET)
 	public String toIndex(HttpServletRequest request,Model model){
 	 
@@ -79,37 +79,52 @@ public class GPController {
 	public String  add(HttpServletRequest request,Model model ){
 		 
 		String  code = request.getParameter("code");
-		
-		  
-		
 		String  name  = request.getParameter("name");
 		String  manager  = request.getParameter("manager");
 		String   costprice = request.getParameter("costprice");
 		String  money  = request.getParameter("money");
 		String   phone = request.getParameter("phone");
 		String   customer = request.getParameter("customer");
-		String   comment = request.getParameter("comment").trim();
-		String   num = request.getParameter("num").trim();//股票数量
-		
-		GPinfo info = new GPinfo();
-		info.setCode(code);
-		info.setName(name);
-		info.setManager(manager);
-		info.setCostprice(StringIsNull.isNotNull(costprice) ? Double.parseDouble(costprice):0);
-		
-		 
-		
-		info.setMoney(Double.parseDouble(costprice) * Double.parseDouble(num));
-		info.setPhone(phone);
-		info.setComment(comment);	
-		info.setCreatetime(new Date());
-		info.setCustomer(customer);
-		info.setNum(num);
-		info.setSum(Integer.parseInt(num) * Double.parseDouble(costprice) );
-		info.setCcstate("1");
- 
-		gPinfoService.insert(info);
-		 
+		String   comment = request.getParameter("comment");
+		String   num = request.getParameter("num");//股票数量
+		String  zsprice=request.getParameter("zsprice");//止损价
+		String  id  = request.getParameter("id");
+		String ccstate= request.getParameter("ccstate");
+		GPinfo info = null;
+		if(null != id){
+			// 更新操作
+		    info = gPinfoService.selectByPrimaryKey(Integer.parseInt(id.toString().trim()));
+		    info.setId(Integer.parseInt(id));
+		    info.setNum(num);
+		    info.setManager(manager);
+			info.setCustomer(customer);
+			info.setZsprice(zsprice);
+			info.setCostprice(StringIsNull.isNotNull(costprice) ? Double.parseDouble(costprice):0);
+			info.setCcstate(ccstate);
+			info.setPhone(phone);
+			info.setComment(comment);	
+			info.setMoney(Double.parseDouble(costprice) * Double.parseDouble(num));
+			gPinfoService.updateByPrimaryKeySelective(info);
+		}else{
+			//新建操作
+			info = new GPinfo();
+			info.setCode(code);
+			info.setName(name);
+			info.setManager(manager);
+			info.setCostprice(StringIsNull.isNotNull(costprice) ? Double.parseDouble(costprice):0);
+			 
+			info.setMoney(Double.parseDouble(costprice) * Double.parseDouble(num));
+			info.setPhone(phone);
+			info.setComment(comment);	
+			info.setCreatetime(new Date());
+			info.setCustomer(customer);
+			info.setNum(num);
+			info.setSum(Integer.parseInt(num) * Double.parseDouble(costprice) );
+			info.setCcstate("1");
+	 
+			gPinfoService.insert(info);
+		}
+
 		return null;
 	}
 	
@@ -128,66 +143,25 @@ public class GPController {
 		String gPrimaryKey = request.getParameter("id");
 		gPinfoService.deleteByPrimaryKey(Integer.parseInt(gPrimaryKey.trim()));
 		
-		return "redirect:/gp/showAll";
+		return null;
 		
 		
 	}
-	@RequestMapping("/updateUi")
+	@RequestMapping(value = "/update",method = RequestMethod.POST ,produces="text/html;charset=UTF-8;")
+	@ResponseBody
 	//更新股票界面
-	public String updateUi(HttpServletRequest request,Model model){
+	public String update(HttpServletRequest request,Model model){
 		
 		//获取到要更改的股票ID主键
 		String id = request.getParameter("id");
 		
 		GPinfo info = gPinfoService.selectByPrimaryKey(Integer.parseInt(id.toString().trim()));
 		
-		model.addAttribute("data", info);
-		return "update";
+	 
+		
+		return JSON.toJSONString(info);
 		
 	}
 	
-	//更新股票信息
-	@RequestMapping("/update")
-	public String update(HttpServletRequest request,HttpServletResponse response){
-		
-		//获取到要更改的股票ID主键
-		String id = request.getParameter("id");
-		
-		GPinfo info = gPinfoService.selectByPrimaryKey(Integer.parseInt(id.toString().trim()));
-		
-		 
-		String  code = request.getParameter("code");
-		
-		 String regEx = "\\w{6,20}"; //编写正则表达式的规则
-		 Pattern pat = Pattern.compile(regEx);  
-		 Matcher mat = pat.matcher(code);  
-		 boolean rs = mat.find(); 
-		if(!rs){
-			return "redirect:/gp/showAll";
-		}
-		
-		String  name  = request.getParameter("name");
-		String  manager  = request.getParameter("manager");
-		String   costprice = request.getParameter("costprice");
-		String  money  = request.getParameter("money");
-		String   phone = request.getParameter("phone");
-		String   customer = request.getParameter("customer");
-		String   comment = request.getParameter("comment").trim();
-		
-		info.setCode(code);
-		info.setName(name);
-		info.setManager(manager);
-		info.setCostprice(StringIsNull.isNotNull(costprice) ? Double.parseDouble(costprice):0);
-		info.setMoney(StringIsNull.isNotNull(money) ? Double.parseDouble(money):0);
-		info.setPhone(phone);
-		info.setComment(comment);	
-		info.setCreatetime(new Date());
-		info.setCustomer(customer);
-		
-		gPinfoService.updateByPrimaryKeySelective(info);
-		
-		return "redirect:/gp/showAll";
-		
-	}
-
+	
 }
