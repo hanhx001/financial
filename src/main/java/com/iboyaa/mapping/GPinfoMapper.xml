@@ -39,6 +39,13 @@
     where ccstate = #{ccstate,jdbcType=INTEGER}
   </select>
   
+  <select id="selectManager" resultMap="BaseResultMap" >
+     select id,
+    manager
+    from gpinfo
+   group by manager
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from gpinfo
     where id = #{id,jdbcType=INTEGER}

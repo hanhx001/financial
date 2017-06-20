@@ -114,8 +114,8 @@ public class GPinfoServiceImpl implements IGPinfoService {
 					String remoteDate = getHtmlConentByUrl(info.getCode());
 					 
 					String[] tempSplit = remoteDate.split("=");
-					
-					if(tempSplit.length == 2){
+					System.out.println(tempSplit[1].length());
+					if(tempSplit[1].length()>3){
 					// 证明股票代码正确，有股票信息返回
 						
 						String[] newData = tempSplit[1].split(",");
@@ -129,6 +129,9 @@ public class GPinfoServiceImpl implements IGPinfoService {
 						info.setPercent((currentPrice - info.getCostprice()) / info.getCostprice() *100);//总盈亏比率
 					    info.setDaypercent(( currentPrice - closePrice ) / closePrice *100);//当日盈亏比率
 						
+					}else{
+						info.setName("股票代码有误");
+						info.setComment("没有查到数据，请检查股票代码");
 					}
 					
 				  
@@ -157,5 +160,11 @@ public class GPinfoServiceImpl implements IGPinfoService {
 		}
 		
 		return gpName;
+	}
+
+	@Override
+	public List<GPinfo> selectManager() {
+		// TODO Auto-generated method stub
+		return this.gPinfoDao.selectManager();
 	}
 }

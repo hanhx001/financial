@@ -18,4 +18,5 @@ public interface IGPinfoDao {
     int updateByPrimaryKey(GPinfo record);
     
     List<GPinfo> selectAllByC(Integer state);
+    List<GPinfo> selectManager();
 }

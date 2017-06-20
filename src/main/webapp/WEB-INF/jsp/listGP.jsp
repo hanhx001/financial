@@ -13,7 +13,7 @@
 </head>
 <body>
 	 
- 	<div class="easyui-tabs" data-options="tabWidth:120" style="width:100% ;">
+ 	<div class="easyui-tabs"   data-options="tabWidth:120" style="width:100% ;">
 		<div title="持仓" style="padding:10px;display:none">
 			<table   class="easyui-datagrid dg"  
 			data-options="rownumbers:true,
@@ -21,7 +21,7 @@
 			url:'../gp/showJsonData?code=1',
 			method:'get',
 			toolbar:'#tb', 
-			multiSort:true"
+			multiSort:true" 
 			pagination="true" >
 			
 			<div id="tbct" style="padding:5px;height:auto;">
@@ -31,21 +31,23 @@
 					<!--<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>-->
 					 <!-- <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>-->
 					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除" onclick="toDelete()"></a>
-					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox" style="width:100px">
-					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox" style="width:100px">
+					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox beginTime start2"   style="width:100px">
+					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox endTime" validType="md['.start2']"  style="width:100px">
 					<span style="margin-left:10px;">所属经理:</span>
-					<select class="easyui-combobox" panelHeight="auto" >
-						<option value="java">张三三</option>
-						<option value="c">C</option>
-						<option value="basic">Basic</option>
-						<option value="perl">Perl</option>
-						<option value="python">Python</option>
-					</select>
+					 
+					<input  class="easyui-combobox"  panelHeight="auto" 
+					data-options=" 
+					width:100,
+					valueField: 'id', 
+					textField: 'manager', 
+					url: '../gp/backManager',
+					method:'get'"></>
+				 
 					<span style="margin-left:10px;">股票代码:</span>
 					<input class="ttgpdm" style="width:100px" data-options="prompt: '例如：sh…' ">
 					<span style="margin-left:10px;">客户名称:</span>
 					<input class="ttgpdm" style="width:100px"/>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;">搜索一下</a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;" onclick="beginSearch(1)">搜索一下</a>
 						 
 			   </div>
 			</div>
@@ -69,7 +71,7 @@
 					<th data-options="field:'customer',width:70,align:'center'">客户姓名</th>
 					<th data-options="field:'phone',width:100,align:'center'">客户电话</th>
 					<th data-options="field:'manager',width:70,align:'center'">所属经理</th>
-					<th data-options="field:'comment',width:300,align:'center'">备注</th>
+					<th data-options="field:'comment',width:300,align:'left'">备注</th>
 				 
 				</tr>
 				
@@ -269,6 +271,8 @@
 </body>
 </html>
 <script>
+
+ // 页面验证需要的js begin
 		$.extend($.fn.textbox.methods, {
 		    addClearBtn: function (jq, iconCls) {
 		
@@ -302,6 +306,9 @@
 		
 		$(function(){
 			$('.ttgpdm').textbox().textbox('addClearBtn', 'icon-clear');
+			 
+
+			
 		});
 
 		function formatPrice(val,row){
@@ -321,6 +328,25 @@
 				return '止损';
 			}
 		}
+		
+		
+		$.extend($.fn.validatebox.defaults.rules, {//验证开始时间小于结束时间  
+	         md: {  
+	             validator: function(value, param){  
+	              startTime2 = $(param[0]).datetimebox('getValue');   
+	                 var d1 = $.fn.datebox.defaults.parser(startTime2);  
+	                 var d2 = $.fn.datebox.defaults.parser(value);  
+	                 varify=d2>d1;  
+	                 return varify;  
+	                
+	             },  
+	             message: '结束时间要大于开始时间！'  
+	           
+	         }  
+	     })  
+		
+// 页面验证需要的js end	
+		
 		//  编辑股票信息
 		function getSelected(){
 			var row = $('.dg').datagrid('getSelected');
@@ -336,11 +362,11 @@
 					$('#win').window('open');  
 					$("#ffupdate").form('load',returnValue);
 					
-					$('#dg').datagrid('reload');
+					$('.dg').datagrid('reload');
 				}
 			})
 		}
-		
+		// 提交表单
 		function submitForm(){
 			$('#ffupdate').form('submit',{
 				onSubmit:function(){
@@ -349,22 +375,47 @@
 				success:function(){
 					//window.location.href="${pageContext.request.contextPath}/gp/showAll";
 				}
+				
+			});
+		}
+		// 删除一条记录
+		function toDelete(){
+			var row = $('.dg').datagrid('getSelected');
+			$.messager.confirm('提示', '你确定要删除这条记录么？', function(r){
+				 
+				if (r){
+					$.ajax({
+						url: "${pageContext.request.contextPath}/gp/delete",
+						type: "POST",
+						data: {"id":row.id},
+						dataType:"json",
+					 
+						success:function(){
+							//alert(1);
+							//window.location.href="${pageContext.request.contextPath}/gp/showAll";
+							$('.dg').datagrid('reload');
+						}
+
+					})
+				}
 			});
 		}
 		
-		function toDelete(){
-			var row = $('.dg').datagrid('getSelected');
-			alert(row);
-			$.ajax({
-				url: "${pageContext.request.contextPath}/gp/delete",
-				type: "POST",
-				data: {"id":row.id},
-				dataType:"json",
-				success: function ()
-				{
-					window.location.href="${pageContext.request.contextPath}/gp/showAll";
-				}
-			})
+		//页面内查找
+		function beginSearch(tab){
+			// 1代表 持仓的查询，2代表止盈 ，3代表止损
+			if("1" == tab){
+				
+				var beginTime=$(".beginTime").datetimebox("getValue");
+				var endTime=$(".endTime").datetimebox("getValue");
+			 
+				 
+				
+			}else if("2" == tab){
+				
+			}else if("3" == tab){
+				
+			}
 			
 		}
 		

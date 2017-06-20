@@ -22,4 +22,6 @@ public interface IGPinfoService {
     void updateRemoteGpData();
     
     String searchRemoteGpData(String code);
+    
+    List<GPinfo> selectManager();
 }
