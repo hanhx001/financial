@@ -10,6 +10,8 @@
 	
 	<script type="text/javascript" src="../js/jquery.min.js"></script>
 	<script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
+	 
 </head>
 <body>
 	 
@@ -35,7 +37,7 @@
 					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox endTime" validType="md['.start2']"  style="width:100px">
 					<span style="margin-left:10px;">所属经理:</span>
 					 
-					<input  class="easyui-combobox"  panelHeight="auto" 
+					<input  class="easyui-combobox managerBack"  panelHeight="auto" 
 					data-options=" 
 					width:100,
 					valueField: 'id', 
@@ -44,9 +46,9 @@
 					method:'get'"></>
 				 
 					<span style="margin-left:10px;">股票代码:</span>
-					<input class="ttgpdm" style="width:100px" data-options="prompt: '例如：sh…' ">
+					<input class="ttgpdm gpcode" style="width:100px" data-options="prompt: '例如：sh…' ">
 					<span style="margin-left:10px;">客户名称:</span>
-					<input class="ttgpdm" style="width:100px"/>
+					<input class="ttgpdm customname" style="width:100px"/>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;" onclick="beginSearch(1)">搜索一下</a>
 						 
 			   </div>
@@ -404,12 +406,34 @@
 		//页面内查找
 		function beginSearch(tab){
 			// 1代表 持仓的查询，2代表止盈 ，3代表止损
-			if("1" == tab){
-				
-				var beginTime=$(".beginTime").datetimebox("getValue");
-				var endTime=$(".endTime").datetimebox("getValue");
+			
+			var beginTime=$(".beginTime").datetimebox("getValue");
+		    var endTime=$(".endTime").datetimebox("getValue");
+			var gpcode =$(".gpcode").val();
+			var customname =$(".customname").val();
+			var manager = $('.managerBack').combobox('getText');
 			 
-				 
+			
+			if("1" == tab){
+				$.ajax({
+					url: "${pageContext.request.contextPath}/gp/fuzzySearch",
+					type: "POST",
+					data: {"ccstate":tab,
+						   "beginTime":beginTime,
+						   "endTime":endTime,
+						   "gpcode":gpcode,
+						   "customname":customname,
+						   "manager":manager 
+						   },
+					
+					dataType:"json",
+					success: function (returnValue)
+					{
+						 alert(returnValue);
+					}
+				})
+				
+				
 				
 			}else if("2" == tab){
 				

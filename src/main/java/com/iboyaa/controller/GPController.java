@@ -177,4 +177,22 @@ public class GPController {
 	}
 	
 	
+	//模糊检索
+	@RequestMapping(value = "/fuzzySearch", method = RequestMethod.POST)
+	@ResponseBody
+	public String  fuzzySearch(HttpServletRequest request,
+			HttpServletResponse response){
+		
+		String  code = request.getParameter("gpcode");//股票代码
+		String  beginTime=request.getParameter("beginTime");
+		String  endTime = request.getParameter("endTime");
+		String customname = request.getParameter("customname");
+		String ccstate = request.getParameter("ccstate");// 
+		String manager = request.getParameter("manager");// 
+	    System.out.println("GPController.fuzzySearch()");
+		 return "";
+		
+	}
+	
+	
 }
