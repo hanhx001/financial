@@ -19,4 +19,5 @@ public interface IGPinfoDao {
     
     List<GPinfo> selectAllByC(Integer state);
     List<GPinfo> selectManager();
+    List<GPinfo> fuzzySearch(GPinfo record);
 }

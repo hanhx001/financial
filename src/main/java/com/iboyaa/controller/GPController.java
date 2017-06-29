@@ -114,7 +114,7 @@ public class GPController {
 			info.setName(name);
 			info.setManager(manager);
 			info.setCostprice(StringIsNull.isNotNull(costprice) ? Double.parseDouble(costprice):0);
-			 
+			info.setCreatetime(new Date());
 			info.setMoney(Double.parseDouble(costprice) * Double.parseDouble(num));
 			info.setPhone(phone);
 			info.setComment(comment);	
@@ -180,17 +180,10 @@ public class GPController {
 	//模糊检索
 	@RequestMapping(value = "/fuzzySearch", method = RequestMethod.POST)
 	@ResponseBody
-	public String  fuzzySearch(HttpServletRequest request,
-			HttpServletResponse response){
+	public String  fuzzySearch(GPinfo info){
 		
-		String  code = request.getParameter("gpcode");//股票代码
-		String  beginTime=request.getParameter("beginTime");
-		String  endTime = request.getParameter("endTime");
-		String customname = request.getParameter("customname");
-		String ccstate = request.getParameter("ccstate");// 
-		String manager = request.getParameter("manager");// 
-	    System.out.println("GPController.fuzzySearch()");
-		 return "";
+		List<GPinfo> data = gPinfoService.fuzzySearch(info);
+	    return JSON.toJSONString(data);
 		
 	}
 	

@@ -167,4 +167,10 @@ public class GPinfoServiceImpl implements IGPinfoService {
 		// TODO Auto-generated method stub
 		return this.gPinfoDao.selectManager();
 	}
+
+	@Override
+	public List<GPinfo> fuzzySearch(GPinfo record) {
+		// TODO Auto-generated method stub
+		return this.gPinfoDao.fuzzySearch(record);
+	}
 }

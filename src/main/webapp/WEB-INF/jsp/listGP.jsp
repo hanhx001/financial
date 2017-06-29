@@ -17,7 +17,7 @@
 	 
  	<div class="easyui-tabs"   data-options="tabWidth:120" style="width:100% ;">
 		<div title="持仓" style="padding:10px;display:none">
-			<table   class="easyui-datagrid dg"  
+			<table  id="chicang" class="easyui-datagrid"  
 			data-options="rownumbers:true,
 			singleSelect:true,
 			url:'../gp/showJsonData?code=1',
@@ -29,10 +29,10 @@
 			<div id="tbct" style="padding:5px;height:auto;">
 				<div style="margin-bottom:10px;">
 					<a href="${pageContext.request.contextPath}/gp/addUi" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="修改" onclick="getSelected()"></a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="修改" onclick="getSelected(1)"></a>
 					<!--<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>-->
 					 <!-- <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>-->
-					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除" onclick="toDelete()"></a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除" onclick="toDelete(1)"></a>
 					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox beginTime start2"   style="width:100px">
 					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox endTime" validType="md['.start2']"  style="width:100px">
 					<span style="margin-left:10px;">所属经理:</span>
@@ -57,7 +57,7 @@
 			<thead >
 				<tr>
 				    <th data-options="field:'ck',checkbox:true"></th>
-					<th data-options="field:'createtime',width:140,align:'center',sortable:true">建仓日期</th>
+					<th data-options="field:'createtime',width:76,align:'center',sortable:true">建仓日期</th>
 					<th data-options="field:'code',width:90,align:'center'">股票代码</th>
 					<th data-options="field:'name',width:90,align:'center'">股票名称</th>
 					<th data-options="field:'num',width:60,align:'center'">股票数量</th>
@@ -73,7 +73,7 @@
 					<th data-options="field:'customer',width:70,align:'center'">客户姓名</th>
 					<th data-options="field:'phone',width:100,align:'center'">客户电话</th>
 					<th data-options="field:'manager',width:70,align:'center'">所属经理</th>
-					<th data-options="field:'comment',width:300,align:'left'">备注</th>
+					<th data-options="field:'comment',width:300,align:' '">备注</th>
 				 
 				</tr>
 				
@@ -85,48 +85,48 @@
 		
 		
 		
-		<div title="止盈" style="padding:10px;display:none">
-			 
-			 
-			<table class="easyui-datagrid dg"  
+		   <div title="止盈" style="padding:10px;display:none">
+			<table  id="zhiying" class="easyui-datagrid"  
 			data-options="rownumbers:true,
 			singleSelect:true,
 			url:'../gp/showJsonData?code=2',
 			method:'get',
-			toolbar:'#tb',
-			multiSort:true"
+			toolbar:'#tb', 
+			multiSort:true" 
 			pagination="true" >
 			
-			<div id="tbzy" style="padding:5px;height:auto">
-			<div style="margin-bottom:10px">
+			<div id="tbzy" style="padding:5px;height:auto;">
+				<div style="margin-bottom:10px;">
 					<a href="${pageContext.request.contextPath}/gp/addUi" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="修改"></a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="修改" onclick="getSelected(2)"></a>
 					<!--<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>-->
 					 <!-- <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>-->
-					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除"></a>
-					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox" style="width:100px">
-					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox" style="width:100px">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除" onclick="toDelete(2)"></a>
+					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox beginTime start2"   style="width:100px">
+					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox endTime" validType="md['.start2']"  style="width:100px">
 					<span style="margin-left:10px;">所属经理:</span>
-					<select class="easyui-combobox" panelHeight="auto" >
-						<option value="java">张三三</option>
-						<option value="c">C</option>
-						<option value="basic">Basic</option>
-						<option value="perl">Perl</option>
-						<option value="python">Python</option>
-					</select>
-					<span style="margin-left:10px;">股票代码:</span>
-					<input class="ttgpdm" style="width:100px" data-options="prompt: '例如：sh…' ">
-					<span style="margin-left:10px;">客户名称:</span>
-					<input class="ttgpdm" style="width:100px"/>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;">搜索一下</a>
 					 
+					<input  class="easyui-combobox managerBack"  panelHeight="auto" 
+					data-options=" 
+					width:100,
+					valueField: 'id', 
+					textField: 'manager', 
+					url: '../gp/backManager',
+					method:'get'"></>
+				 
+					<span style="margin-left:10px;">股票代码:</span>
+					<input class="ttgpdm gpcode" style="width:100px" data-options="prompt: '例如：sh…' ">
+					<span style="margin-left:10px;">客户名称:</span>
+					<input class="ttgpdm customname" style="width:100px"/>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;" onclick="beginSearch(1)">搜索一下</a>
+						 
 			   </div>
-		    </div> 
+			</div>
 			
 			<thead >
 				<tr>
 				    <th data-options="field:'ck',checkbox:true"></th>
-					<th data-options="field:'createtime',width:140,align:'center',sortable:true">建仓日期</th>
+					<th data-options="field:'createtime',width:76,align:'center',sortable:true">建仓日期</th>
 					<th data-options="field:'code',width:90,align:'center'">股票代码</th>
 					<th data-options="field:'name',width:90,align:'center'">股票名称</th>
 					<th data-options="field:'num',width:60,align:'center'">股票数量</th>
@@ -134,83 +134,92 @@
 					<th data-options="field:'money',width:60,align:'center'">金额</th>
 					<th data-options="field:'currentprice',width:60,align:'center'">现价</th>
 					
-					<th data-options="field:'zsprice',width:60,align:'center'">止损价</th>
+					<th data-options="field:'zsprice',width:60,align:'center' ">止损价</th>
 					<th data-options="field:'daypercent',width:90,align:'center', formatter:formatPrice ,sortable:true">当日盈亏率</th>	
 					<th data-options="field:'percent',width:90,align:'center', formatter:formatPrice,sortable:true">总盈亏率</th>	
-					<th data-options="field:'ccstate',width:60,align:'center',formatter:formatChines">持仓状况</th>	
+					<th data-options="field:'ccstate',width:60,align:'center',formatter:formatChines ">持仓状况</th>	
 					
 					<th data-options="field:'customer',width:70,align:'center'">客户姓名</th>
 					<th data-options="field:'phone',width:100,align:'center'">客户电话</th>
 					<th data-options="field:'manager',width:70,align:'center'">所属经理</th>
-					<th data-options="field:'comment',width:300,align:'center'">备注</th>
+					<th data-options="field:'comment',width:300,align:' '">备注</th>
 				 
 				</tr>
 				
 			</thead>
 		 
-	       </table>
-		       
+		       </table>
+	
 		</div>
-		<div title="止损" style="padding:10px;display:none">
-			
-			<table class="easyui-datagrid dg"  
+		
+		
+	<div title="止损" style="padding:10px;display:none">
+			<table  id="zhisun" class="easyui-datagrid"  
 			data-options="rownumbers:true,
 			singleSelect:true,
 			url:'../gp/showJsonData?code=3',
 			method:'get',
-			toolbar:'#tb',
-			multiSort:true "
-			pagination="true">
+			toolbar:'#tb', 
+			multiSort:true" 
+			pagination="true" >
 			
-			<div id="tbzs" style="padding:5px;height:auto">
-				<div style="margin-bottom:10px">
+			<div id="tbct" style="padding:5px;height:auto;">
+				<div style="margin-bottom:10px;">
 					<a href="${pageContext.request.contextPath}/gp/addUi" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="修改"></a>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="修改" onclick="getSelected(3)"></a>
 					<!--<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>-->
 					 <!-- <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>-->
-					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除"></a>
-					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox" style="width:100px">
-					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox" style="width:100px">
+					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除" onclick="toDelete(3)"></a>
+					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox beginTime start2"   style="width:100px">
+					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox endTime" validType="md['.start2']"  style="width:100px">
 					<span style="margin-left:10px;">所属经理:</span>
-					<select class="easyui-combobox" panelHeight="auto" >
-						<option value="java">张三三</option>
-						<option value="c">C</option>
-						<option value="basic">Basic</option>
-						<option value="perl">Perl</option>
-						<option value="python">Python</option>
-					</select>
-					<span style="margin-left:10px;">股票代码:</span>
-					<input class="ttgpdm" style="width:100px" data-options="prompt: '例如：sh…' ">
-					<span style="margin-left:10px;">客户名称:</span>
-					<input class="ttgpdm" style="width:100px"/>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;">搜索一下</a>
 					 
+					<input  class="easyui-combobox managerBack"  panelHeight="auto" 
+					data-options=" 
+					width:100,
+					valueField: 'id', 
+					textField: 'manager', 
+					url: '../gp/backManager',
+					method:'get'"></>
+				 
+					<span style="margin-left:10px;">股票代码:</span>
+					<input class="ttgpdm gpcode" style="width:100px" data-options="prompt: '例如：sh…' ">
+					<span style="margin-left:10px;">客户名称:</span>
+					<input class="ttgpdm customname" style="width:100px"/>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;" onclick="beginSearch(1)">搜索一下</a>
+						 
 			   </div>
-		    </div> 
-		<thead >
-			<tr>
-			    <th data-options="field:'ck',checkbox:true"></th>
-				<th data-options="field:'createtime',width:140,align:'center',sortable:true">建仓日期</th>
-				<th data-options="field:'code',width:90,align:'center'">股票代码</th>
-				<th data-options="field:'name',width:90,align:'center'">股票名称</th>
-				<th data-options="field:'num',width:60,align:'center'">股票数量</th>
-				<th data-options="field:'costprice',width:60,align:'center'">成本价</th>
-				<th data-options="field:'money',width:60,align:'center'">金额</th>
-				<th data-options="field:'currentprice',width:60,align:'center'">现价</th>
+			</div>
+			
+			<thead >
+				<tr>
+				    <th data-options="field:'ck',checkbox:true"></th>
+					<th data-options="field:'createtime',width:76,align:'center',sortable:true">建仓日期</th>
+					<th data-options="field:'code',width:90,align:'center'">股票代码</th>
+					<th data-options="field:'name',width:90,align:'center'">股票名称</th>
+					<th data-options="field:'num',width:60,align:'center'">股票数量</th>
+					<th data-options="field:'costprice',width:60,align:'center'">成本价</th>
+					<th data-options="field:'money',width:60,align:'center'">金额</th>
+					<th data-options="field:'currentprice',width:60,align:'center'">现价</th>
+					
+					<th data-options="field:'zsprice',width:60,align:'center' ">止损价</th>
+					<th data-options="field:'daypercent',width:90,align:'center', formatter:formatPrice ,sortable:true">当日盈亏率</th>	
+					<th data-options="field:'percent',width:90,align:'center', formatter:formatPrice,sortable:true">总盈亏率</th>	
+					<th data-options="field:'ccstate',width:60,align:'center',formatter:formatChines ">持仓状况</th>	
+					
+					<th data-options="field:'customer',width:70,align:'center'">客户姓名</th>
+					<th data-options="field:'phone',width:100,align:'center'">客户电话</th>
+					<th data-options="field:'manager',width:70,align:'center'">所属经理</th>
+					<th data-options="field:'comment',width:300,align:' '">备注</th>
+				 
+				</tr>
 				
-				<th data-options="field:'zsprice',width:60,align:'center'">止损价</th>
-				<th data-options="field:'daypercent',width:90,align:'center', formatter:formatPrice ,sortable:true">当日盈亏率</th>	
-				<th data-options="field:'percent',width:90,align:'center', formatter:formatPrice,sortable:true">总盈亏率</th>	
-				<th data-options="field:'ccstate',width:60,align:'center',formatter:formatChines">持仓状况</th>	
-				
-				<th data-options="field:'customer',width:70,align:'center'">客户姓名</th>
-				<th data-options="field:'phone',width:100,align:'center'">客户电话</th>
-				<th data-options="field:'manager',width:70,align:'center'">所属经理</th>
-				<th data-options="field:'comment',width:300,align:'center'">备注</th>
-			</tr>
-		</thead>
-	       </table>
+			</thead>
+		 
+		       </table>
+	
 		</div>
+		
 	</div>
 	<!-- 编辑股票信息的隐藏div -->
 	 <div id="win" class="easyui-window" title="编辑股票信息"  
@@ -269,12 +278,17 @@
 	    </div>
     </div>   
     
+    <!-- 模糊查询弹出框 -->
+    <div region="center" border="false">  
+        <table id="fuzzySearch"></table>  
+      </div>
 </div>
 </body>
 </html>
 <script>
 
  // 页面验证需要的js begin
+ 
 		$.extend($.fn.textbox.methods, {
 		    addClearBtn: function (jq, iconCls) {
 		
@@ -350,9 +364,17 @@
 // 页面验证需要的js end	
 		
 		//  编辑股票信息
-		function getSelected(){
-			var row = $('.dg').datagrid('getSelected');
-			 
+		function getSelected(tab){
+			var row="";
+			
+			if("1" == tab){
+				row = $('#chicang').datagrid('getSelected');
+			}else if("2" == tab){
+				row = $('#zhiying').datagrid('getSelected');
+			}else if("3" == tab){
+				row = $('#zhisun').datagrid('getSelected');
+			}	
+		 
 			$.ajax({
 				url: "${pageContext.request.contextPath}/gp/update",
 				type: "POST",
@@ -363,8 +385,9 @@
 					var datasource = { total:returnValue.total ,rows: returnValue.rows };
 					$('#win').window('open');  
 					$("#ffupdate").form('load',returnValue);
-					
-					$('.dg').datagrid('reload');
+				
+					//$('.dg').datagrid('reload');
+					 
 				}
 			})
 		}
@@ -375,14 +398,23 @@
 					return $(this).form('enableValidation').form('validate');
 				},
 				success:function(){
-					//window.location.href="${pageContext.request.contextPath}/gp/showAll";
+					window.location.href="${pageContext.request.contextPath}/gp/showAll";
 				}
 				
 			});
 		}
 		// 删除一条记录
-		function toDelete(){
-			var row = $('.dg').datagrid('getSelected');
+		function toDelete(tab){
+			
+			var row="";
+			
+			if("1" == tab){
+				row = $('#chicang').datagrid('getSelected');
+			}else if("2" == tab){
+				row = $('#zhiying').datagrid('getSelected');
+			}else if("3" == tab){
+				row = $('#zhisun').datagrid('getSelected');
+			}	
 			$.messager.confirm('提示', '你确定要删除这条记录么？', function(r){
 				 
 				if (r){
@@ -393,9 +425,10 @@
 						dataType:"json",
 					 
 						success:function(){
-							//alert(1);
-							//window.location.href="${pageContext.request.contextPath}/gp/showAll";
-							$('.dg').datagrid('reload');
+							 
+							$('#chicang').datagrid('reload');
+							$('#zhiying').datagrid('reload');
+							$('#zhisun').datagrid('reload');
 						}
 
 					})
@@ -415,25 +448,7 @@
 			 
 			
 			if("1" == tab){
-				$.ajax({
-					url: "${pageContext.request.contextPath}/gp/fuzzySearch",
-					type: "POST",
-					data: {"ccstate":tab,
-						   "beginTime":beginTime,
-						   "endTime":endTime,
-						   "gpcode":gpcode,
-						   "customname":customname,
-						   "manager":manager 
-						   },
-					
-					dataType:"json",
-					success: function (returnValue)
-					{
-						 alert(returnValue);
-					}
-				})
-				
-				
+	 
 				
 			}else if("2" == tab){
 				
@@ -442,5 +457,7 @@
 			}
 			
 		}
+		
+		 
 		
 	</script>

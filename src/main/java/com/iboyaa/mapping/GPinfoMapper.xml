@@ -46,6 +46,72 @@
    group by manager
   </select>
   
+   <select id="fuzzySearch" resultMap="BaseResultMap" parameterType="com.iboyaa.pojo.GPinfo">
+     select 
+     <include refid="Base_Column_List" />
+    from gpinfo
+     <where>
+     <if test="name != null and name != ''" >
+       and name = #{name,jdbcType=VARCHAR}
+      </if>
+      <if test="code != null and code != ''" >
+       and code like concat('%',#{code,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="sum != null and sum != ''" >
+       and sum = #{sum,jdbcType=VARCHAR}
+      </if>
+      <if test="money != null and money != ''" >
+       and money = #{money,jdbcType=DOUBLE}
+      </if>
+      <if test="costprice != null and costprice != ''" >
+       and costprice = #{costprice,jdbcType=DOUBLE}
+      </if>
+      <if test="currentprice != null and currentprice != ''" >
+      and  currentprice = #{currentprice,jdbcType=DOUBLE}
+      </if>
+      <if test="daypercent != null and daypercent != ''" >
+       and daypercent = #{daypercent,jdbcType=DOUBLE}
+      </if>
+      <if test="percent != null and percent != ''" >
+      and  percent = #{percent,jdbcType=DOUBLE}
+      </if>
+      <if test="manager != null and manager != ''" >
+      and  manager = #{manager,jdbcType=VARCHAR}
+      </if>
+      <if test="customer != null and customer!= ''" >
+      and  customer like concat('%',#{customer,jdbcType=VARCHAR},'%')
+      </if>
+      <if test="phone != null and phone!= ''" >
+      and  phone = #{phone,jdbcType=VARCHAR}
+      </if>
+      <if test="num != null and num!= ''" >
+        and num = #{num,jdbcType=VARCHAR}
+      </if>
+      <if test="comment != null and comment!= ''" >
+       and comment = #{comment,jdbcType=VARCHAR}
+      </if>
+        <choose>
+        <when test="beginTime != null and endTime !=null and beginTime!='' and endTime !=''">
+        <![CDATA[
+        and createtime between #{beginTime,jdbcType=TIMESTAMP} and #{endTime,jdbcType=TIMESTAMP}
+        ]]>
+        </when>
+        <when test="beginTime != null and beginTime!=''">and createtime=#{beginTime,jdbcType=TIMESTAMP}</when>
+        <when test="endTime !=null and endTime!=''">and createtime=#{endTime,jdbcType=TIMESTAMP}</when>
+      </choose>
+      <if test="zsprice != null and zsprice!=''" >
+      and  zsprice = #{zsprice,jdbcType=VARCHAR}
+      </if>
+      <if test="ccstate != null and ccstate!=''" >
+      and  ccstate = #{ccstate,jdbcType=VARCHAR}
+      </if>
+     
+     </where>
+  </select>
+
+  
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from gpinfo
     where id = #{id,jdbcType=INTEGER}

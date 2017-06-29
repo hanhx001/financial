@@ -31,12 +31,14 @@ public class GPinfo {
     @JSONField (format="yyyy-MM-dd HH:mm:ss")  
     private Date updatetime;
     
+    
     private String num;//股票数量
     private Double sum;//股票总价
     private Double daypercent;//当日盈亏比率
     private String ccstate;//持仓状况 1持仓；2止盈；3止损
     private String zsprice;//止损价
-    
+    private String beginTime;//结束时间
+    private String endTime;//结束时间
     
     
     
@@ -46,10 +48,27 @@ public class GPinfo {
 	}
 
 	 
+	 
+
+
+	@Override
+	public String toString() {
+		return "GPinfo [id=" + id + ", name=" + name + ", code=" + code + ", money=" + money + ", costprice="
+				+ costprice + ", currentprice=" + currentprice + ", percent=" + percent + ", manager=" + manager
+				+ ", customer=" + customer + ", phone=" + phone + ", comment=" + comment + ", createtime=" + createtime
+				+ ", updatetime=" + updatetime + ", num=" + num + ", sum=" + sum + ", daypercent=" + daypercent
+				+ ", ccstate=" + ccstate + ", zsprice=" + zsprice + ", beginTime=" + beginTime + ", endTime=" + endTime
+				+ "]";
+	}
+
+
+
+
 
 	public GPinfo(Integer id, String name, String code, Double money, Double costprice, Double currentprice,
 			Double percent, String manager, String customer, String phone, String comment, Date createtime,
-			Date updatetime, String num, Double sum, Double daypercent, String ccstate, String zsprice) {
+			Date updatetime, String num, Double sum, Double daypercent, String ccstate, String zsprice,
+			String beginTime, String endTime) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -69,6 +88,30 @@ public class GPinfo {
 		this.daypercent = daypercent;
 		this.ccstate = ccstate;
 		this.zsprice = zsprice;
+		this.beginTime = beginTime;
+		this.endTime = endTime;
+	}
+
+
+
+
+
+	public String getBeginTime() {
+		return beginTime;
+	}
+
+	public void setBeginTime(String beginTime) {
+		this.beginTime = beginTime;
+	}
+
+	public String getEndTime() {
+		return endTime;
+	}
+
+
+
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 

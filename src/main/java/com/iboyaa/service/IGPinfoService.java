@@ -24,4 +24,6 @@ public interface IGPinfoService {
     String searchRemoteGpData(String code);
     
     List<GPinfo> selectManager();
+    
+    List<GPinfo> fuzzySearch(GPinfo record);
 }
