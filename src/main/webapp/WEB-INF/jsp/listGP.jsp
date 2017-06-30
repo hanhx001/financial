@@ -33,11 +33,11 @@
 					<!--<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>-->
 					 <!-- <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>-->
 					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除" onclick="toDelete(1)"></a>
-					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox beginTime start2"   style="width:100px">
-					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox endTime" validType="md['.start2']"  style="width:100px">
+					<span style="margin-left:40px;">开始时间:</span> <input id ="beginTimect" class="easyui-datebox  start2"   style="width:100px">
+					<span style="margin-left:10px;">结束时间:</span> <input id="endTimect" class="easyui-datebox" validType="md['.start2']"  style="width:100px">
 					<span style="margin-left:10px;">所属经理:</span>
 					 
-					<input  class="easyui-combobox managerBack"  panelHeight="auto" 
+					<input id="managerBackct" class="easyui-combobox "  panelHeight="auto" 
 					data-options=" 
 					width:100,
 					valueField: 'id', 
@@ -46,9 +46,9 @@
 					method:'get'"></>
 				 
 					<span style="margin-left:10px;">股票代码:</span>
-					<input class="ttgpdm gpcode" style="width:100px" data-options="prompt: '例如：sh…' ">
+					<input id="gpcodect" class="ttgpdm" style="width:100px" data-options="prompt: '例如：sh…' ">
 					<span style="margin-left:10px;">客户名称:</span>
-					<input class="ttgpdm customname" style="width:100px"/>
+					<input id="customnamect" class="ttgpdm " style="width:100px"/>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;" onclick="beginSearch(1)">搜索一下</a>
 						 
 			   </div>
@@ -82,8 +82,6 @@
 		       </table>
 	
 		</div>
-		
-		
 		
 		   <div title="止盈" style="padding:10px;display:none">
 			<table  id="zhiying" class="easyui-datagrid"  
@@ -102,11 +100,11 @@
 					<!--<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>-->
 					 <!-- <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>-->
 					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除" onclick="toDelete(2)"></a>
-					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox beginTime start2"   style="width:100px">
-					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox endTime" validType="md['.start2']"  style="width:100px">
+					<span style="margin-left:40px;">开始时间:</span> <input id="beginTimezy" class="easyui-datebox  start2"   style="width:100px">
+					<span style="margin-left:10px;">结束时间:</span> <input id ="endTimezy" class="easyui-datebox" validType="md['.start2']"  style="width:100px">
 					<span style="margin-left:10px;">所属经理:</span>
 					 
-					<input  class="easyui-combobox managerBack"  panelHeight="auto" 
+					<input id="managerBackzy" class="easyui-combobox "  panelHeight="auto" 
 					data-options=" 
 					width:100,
 					valueField: 'id', 
@@ -115,10 +113,10 @@
 					method:'get'"></>
 				 
 					<span style="margin-left:10px;">股票代码:</span>
-					<input class="ttgpdm gpcode" style="width:100px" data-options="prompt: '例如：sh…' ">
+					<input id="gpcodezy" class="ttgpdm " style="width:100px" data-options="prompt: '例如：sh…' ">
 					<span style="margin-left:10px;">客户名称:</span>
-					<input class="ttgpdm customname" style="width:100px"/>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;" onclick="beginSearch(1)">搜索一下</a>
+					<input id ="customnamezy" class="ttgpdm " style="width:100px"/>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;" onclick="beginSearch(2)">搜索一下</a>
 						 
 			   </div>
 			</div>
@@ -148,7 +146,7 @@
 				
 			</thead>
 		 
-		       </table>
+		    </table>
 	
 		</div>
 		
@@ -163,18 +161,18 @@
 			multiSort:true" 
 			pagination="true" >
 			
-			<div id="tbct" style="padding:5px;height:auto;">
+			<div id="tbzs" style="padding:5px;height:auto;">
 				<div style="margin-bottom:10px;">
 					<a href="${pageContext.request.contextPath}/gp/addUi" class="easyui-linkbutton" iconCls="icon-add" plain="true" title="添加"></a>
 					<a href="#" class="easyui-linkbutton" iconCls="icon-edit" plain="true" title="修改" onclick="getSelected(3)"></a>
 					<!--<a href="#" class="easyui-linkbutton" iconCls="icon-save" plain="true"></a>-->
 					 <!-- <a href="#" class="easyui-linkbutton" iconCls="icon-cut" plain="true"></a>-->
 					<a href="#" class="easyui-linkbutton" iconCls="icon-remove" plain="true" title="删除" onclick="toDelete(3)"></a>
-					<span style="margin-left:40px;">开始时间:</span> <input class="easyui-datebox beginTime start2"   style="width:100px">
-					<span style="margin-left:10px;">结束时间:</span> <input class="easyui-datebox endTime" validType="md['.start2']"  style="width:100px">
+					<span style="margin-left:40px;">开始时间:</span> <input id="beginTimezs" class="easyui-datebox  start2"   style="width:100px">
+					<span style="margin-left:10px;">结束时间:</span> <input id="endTimezs" class="easyui-datebox " validType="md['.start2']"  style="width:100px">
 					<span style="margin-left:10px;">所属经理:</span>
 					 
-					<input  class="easyui-combobox managerBack"  panelHeight="auto" 
+					<input id="managerBackzs" class="easyui-combobox "  panelHeight="auto" 
 					data-options=" 
 					width:100,
 					valueField: 'id', 
@@ -183,10 +181,10 @@
 					method:'get'"></>
 				 
 					<span style="margin-left:10px;">股票代码:</span>
-					<input class="ttgpdm gpcode" style="width:100px" data-options="prompt: '例如：sh…' ">
+					<input id="gpcodezs" class="ttgpdm " style="width:100px" data-options="prompt: '例如：sh…' ">
 					<span style="margin-left:10px;">客户名称:</span>
-					<input class="ttgpdm customname" style="width:100px"/>
-					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;" onclick="beginSearch(1)">搜索一下</a>
+					<input id="customnamezs" class="ttgpdm " style="width:100px"/>
+					<a href="#" class="easyui-linkbutton" iconCls="icon-search" style="margin-left:10px;" onclick="beginSearch(3)">搜索一下</a>
 						 
 			   </div>
 			</div>
@@ -216,7 +214,7 @@
 				
 			</thead>
 		 
-		       </table>
+		    </table>
 	
 		</div>
 		
@@ -321,10 +319,9 @@
 		});
 		
 		$(function(){
-			$('.ttgpdm').textbox().textbox('addClearBtn', 'icon-clear');
-			 
-
 			
+			$('.ttgpdm').textbox().textbox('addClearBtn', 'icon-clear');
+			  
 		});
 
 		function formatPrice(val,row){
@@ -440,20 +437,150 @@
 		function beginSearch(tab){
 			// 1代表 持仓的查询，2代表止盈 ，3代表止损
 			
-			var beginTime=$(".beginTime").datetimebox("getValue");
-		    var endTime=$(".endTime").datetimebox("getValue");
-			var gpcode =$(".gpcode").val();
-			var customname =$(".customname").val();
-			var manager = $('.managerBack').combobox('getText');
-			 
 			
+			 
 			if("1" == tab){
-	 
+				var beginTime=$("#beginTimect").datetimebox("getValue");
+			    var endTime=$("#endTimect").datetimebox("getValue");
+				var gpcode =$("#gpcodect").val();
+				var customname =$("#customnamect").val();
+				var manager = $('#managerBackct').combobox('getText');
+	 	        var ccstate ="1"
+	 	    	$.ajax({
+					url: "${pageContext.request.contextPath}/gp/fuzzySearch",
+					type: "POST",
+					data: {"beginTime":beginTime,
+						"endTime":endTime,
+						"code":gpcode,
+						"customer":customname,
+						"manager":manager,
+						"ccstate":ccstate
+					},
+					 
+					dataType:"json",
+				 
+					success:function(data){
+						var rows = [];
+						for(var i=0; i<data.length; i++){
+							rows.push({
+								 createtime:data[i].createtime,
+								 code:data[i].code,
+								 name:data[i]. name,
+								 num:data[i].num,
+								 costprice: data[i].costprice,
+								 money: data[i].money,
+								 currentprice:data[i].currentprice,
+								 zsprice:data[i].zsprice,
+								 daypercent:data[i].daypercent,
+								 percent:data[i].percent,
+								 ccstate :data[i].ccstate,
+							 	 customer :data[i].customer,
+								 phone :data[i].phone,
+								 manager :data[i].manager,
+								 comment:data[i].comment,
+							});
+							 $('#chicang').datagrid('loadData', rows);
+						}
+						 
+					}
+
+				})
 				
+	    	  	
+
 			}else if("2" == tab){
-				
+				var beginTime=$("#beginTimezy").datetimebox("getValue");
+			    var endTime=$("#endTimezy").datetimebox("getValue");
+				var gpcode =$("#gpcodezy").val();
+				var customname =$("#customnamezy").val();
+				var manager = $('#managerBackzy').combobox('getText');
+			    var ccstate ="2"
+		 	    	$.ajax({
+						url: "${pageContext.request.contextPath}/gp/fuzzySearch",
+						type: "POST",
+						data: {"beginTime":beginTime,
+							"endTime":endTime,
+							"code":gpcode,
+							"customer":customname,
+							"manager":manager,
+							"ccstate":ccstate
+						},
+						 
+						dataType:"json",
+					 
+						success:function(data){
+							console.log(data);
+							var rows = [];
+							for(var i=0; i<data.length; i++){
+								rows.push({
+									 createtime:data[i].createtime,
+									 code:data[i].code,
+									 name:data[i]. name,
+									 num:data[i].num,
+									 costprice: data[i].costprice,
+									 money: data[i].money,
+									 currentprice:data[i].currentprice,
+									 zsprice:data[i].zsprice,
+									 daypercent:data[i].daypercent,
+									 percent:data[i].percent,
+									 ccstate :data[i].ccstate,
+								 	 customer :data[i].customer,
+									 phone :data[i].phone,
+									 manager :data[i].manager,
+									 comment:data[i].comment,
+								});
+								 $('#zhiying').datagrid('loadData', rows);
+							}
+							 
+						}
+
+					})
 			}else if("3" == tab){
-				
+				var beginTime=$("#beginTimezs").datetimebox("getValue");
+			    var endTime=$("#endTimezs").datetimebox("getValue");
+				var gpcode =$("#gpcodezs").val();
+				var customname =$("#customnamezs").val();
+				var manager = $('#managerBackzs').combobox('getText');
+			    var ccstate ="3"
+		 	    	$.ajax({
+						url: "${pageContext.request.contextPath}/gp/fuzzySearch",
+						type: "POST",
+						data: {"beginTime":beginTime,
+							"endTime":endTime,
+							"code":gpcode,
+							"customer":customname,
+							"manager":manager,
+							"ccstate":ccstate
+						},
+						 
+						dataType:"json",
+					 
+						success:function(data){
+							var rows = [];
+							for(var i=0; i<data.length; i++){
+								rows.push({
+									 createtime:data[i].createtime,
+									 code:data[i].code,
+									 name:data[i]. name,
+									 num:data[i].num,
+									 costprice: data[i].costprice,
+									 money: data[i].money,
+									 currentprice:data[i].currentprice,
+									 zsprice:data[i].zsprice,
+									 daypercent:data[i].daypercent,
+									 percent:data[i].percent,
+									 ccstate :data[i].ccstate,
+								 	 customer :data[i].customer,
+									 phone :data[i].phone,
+									 manager :data[i].manager,
+									 comment:data[i].comment,
+								});
+								 $('#zhisun').datagrid('loadData', rows);
+							}
+							 
+						}
+
+					})
 			}
 			
 		}
