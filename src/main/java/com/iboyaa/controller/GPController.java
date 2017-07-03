@@ -4,6 +4,7 @@
 package com.iboyaa.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -66,11 +67,13 @@ public class GPController {
 	@ResponseBody
 	public String showJsonData(HttpServletRequest request,Model model){
 		
-		String code =request.getParameter("code");
+		String code = request.getParameter("code");
+		String sort = request.getParameter("sort");
+		String order = request.getParameter("order");
 		//更新新浪服务器股票数据
 		gPinfoService.updateRemoteGpData();
 		
-		List<GPinfo> data = gPinfoService.selectAll(Integer.parseInt(code));
+		List<GPinfo> data = gPinfoService.selectAll(Integer.parseInt(code), sort, order);
 		
 		 return JSON.toJSONString(data);
 		
@@ -187,5 +190,36 @@ public class GPController {
 		
 	}
 	
+	// 字段排序
+	@RequestMapping(value = "/sortAble", method = RequestMethod.POST)
+	@ResponseBody
+	public String  sortAble(HttpServletRequest request,HttpServletResponse response){
+		
+		String ccstate = request.getParameter("sheet");//那个栏目的排序请求，
+		String order = request.getParameter("order");//排序方式
+		String column = request.getParameter("column");//要排序的字段
+		List<GPinfo> backDate = new ArrayList<>();
+		
+		switch (ccstate) {
+		case "1"://持仓
+			backDate = gPinfoService.sortAble(ccstate, order, column);
+			break;
+		case "2"://止盈
+			
+			break;
+		case "3"://止损
+	
+			break;
+
+		default:
+			break;
+		}
+		
+		
+		
+		return JSON.toJSONString(backDate);
+		
+		 
+	}
 	
 }

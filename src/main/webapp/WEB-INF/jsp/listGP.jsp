@@ -436,8 +436,6 @@
 		//页面内查找
 		function beginSearch(tab){
 			// 1代表 持仓的查询，2代表止盈 ，3代表止损
-			
-			
 			 
 			if("1" == tab){
 				var beginTime=$("#beginTimect").datetimebox("getValue");
@@ -479,9 +477,9 @@
 								 manager :data[i].manager,
 								 comment:data[i].comment,
 							});
-							 $('#chicang').datagrid('loadData', rows);
+							 
 						}
-						 
+						$('#chicang').datagrid('loadData', rows);
 					}
 
 				})
@@ -529,8 +527,8 @@
 									 manager :data[i].manager,
 									 comment:data[i].comment,
 								});
-								 $('#zhiying').datagrid('loadData', rows);
 							}
+							 $('#zhiying').datagrid('loadData', rows);
 							 
 						}
 
@@ -575,16 +573,63 @@
 									 manager :data[i].manager,
 									 comment:data[i].comment,
 								});
-								 $('#zhisun').datagrid('loadData', rows);
 							}
-							 
+							
+							 $('#zhisun').datagrid('loadData', rows);
 						}
 
 					})
 			}
 			
 		}
-		
-		 
+		//排序
+		/*$("#chicang").datagrid({
+			 onSortColumn: function (sort, order,e) {
+				 
+				 e=e||window.event;
+				 e.stopPropagation();
+				// sort 点击的字段
+				// order 排序方式: desc asc 空
+				 $.ajax({
+						url: "${pageContext.request.contextPath}/gp/sortAble",
+						type: "POST",
+						data: {"sheet":"1",
+							"order":order,
+							"column":sort
+						},
+						 
+						dataType:"json",
+					 
+						success:function(data){
+							var rows = [];
+							for(var i=0; i<data.length; i++){
+								rows.push({
+									 createtime:data[i].createtime,
+									 code:data[i].code,
+									 name:data[i]. name,
+									 num:data[i].num,
+									 costprice: data[i].costprice,
+									 money: data[i].money,
+									 currentprice:data[i].currentprice,
+									 zsprice:data[i].zsprice,
+									 daypercent:data[i].daypercent,
+									 percent:data[i].percent,
+									 ccstate :data[i].ccstate,
+								 	 customer :data[i].customer,
+									 phone :data[i].phone,
+									 manager :data[i].manager,
+									 comment:data[i].comment,
+								});
+							}
+							debugger
+							$('#chicang').datagrid('loadData', rows);
+						}
+
+					}) 
+			      
+			  }
+			})*/
+ 
+
 		
 	</script>

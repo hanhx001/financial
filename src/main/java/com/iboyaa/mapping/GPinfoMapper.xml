@@ -36,7 +36,18 @@
     select 
     <include refid="Base_Column_List" />
     from gpinfo
-    where ccstate = #{ccstate,jdbcType=INTEGER}
+    
+    <where>
+      
+      <if test="ccstate != null and ccstate!=''" >
+      and  ccstate = #{ccstate,jdbcType=VARCHAR}
+      </if>
+      
+      <if test="order != null and order!=''" >
+      order by ${sort}    ${order}
+      </if>
+     
+     </where>
   </select>
   
   <select id="selectManager" resultMap="BaseResultMap" >
@@ -109,7 +120,23 @@
      </where>
   </select>
 
-  
+   <select id="sortable" resultMap="BaseResultMap" parameterType="com.iboyaa.pojo.GPinfo">
+     select 
+     <include refid="Base_Column_List" />
+    from gpinfo
+     <where>
+      
+      
+      <if test="ccstate != null and ccstate!=''" >
+      and  ccstate = #{ccstate,jdbcType=VARCHAR}
+      </if>
+      <if test="order != null and order!=''" >
+      order by ${column}    ${order}
+      
+      </if>
+     
+     </where>
+  </select>
   
   
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >

@@ -17,7 +17,7 @@ public interface IGPinfoService {
 
     int updateByPrimaryKey(GPinfo record);
     
-    List<GPinfo> selectAll(Integer state);
+    List<GPinfo> selectAll(Integer state,String sort,String order);
     
     void updateRemoteGpData();
     
@@ -26,4 +26,6 @@ public interface IGPinfoService {
     List<GPinfo> selectManager();
     
     List<GPinfo> fuzzySearch(GPinfo record);
+    
+    List<GPinfo> sortAble(String ccstate,String order,String column);
 }

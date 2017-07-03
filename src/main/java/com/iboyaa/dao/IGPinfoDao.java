@@ -2,6 +2,8 @@ package com.iboyaa.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.iboyaa.pojo.GPinfo;
 
 public interface IGPinfoDao {
@@ -17,7 +19,8 @@ public interface IGPinfoDao {
 
     int updateByPrimaryKey(GPinfo record);
     
-    List<GPinfo> selectAllByC(Integer state);
+    List<GPinfo> selectAllByC(@Param("ccstate")Integer ccstate,@Param("sort")String sort,@Param("order")String order);
     List<GPinfo> selectManager();
     List<GPinfo> fuzzySearch(GPinfo record);
+    List<GPinfo> sortable(@Param("ccstate") String ccstate,@Param("order") String order,@Param("column")String column);
 }

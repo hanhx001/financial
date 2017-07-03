@@ -66,9 +66,9 @@ public class GPinfoServiceImpl implements IGPinfoService {
 	}
 
 	@Override
-	public List<GPinfo> selectAll(Integer state) {
+	public List<GPinfo> selectAll(Integer state,String sort,String order) {
 		
-		return this.gPinfoDao.selectAllByC(state);
+		return this.gPinfoDao.selectAllByC(state, sort, order);
 	}
 	
 	//调取新浪股票数据
@@ -106,7 +106,7 @@ public class GPinfoServiceImpl implements IGPinfoService {
 	public void updateRemoteGpData() {
 		
 		// 查询出没更新股票价格的的所有数据
-				List <GPinfo> data = this.gPinfoDao.selectAllByC(1);
+				List <GPinfo> data = this.gPinfoDao.selectAllByC(1, "createtime", "desc");
 				
 				for(GPinfo info : data){
 					
@@ -172,5 +172,12 @@ public class GPinfoServiceImpl implements IGPinfoService {
 	public List<GPinfo> fuzzySearch(GPinfo record) {
 		// TODO Auto-generated method stub
 		return this.gPinfoDao.fuzzySearch(record);
+	}
+
+	@Override
+	public List<GPinfo> sortAble(String ccstate,String order,String column){
+	 
+		
+		return this.gPinfoDao.sortable(ccstate, order, column);
 	}
 }
