@@ -22,8 +22,7 @@
 			singleSelect:true,
 			url:'../gp/showJsonData?code=1',
 			method:'get',
-			toolbar:'#tb', 
-			multiSort:true" 
+			toolbar:'#tb'" 
 			pagination="true" >
 			
 			<div id="tbct" style="padding:5px;height:auto;">
@@ -89,8 +88,7 @@
 			singleSelect:true,
 			url:'../gp/showJsonData?code=2',
 			method:'get',
-			toolbar:'#tb', 
-			multiSort:true" 
+			toolbar:'#tb'" 
 			pagination="true" >
 			
 			<div id="tbzy" style="padding:5px;height:auto;">
@@ -157,8 +155,7 @@
 			singleSelect:true,
 			url:'../gp/showJsonData?code=3',
 			method:'get',
-			toolbar:'#tb', 
-			multiSort:true" 
+			toolbar:'#tb'" 
 			pagination="true" >
 			
 			<div id="tbzs" style="padding:5px;height:auto;">
@@ -379,12 +376,8 @@
 				dataType:"json",
 				success: function (returnValue)
 				{
-					var datasource = { total:returnValue.total ,rows: returnValue.rows };
 					$('#win').window('open');  
 					$("#ffupdate").form('load',returnValue);
-				
-					//$('.dg').datagrid('reload');
-					 
 				}
 			})
 		}
@@ -438,6 +431,7 @@
 			// 1代表 持仓的查询，2代表止盈 ，3代表止损
 			 
 			if("1" == tab){
+				
 				var beginTime=$("#beginTimect").datetimebox("getValue");
 			    var endTime=$("#endTimect").datetimebox("getValue");
 				var gpcode =$("#gpcodect").val();
@@ -582,54 +576,7 @@
 			}
 			
 		}
-		//排序
-		/*$("#chicang").datagrid({
-			 onSortColumn: function (sort, order,e) {
-				 
-				 e=e||window.event;
-				 e.stopPropagation();
-				// sort 点击的字段
-				// order 排序方式: desc asc 空
-				 $.ajax({
-						url: "${pageContext.request.contextPath}/gp/sortAble",
-						type: "POST",
-						data: {"sheet":"1",
-							"order":order,
-							"column":sort
-						},
-						 
-						dataType:"json",
-					 
-						success:function(data){
-							var rows = [];
-							for(var i=0; i<data.length; i++){
-								rows.push({
-									 createtime:data[i].createtime,
-									 code:data[i].code,
-									 name:data[i]. name,
-									 num:data[i].num,
-									 costprice: data[i].costprice,
-									 money: data[i].money,
-									 currentprice:data[i].currentprice,
-									 zsprice:data[i].zsprice,
-									 daypercent:data[i].daypercent,
-									 percent:data[i].percent,
-									 ccstate :data[i].ccstate,
-								 	 customer :data[i].customer,
-									 phone :data[i].phone,
-									 manager :data[i].manager,
-									 comment:data[i].comment,
-								});
-							}
-							debugger
-							$('#chicang').datagrid('loadData', rows);
-						}
-
-					}) 
-			      
-			  }
-			})*/
- 
+		 
 
 		
 	</script>
