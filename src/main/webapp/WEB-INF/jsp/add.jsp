@@ -117,7 +117,7 @@
 	    },
 	    numberCheckSub : {
 	        validator : function(value) {
-	        return /^[0-9]+$/.test(value);},
+	        return /^\d+(\.\d+)?$/.test(value);},
 	        message : "请输入数字"
 	    },  
 	    //移动手机号码验证  
