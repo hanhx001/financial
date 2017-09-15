@@ -3,17 +3,15 @@
  */
 package com.iboyaa.controller;
 
-import java.io.IOException;
+ 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+ 
 import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+ 
 
 import javax.annotation.Resource;
-import javax.persistence.criteria.From;
+ 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -22,11 +20,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
+ 
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
+ 
 import com.iboyaa.pojo.GPinfo;
 import com.iboyaa.service.IGPinfoService;
 import com.iboyaa.util.StringIsNull;
@@ -136,7 +133,7 @@ public class GPController {
 	@RequestMapping("/addUi")
 	public String adUi(HttpServletRequest request, HttpServletResponse response) {
 
-		return "add";
+		return "newinfo";
 	}
 
 	// 删除股票
