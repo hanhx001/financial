@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class PageJumpController {
 
 
- 
+
     /**
      * 跳转到录入股票信息界面
      * @param request
@@ -31,7 +31,7 @@ public class PageJumpController {
      */
     @RequestMapping("/add")
     public String jump2AddUi(HttpServletRequest request, HttpServletResponse response) {
-      
+
         return "newinfo";
     }
 }

@@ -10,31 +10,33 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
-  <link rel="stylesheet" href="./css/layui.css"  media="all">
+<link rel="stylesheet" href="./css/layui.css" media="all">
 
 <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
 
-	<blockquote class="layui-elem-quote layui-text">温馨提示：股票代码 要录入前面的字母</blockquote>
+	<blockquote class="layui-elem-quote layui-text">温馨提示：股票代码
+		要录入前面的字母</blockquote>
 
 	<fieldset class="layui-elem-field layui-field-title"
 		style="margin-top: 20px;">
 		<legend>股票基本信息录入</legend>
 	</fieldset>
 
-	<form class="layui-form" action="">
+	<form class="layui-form" action="addUiData" method="POST">
 		<div class="layui-form-item">
 			<label class="layui-form-label">股票代码</label>
 			<div class="layui-input-block">
-				<input type="text" name="code" lay-verify="required" lay-verify="title"
-					autocomplete="off" placeholder="请输入代码" class="layui-input">
+				<input type="text" name="code" lay-verify="required"
+					lay-verify="title" autocomplete="off" placeholder="请输入代码"
+					class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">股票数量</label>
 			<div class="layui-input-block">
-				<input type="text" name="num" lay-verify="required|number"  
+				<input type="text" name="num" lay-verify="required|number"
 					placeholder="请输入数量" autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -42,8 +44,9 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">客户姓名</label>
 			<div class="layui-input-block">
-				<input type="text" name="customer" lay-verify="required" lay-verify="title"
-					autocomplete="off" placeholder="请输入客户姓名" class="layui-input">
+				<input type="text" name="customer" lay-verify="required"
+					lay-verify="title" autocomplete="off" placeholder="请输入客户姓名"
+					class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -54,7 +57,7 @@
 			</div>
 		</div>
 
-<div class="layui-form-item">
+		<div class="layui-form-item">
 			<label class="layui-form-label">成本价</label>
 			<div class="layui-input-block">
 				<input type="text" name="costprice" lay-verify="required|number"
@@ -62,24 +65,20 @@
 			</div>
 		</div>
 
-<div class="layui-form-item">
+		<div class="layui-form-item">
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
-				<input type="text" name="phone" 
-					placeholder="请输入电话" autocomplete="off" class="layui-input">
+				<input type="text" name="phone" placeholder="请输入电话"
+					autocomplete="off" class="layui-input">
 			</div>
 		</div>
 
-
-
- 
- 
-		 <div class="layui-form-item layui-form-text">
-    <label class="layui-form-label">备注信息</label>
-    <div class="layui-input-block">
-      <textarea name="comment"  placeholder="请输入内容" class="layui-textarea"></textarea>
-    </div>
-  </div>
+		<div class="layui-form-item layui-form-text">
+			<label class="layui-form-label">备注信息</label>
+			<div class="layui-input-block">
+				<textarea name="comment" placeholder="请输入内容" class="layui-textarea"></textarea>
+			</div>
+		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
 				<button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
@@ -88,8 +87,8 @@
 		</div>
 	</form>
 
-	 
- 	<script type="text/javascript" src="./layui.js" charset="utf-8"></script>
+
+	<script type="text/javascript" src="./layui.js" charset="utf-8"></script>
 
 
 	<script>
@@ -134,12 +133,12 @@
 							});
 
 							//监听提交
-							form.on('submit(demo1)', function(data) {
-								layer.alert(JSON.stringify(data.field), {
-									title : '最终的提交信息'
-								})
-								return false;
-							});
+							//form.on('submit(demo1)', function(data) {
+							//	layer.alert(JSON.stringify(data.field), {
+							//		title : '最终的提交信息'
+							//	})
+							//	return false;
+							//});
 
 						});
 	</script>

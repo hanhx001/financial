@@ -22,156 +22,157 @@ import com.mysql.fabric.xmlrpc.base.Array;
 @Service("gpinfoService")
 public class GPinfoServiceImpl implements IGPinfoService {
 
-	@Resource
-	private IGPinfoDao gPinfoDao;
+    @Resource
+    private IGPinfoDao gPinfoDao;
 
-	public GPinfoServiceImpl() {
-		// TODO Auto-generated constructor stub
-	}
+    public GPinfoServiceImpl() {
+        // TODO Auto-generated constructor stub
+    }
 
-	@Override
-	public int deleteByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return this.gPinfoDao.deleteByPrimaryKey(id);
-	}
+    @Override
+    public int deleteByPrimaryKey(Integer id) {
+        // TODO Auto-generated method stub
+        return this.gPinfoDao.deleteByPrimaryKey(id);
+    }
 
-	@Override
-	public int insert(GPinfo record) {
-		// TODO Auto-generated method stub
-		return this.gPinfoDao.insert(record);
-	}
+    @Override
+    public int insert(GPinfo record) {
+        // TODO Auto-generated method stub
+        return this.gPinfoDao.insert(record);
+    }
 
-	@Override
-	public int insertSelective(GPinfo record) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+    @Override
+    public int insertSelective(GPinfo record) {
+        // TODO Auto-generated method stub
+        return 0;
+    }
 
-	@Override
-	public GPinfo selectByPrimaryKey(Integer id) {
-		// TODO Auto-generated method stub
-		return this.gPinfoDao.selectByPrimaryKey(id);
-	}
+    @Override
+    public GPinfo selectByPrimaryKey(Integer id) {
+        // TODO Auto-generated method stub
+        return this.gPinfoDao.selectByPrimaryKey(id);
+    }
 
-	@Override
-	public int updateByPrimaryKeySelective(GPinfo record) {
-		// TODO Auto-generated method stub
-		return this.gPinfoDao.updateByPrimaryKeySelective(record);
-	}
+    @Override
+    public int updateByPrimaryKeySelective(GPinfo record) {
+        // TODO Auto-generated method stub
+        return this.gPinfoDao.updateByPrimaryKeySelective(record);
+    }
 
-	@Override
-	public int updateByPrimaryKey(GPinfo record) {
-		// TODO Auto-generated method stub
-		return this.gPinfoDao.updateByPrimaryKeySelective(record);
-	}
+    @Override
+    public int updateByPrimaryKey(GPinfo record) {
+        // TODO Auto-generated method stub
+        return this.gPinfoDao.updateByPrimaryKeySelective(record);
+    }
 
-	@Override
-	public List<GPinfo> selectAll(Integer state, String sort, String order) {
+    @Override
+    public List<GPinfo> selectAll(Integer state, String sort, String order) {
 
-		return this.gPinfoDao.selectAllByC(state, sort, order);
-	}
+        return this.gPinfoDao.selectAllByC(state, sort, order);
+    }
 
-	// 调取新浪股票数据
-	public String getHtmlConentByUrl(String gpCode) {
-		try {
-			URL url = new URL("http://hq.sinajs.cn/list=" + gpCode);
-			HttpURLConnection con = (HttpURLConnection) url.openConnection();
-			con.setRequestProperty("contentType", "GBK");
-			con.setInstanceFollowRedirects(false);
-			con.setUseCaches(false);
-			con.setAllowUserInteraction(false);
-			con.connect();
+    // 调取新浪股票数据
+    public String getHtmlConentByUrl(String gpCode) {
+        try {
+            URL url = new URL("http://hq.sinajs.cn/list=" + gpCode);
+            HttpURLConnection con = (HttpURLConnection) url.openConnection();
+            con.setRequestProperty("contentType", "GBK");
+            con.setInstanceFollowRedirects(false);
+            con.setUseCaches(false);
+            con.setAllowUserInteraction(false);
+            con.connect();
 
-			StringBuffer sb = new StringBuffer();
-			String line = "";
-			BufferedReader URLinput = new BufferedReader(new InputStreamReader(con.getInputStream(), "GBK"));
+            StringBuffer sb = new StringBuffer();
+            String line = "";
+            BufferedReader URLinput =
+                    new BufferedReader(new InputStreamReader(con.getInputStream(), "GBK"));
 
-			while ((line = URLinput.readLine()) != null) {
-				sb.append(line);
-			}
-			con.disconnect();
+            while ((line = URLinput.readLine()) != null) {
+                sb.append(line);
+            }
+            con.disconnect();
 
-			return sb.toString().toLowerCase();
-		} catch (Exception e) {
-			return "0";
-		}
-	}
+            return sb.toString().toLowerCase();
+        } catch (Exception e) {
+            return "0";
+        }
+    }
 
-	@Override
-	public void updateRemoteGpData() {
+    @Override
+    public void updateRemoteGpData() {
 
-		// 查询出没更新股票价格的的所有数据
-		List<GPinfo> data = this.gPinfoDao.selectAllByC(1, "createtime", "desc");
+        // 查询出没更新股票价格的的所有数据
+        List<GPinfo> data = this.gPinfoDao.selectAllByC(1, "createtime", "desc");
 
-		for (GPinfo info : data) {
+        for (GPinfo info : data) {
 
-			// 根据股票代码 调取远程接口获取数据
-			String remoteDate = getHtmlConentByUrl(info.getCode());
+            // 根据股票代码 调取远程接口获取数据
+            String remoteDate = getHtmlConentByUrl(info.getCode());
 
-			String[] tempSplit = remoteDate.split("=");
-			System.out.println(tempSplit[1].length());
-			if (tempSplit[1].length() > 3) {
-				// 证明股票代码正确，有股票信息返回
+            String[] tempSplit = remoteDate.split("=");
+            System.out.println(tempSplit[1].length());
+            if (tempSplit[1].length() > 3) {
+                // 证明股票代码正确，有股票信息返回
 
-				String[] newData = tempSplit[1].split(",");
+                String[] newData = tempSplit[1].split(",");
 
-				String openPrice = newData[1].toString();
-				double closePrice = Double
-						.parseDouble(StringIsNull.isNULL(newData[2].toString()) ? "0" : newData[2].toString());
-				double currentPrice = Double
-						.parseDouble(StringIsNull.isNULL(newData[3].toString()) ? "0" : newData[3].toString());
+                String openPrice = newData[1].toString();
+                double closePrice = Double.parseDouble(
+                        StringIsNull.isNULL(newData[2].toString()) ? "0" : newData[2].toString());
+                double currentPrice = Double.parseDouble(
+                        StringIsNull.isNULL(newData[3].toString()) ? "0" : newData[3].toString());
 
-				info.setName(newData[0].replaceAll("\"", "").trim());// 股票名称
-				info.setCurrentprice(currentPrice);
-				info.setPercent((currentPrice - info.getCostprice()) / info.getCostprice() * 100);// 总盈亏比率
-				info.setDaypercent((currentPrice - closePrice) / closePrice * 100);// 当日盈亏比率
+                info.setName(newData[0].replaceAll("\"", "").trim());// 股票名称
+                info.setCurrentprice(currentPrice);
+                info.setPercent((currentPrice - info.getCostprice()) / info.getCostprice() * 100);// 总盈亏比率
+                info.setDaypercent((currentPrice - closePrice) / closePrice * 100);// 当日盈亏比率
 
-			} else {
-				info.setName("股票代码有误");
-				info.setComment("没有查到数据，请检查股票代码");
-			}
+            } else {
+                info.setName("股票代码有误");
+                info.setComment("没有查到数据，请检查股票代码");
+            }
 
-			info.setUpdatetime(new Date());
+            info.setUpdatetime(new Date());
 
-			gPinfoDao.updateByPrimaryKeySelective(info);
-		}
-	}
+            gPinfoDao.updateByPrimaryKeySelective(info);
+        }
+    }
 
-	@Override
-	public String searchRemoteGpData(String code) {
+    @Override
+    public String searchRemoteGpData(String code) {
 
-		String gpName = "";
-		// 根据股票代码 调取远程接口获取数据
-		String remoteDate = getHtmlConentByUrl(code);
+        String gpName = "";
+        // 根据股票代码 调取远程接口获取数据
+        String remoteDate = getHtmlConentByUrl(code);
 
-		String[] tempSplit = remoteDate.split("=");
+        String[] tempSplit = remoteDate.split("=");
 
-		if (tempSplit.length == 2) {
-			String[] newData = tempSplit[1].split(",");
-			gpName = newData[0].replaceAll("\"", "").trim();
-		} else {
-			gpName = "啥也没查到！";
+        if (tempSplit.length == 2) {
+            String[] newData = tempSplit[1].split(",");
+            gpName = newData[0].replaceAll("\"", "").trim();
+        } else {
+            gpName = "啥也没查到！";
 
-		}
+        }
 
-		return gpName;
-	}
+        return gpName;
+    }
 
-	@Override
-	public List<GPinfo> selectManager() {
-		// TODO Auto-generated method stub
-		return this.gPinfoDao.selectManager();
-	}
+    @Override
+    public List<GPinfo> selectManager() {
+        // TODO Auto-generated method stub
+        return this.gPinfoDao.selectManager();
+    }
 
-	@Override
-	public List<GPinfo> fuzzySearch(GPinfo record) {
-		// TODO Auto-generated method stub
-		return this.gPinfoDao.fuzzySearch(record);
-	}
+    @Override
+    public List<GPinfo> fuzzySearch(GPinfo record) {
+        // TODO Auto-generated method stub
+        return this.gPinfoDao.fuzzySearch(record);
+    }
 
-	@Override
-	public List<GPinfo> sortAble(String ccstate, String order, String column) {
+    @Override
+    public List<GPinfo> sortAble(String ccstate, String order, String column) {
 
-		return this.gPinfoDao.sortable(ccstate, order, column);
-	}
+        return this.gPinfoDao.sortable(ccstate, order, column);
+    }
 }
