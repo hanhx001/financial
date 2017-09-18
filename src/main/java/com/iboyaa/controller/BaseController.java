@@ -55,7 +55,7 @@ public class BaseController {
         String sharseName = sharesService.getSharesName(code);
         if ("failed;".equals(sharseName)) {
 
-            return "errorNewGp404";
+           // return "errorNewGp404";
         }
 
         //初始化构造函数
@@ -68,9 +68,9 @@ public class BaseController {
         info.setSharseName(sharseName);
         
         //持久化数据
-        sharesService.insertSelective(info);
+       // sharesService.insertSelective(info);
 
-        return "";
+        return "list";
 
 
 
