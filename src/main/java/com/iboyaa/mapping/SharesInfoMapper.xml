@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iboyaa.dao.ISharesDao">
+	<resultMap id="BaseResultMap" type="com.iboyaa.pojo.SharesInfo">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="sharseName" property="sharseName" jdbcType="VARCHAR" />
+		<result column="code" property="code" jdbcType="VARCHAR" />
+		<result column="totalPrice" property="totalPrice" jdbcType="DOUBLE" />
+		<result column="unitPrice" property="unitPrice" jdbcType="DOUBLE" />
+		<result column="stopLossPrice" property="stopLossPrice"
+			jdbcType="DOUBLE" />
+		<result column="costPrice" property="costPrice" jdbcType="DOUBLE" />
+		<result column="position" property="position" jdbcType="INTEGER" />
+		<result column="currentPrice" property="currentPrice" jdbcType="DOUBLE" />
+		<result column="daypercent" property="daypercent" jdbcType="VARCHAR" />
+		<result column="percent" property="percent" jdbcType="VARCHAR" />
+		<result column="manager" property="manager" jdbcType="VARCHAR" />
+		<result column="customer" property="customer" jdbcType="VARCHAR" />
+		<result column="phone" property="phone" jdbcType="VARCHAR" />
+		<result column="num" property="num" jdbcType="INTEGER" />
+		<result column="comment" property="comment" jdbcType="VARCHAR" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, sharseName, code, totalPrice, unitPrice, stopLossPrice,
+		costPrice,
+		position,
+		currentPrice, daypercent, percent, manager,
+		customer, phone, num, comment,
+		createtime,
+		updatetime
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from sharesinfo
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		sharesinfo
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+
+	<insert id="insertSelective" parameterType="com.iboyaa.pojo.SharesInfo">
+		insert into sharesinfo
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="sharseName != null">
+				sharseName,
+			</if>
+			<if test="code != null">
+				code,
+			</if>
+			<if test="totalPrice != null">
+				totalPrice,
+			</if>
+			<if test="unitPrice != null">
+				unitPrice,
+			</if>
+			<if test="stopLossPrice != null">
+				stopLossPrice,
+			</if>
+			<if test="costPrice != null">
+				costPrice,
+			</if>
+			<if test="position != null">
+				position,
+			</if>
+			<if test="currentPrice != null">
+				currentPrice,
+			</if>
+			<if test="daypercent != null">
+				daypercent,
+			</if>
+			<if test="percent != null">
+				percent,
+			</if>
+			<if test="manager != null">
+				manager,
+			</if>
+			<if test="customer != null">
+				customer,
+			</if>
+			<if test="phone != null">
+				phone,
+			</if>
+			<if test="num != null">
+				num,
+			</if>
+			<if test="comment != null">
+				comment,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="sharseName != null">
+				#{sharseName,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				#{code,jdbcType=VARCHAR},
+			</if>
+			<if test="totalPrice != null">
+				#{totalPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="unitPrice != null">
+				#{unitPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="stopLossPrice != null">
+				#{stopLossPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="costPrice != null">
+				#{costPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="position != null">
+				#{position,jdbcType=INTEGER},
+			</if>
+			<if test="currentPrice != null">
+				#{currentPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="daypercent != null">
+				#{daypercent,jdbcType=VARCHAR},
+			</if>
+			<if test="percent != null">
+				#{percent,jdbcType=VARCHAR},
+			</if>
+			<if test="manager != null">
+				#{manager,jdbcType=VARCHAR},
+			</if>
+			<if test="customer != null">
+				#{customer,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				#{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="num != null">
+				#{num,jdbcType=INTEGER},
+			</if>
+			<if test="comment != null">
+				#{comment,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.iboyaa.pojo.SharesInfo">
+		update sharesinfo
+		<set>
+			<if test="sharseName != null">
+				sharseName = #{sharseName,jdbcType=VARCHAR},
+			</if>
+			<if test="code != null">
+				code = #{code,jdbcType=VARCHAR},
+			</if>
+			<if test="totalPrice != null">
+				totalPrice = #{totalPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="unitPrice != null">
+				unitPrice = #{unitPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="stopLossPrice != null">
+				stopLossPrice = #{stopLossPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="costPrice != null">
+				costPrice = #{costPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="position != null">
+				position = #{position,jdbcType=INTEGER},
+			</if>
+			<if test="currentPrice != null">
+				currentPrice = #{currentPrice,jdbcType=DOUBLE},
+			</if>
+			<if test="daypercent != null">
+				daypercent = #{daypercent,jdbcType=VARCHAR},
+			</if>
+			<if test="percent != null">
+				percent = #{percent,jdbcType=VARCHAR},
+			</if>
+			<if test="manager != null">
+				manager = #{manager,jdbcType=VARCHAR},
+			</if>
+			<if test="customer != null">
+				customer = #{customer,jdbcType=VARCHAR},
+			</if>
+			<if test="phone != null">
+				phone = #{phone,jdbcType=VARCHAR},
+			</if>
+			<if test="num != null">
+				num = #{num,jdbcType=INTEGER},
+			</if>
+			<if test="comment != null">
+				comment = #{comment,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+</mapper>

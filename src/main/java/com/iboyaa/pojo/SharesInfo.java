@@ -14,7 +14,9 @@ import java.util.Date;
 public class SharesInfo implements Serializable {
 
     private static final long serialVersionUID = -1737236271975001200L;
-
+    
+    private Integer id;
+    
     private String code;//股票代码
 
     private String num;//股票数量
@@ -33,7 +35,7 @@ public class SharesInfo implements Serializable {
 
     private String sharseName;//股票名称
 
-    private String totalPrice;//股票总价
+    private Double totalPrice;//股票总价
 
     private String unitPrice;//股票单价
 
@@ -46,6 +48,18 @@ public class SharesInfo implements Serializable {
     private Date createtime;//创建时间
 
     private Date updatetime;//更新时间
+    
+    private String daypercent;
+    private String percent;
+    
+    
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getCode() {
         return code;
@@ -111,14 +125,6 @@ public class SharesInfo implements Serializable {
         this.sharseName = sharseName;
     }
 
-    public String getTotalPrice() {
-        return totalPrice;
-    }
-
-    public void setTotalPrice(String totalPrice) {
-        this.totalPrice = totalPrice;
-    }
-
     public String getUnitPrice() {
         return unitPrice;
     }
@@ -170,7 +176,33 @@ public class SharesInfo implements Serializable {
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
+    
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
 
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+    
+
+    public String getDaypercent() {
+        return daypercent;
+    }
+
+    public void setDaypercent(String daypercent) {
+        this.daypercent = daypercent;
+    }
+
+    public String getPercent() {
+        return percent;
+    }
+
+    public void setPercent(String percent) {
+        this.percent = percent;
+    }
+
+    //新建股票构造函数
     public SharesInfo(String code, String num, String customer, String manager, String costPrice,
             String phone, String comment, String position) {
         super();
@@ -186,7 +218,12 @@ public class SharesInfo implements Serializable {
         this.updatetime = new Date();
     }
 
-    //新建股票构造函数
+    public SharesInfo() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+    
 
 
 
