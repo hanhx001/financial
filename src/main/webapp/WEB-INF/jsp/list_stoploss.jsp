@@ -7,7 +7,7 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>股票信息操作</title>
+<title>股票数据中心</title>
 <meta name="keywords" content="table">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="renderer" content="webkit">
@@ -137,14 +137,14 @@ body {
 .pager span.els {
 	border-color: transparent;
 }
-.cleanUser{
+
+.cleanUser {
 	cursor: pointer;
 }
-
 </style>
 	<header class="am-topbar am-topbar-inverse admin-header">
 		<div class="am-topbar-brand">
-			<strong>股票列表</strong> <small></small>
+			<strong>股票数据中心</strong> <small></small>
 		</div>
 
 		<button
@@ -178,14 +178,30 @@ body {
 		<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
 			<div class="am-offcanvas-bar admin-offcanvas-bar">
 				<ul class="am-list admin-sidebar-list">
-					<li class="active"><a href="${pageContext.request.contextPath}/statcPage?page=1"><span class="am-icon-bar-chart-o am-icon-sm"></span> 持仓</a></li>
-			        <li><a href="${pageContext.request.contextPath}/statcPage?page=2"><span class="am-icon-line-chart am-icon-sm"></span> 止盈</a></li>
-			        <li><a href="${pageContext.request.contextPath}/statcPage?page=3"><span class="am-icon-area-chart am-icon-sm"></span> 止损</a></li>
-			        <li><a href="${pageContext.request.contextPath}/statcPage?page=4"><span class="am-icon-star-half-o am-icon-sm"></span> 意向客户</a></li>
-			        <li><a href="${pageContext.request.contextPath}/statcPage?page=5"><span class="am-icon-star am-icon-sm"></span> 合作客户</a></li>
-     			    <li><a href="${pageContext.request.contextPath}/statcPage?page=5"><span class="am-icon-bell-slash am-icon-sm"></span> 黑名单</a></li>
-          			<li><a href="${pageContext.request.contextPath}/statcPage?page=5"><span class="am-icon-fire am-icon-sm"></span> 回款管理</a></li>
-    				 <li><a href="${pageContext.request.contextPath}/statcPage?page=5"><span class="am-icon-search am-icon-sm"></span> 客户查询</a></li>
+					<li class="active"><a
+						href="${pageContext.request.contextPath}/navigation?page=1"><span
+							class="am-icon-bar-chart-o am-icon-sm"></span> 持仓</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/navigation?page=2"><span
+							class="am-icon-line-chart am-icon-sm"></span> 止盈</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/navigation?page=3"><span
+							class="am-icon-area-chart am-icon-sm"></span> 止损</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/navigation?page=4"><span
+							class="am-icon-star-half-o am-icon-sm"></span> 意向客户</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/navigation?page=5"><span
+							class="am-icon-star am-icon-sm"></span> 合作客户</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/navigation?page=5"><span
+							class="am-icon-bell-slash am-icon-sm"></span> 黑名单</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/navigation?page=5"><span
+							class="am-icon-fire am-icon-sm"></span> 回款管理</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/navigation?page=5"><span
+							class="am-icon-search am-icon-sm"></span> 客户查询</a></li>
 				</ul>
 			</div>
 		</div>
@@ -197,19 +213,20 @@ body {
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
 						<strong class="am-text-primary am-text-lg">首页</strong> / <small>
-							清除历史</small>
+							止损数据</small>
 					</div>
 					<div class="am-fr am-cf"></div>
 				</div>
 				<hr>
 				<div class="am-g">
-					<div class="am-u-sm-12 am-u-md-3">
-					</div>
+					<div class="am-u-sm-12 am-u-md-3"></div>
 					<div class="am-u-sm-12 am-u-md-3">
 						<div class="am-input-group am-input-group-sm">
-							<input type="text" class="am-form-field" id="keyword" placeholder="请输入微信号或手机号搜索"> <span
+							<input type="text" class="am-form-field" id="keyword"
+								placeholder="请输入微信号或手机号搜索"> <span
 								class="am-input-group-btn">
-								<button class="am-btn am-btn-default" type="button" onclick="keyword()">搜索</button>
+								<button class="am-btn am-btn-default" type="button"
+									onclick="keyword()">搜索</button>
 							</span>
 						</div>
 					</div>
@@ -219,22 +236,20 @@ body {
 					<div class="am-u-sm-12">
 						<form class="am-form">
 							<table
-								class="am-table am-table-striped am-table-hover table-main" id="table_wjx">
+								class="am-table am-table-striped am-table-hover table-main"
+								id="table_wjx">
 								<thead>
 									<tr>
 										<th>序号</th>
-										<th class="table-phone">手机号</th>
-										<th class="table-weixin">微信号</th>
-										<th class="table-set">
-											销售量
-										</th>
-										<th class="table-set">
-										库存量 
-										</th>
-										<th class="table-author">会员有效期</th>
-										<th class="table-date ">注册日期</th>
-										<th class="table-set">最终备份时间</th>
-										<th class="table-set">清理</th>
+										<th class="table-phone">建仓日期</th>
+										<th class="table-weixin">股票代码</th>
+										<th class="table-set">股票名称</th>
+										<th class="table-set">股票数量</th>
+										<th class="table-author">成本价</th>
+										<th class="table-date ">金额</th>
+										<th class="table-set">现价</th>
+										<th class="table-set">日盈亏率</th>
+										<th class="table-set">总盈亏率</th>
 									</tr>
 								</thead>
 								<tbody class="statc_list">
@@ -261,13 +276,7 @@ body {
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
-
-
-	<!--[if lt IE 9]>
-<script src="http://libs.baidu.com/jquery/1.11.1/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
+ 
 
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script
@@ -280,112 +289,41 @@ body {
 		src="${pageContext.request.contextPath}/assets/js/jquery.z-pager.js"
 		charset="utf-8"></script>
 	<script type="text/javascript">
-	function keyword(){
-		var $radios = $('[name="options"]');
-		statePage("",1,$("#keyword").val());
-	}
-	//设置导出多少页设置jquery.z-pager.js中最下面的pageData值当前为50条数据
-	$(function() {
-		
-		var $radios = $('[name="options"]');
-		statePage("",1,$("#keyword").val());
-		$("#pager").click(
-				function() {
-					statePage("",$("#pager [class=current]").text(),$("#keyword").val());
+		function keyword() {
+			var $radios = $('[name="options"]');
+			statePage("", 1, $("#keyword").val());
+		}
+		//设置导出多少页设置jquery.z-pager.js中最下面的pageData值当前为50条数据
+		$(function() {
 
-				});
-	});
-	function statePage(uid,pageNum,keyword) {
-		var pageSize = 50;//一页50条数据
-		var url="./ableCleanList";
-		var data ={
-				"keyword":keyword,
+			var $radios = $('[name="options"]');
+			statePage("", 1, $("#keyword").val());
+			$("#pager").click(
+					function() {
+						statePage("", $("#pager [class=current]").text(), $(
+								"#keyword").val());
+
+					});
+		});
+		function statePage(uid, pageNum, keyword) {
+			var pageSize = 50;//一页50条数据
+			var url = "./ableCleanList";
+			var data = {
+				"keyword" : keyword,
 				"pageNum" : pageNum,
 				"pageSize" : pageSize
 			};
-		if(uid!=""&&uid!=null&&uid!="null"&&uid!=undefined&&uid!="undefined"){
-			url="./cleanByUid";
-			data ={
-					"uid":uid,
-					"keyword":keyword,
+			if (uid != "" && uid != null && uid != "null" && uid != undefined
+					&& uid != "undefined") {
+				url = "./cleanByUid";
+				data = {
+					"uid" : uid,
+					"keyword" : keyword,
 					"pageNum" : pageNum,
 					"pageSize" : pageSize
 				};
-		}
-			$.ajax({
-						type : "POST",
-						url : url,
-						data : data,
-						dataType : "json",
-						success : function(data) {
-							var html = "";
-							var totalData = 0
-							if (data != null) {
-								totalData = data.total;
-								if (data.list != null && data.list.length > 0) {
-									for (var i = 0; i < data.list.length; i++) {
-										var n = 50*(pageNum-1)+i+1;
-										html += '<tr data-uid='+data.list[i].uid+'>';
-										html += '<td>' + n+ '</td>';
-										html += '<td>' + data.list[i].phone+ '</td>';
-										html += '<td>' + data.list[i].wechat
-												+ '</td>';
-						
-										html += '<td class="num"> ' + data.list[i].orderNum + '</td>';
-										html += '<td class="num"> '
-												+ data.list[i].goodsOrder
-												+ '</td>';
-										html += '<td >';
-										if (data.list[i].validTime != null) {
-											html += data.list[i].validTime;
-										}
-										html += '</td>';
-										html += '<td >';
-										if (data.list[i].signinTime != null) {
-											html += data.list[i].signinTime;
-										}
-										html += '</td>';
+			}
 
-										html += ' <td >';
-										if (data.list[i].lastBackupTime != null) {
-											html += data.list[i].lastBackupTime;
-										}
-										html += '</td>';
-										html +='<td><span title="点击清除历史数据" class="am-icon-trash am-icon-sm cleanUser" data-uid='+data.list[i].uid+'></span></td>'
-										html += '</tr>';
-									}
-								} else {
-									html = "<tr><td colspan='9'style='  text-align: center;'> 暂无数据！</td></tr>";
-								}
-							}
-							if (pageNum == 1) {
-
-								$("#totalData").text(totalData);
-								if (totalData == 0) {
-									totalData = 1;
-								}
-								$("#pager").zPager({
-									totalData : totalData
-								});
-							}
-							$(".statc_list").html(html);
-	                     	$(".admin-content").scrollTop(0);
-							$(".cleanUser").mouseover(function(){
-								$(this).attr("class","am-icon-trash-o am-icon-sm cleanUser");
-							});
-							$(".cleanUser").mouseout(function(){
-								$(this).attr("class","am-icon-trash am-icon-sm cleanUser");
-							});
-							$(".cleanUser").click(function(){
-								var data_uid = $(this).attr("data-uid");
-								statePage(data_uid,pageNum,keyword);
-								$(this).parent().siblings(".num").text(0);
-							});
-							if(uid!=""&&uid!=null&&uid!="null"&&uid!=undefined&&uid!="undefined"){
-								alert("数据清理成功!");
-							}
-						}
-					});
 		}
 	</script>
 </body>

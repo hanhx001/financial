@@ -27,7 +27,7 @@ public class BaseController {
 
     /**
      * 新建股票 信息界面返回的数据，持久化到数据库
-     * 新建成功后 返回到股票列表界面
+     * 新建成功后 返回到股票列表界面,默认跳转到 持仓界面
      * @param code
      * @param request
      * @param response
@@ -70,7 +70,7 @@ public class BaseController {
         //持久化数据
        // sharesService.insertSelective(info);
 
-        return "list";
+        return "list_position";
 
 
 
