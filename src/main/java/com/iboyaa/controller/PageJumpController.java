@@ -49,9 +49,48 @@ public class PageJumpController {
      */
     @RequestMapping(value = "/navigation", method = RequestMethod.GET)
     public String navigationSearchPage(HttpServletRequest request, HttpServletResponse response,
-            @RequestParam(value = "page", required = true, defaultValue = "1") Integer code) {
+            @RequestParam(value = "page", required = true, defaultValue = "1") Integer page) {
+        
+        switch (page) {
+            case 1:
+                // 持仓界面
+                return "list_position";
 
-        return "error404";
+            case 2:
+                //止盈界面
+                return "list_stoprofit";
+
+            case 3:
+                //止损界面
+                return "list_stoploss";
+
+            case 4:
+                //意向客户界面
+                return "list_intention_client";
+
+            case 5:
+                //合作客户界面
+                return "list_clients";
+
+            case 6:
+                //黑名单
+                return "blacklist";
+
+            case 7:
+                //回款管理
+                return "back_payment";
+
+            case 8:
+                //客户查询
+                return "custom_serach";
+
+
+            default:
+                return "error404";
+
+        }
+
+
 
     }
 }

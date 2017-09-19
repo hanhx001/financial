@@ -178,7 +178,7 @@ body {
 		<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
 			<div class="am-offcanvas-bar admin-offcanvas-bar">
 				<ul class="am-list admin-sidebar-list">
-					<li class="active"><a
+					<li ><a
 						href="${pageContext.request.contextPath}/navigation?page=1"><span
 							class="am-icon-bar-chart-o am-icon-sm"></span> 持仓</a></li>
 					<li><a
@@ -190,17 +190,17 @@ body {
 					<li><a
 						href="${pageContext.request.contextPath}/navigation?page=4"><span
 							class="am-icon-star-half-o am-icon-sm"></span> 意向客户</a></li>
-					<li><a
+					<li class="active"><a
 						href="${pageContext.request.contextPath}/navigation?page=5"><span
 							class="am-icon-star am-icon-sm"></span> 合作客户</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=5"><span
+						href="${pageContext.request.contextPath}/navigation?page=6"><span
 							class="am-icon-bell-slash am-icon-sm"></span> 黑名单</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=5"><span
+						href="${pageContext.request.contextPath}/navigation?page=7"><span
 							class="am-icon-fire am-icon-sm"></span> 回款管理</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=5"><span
+						href="${pageContext.request.contextPath}/navigation?page=8"><span
 							class="am-icon-search am-icon-sm"></span> 客户查询</a></li>
 				</ul>
 			</div>
@@ -213,7 +213,7 @@ body {
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
 						<strong class="am-text-primary am-text-lg">首页</strong> / <small>
-							意向客户</small>
+							合作客户</small>
 					</div>
 					<div class="am-fr am-cf"></div>
 				</div>

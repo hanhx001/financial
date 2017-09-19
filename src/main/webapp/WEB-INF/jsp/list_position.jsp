@@ -194,13 +194,13 @@ body {
 						href="${pageContext.request.contextPath}/navigation?page=5"><span
 							class="am-icon-star am-icon-sm"></span> 合作客户</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=5"><span
+						href="${pageContext.request.contextPath}/navigation?page=6"><span
 							class="am-icon-bell-slash am-icon-sm"></span> 黑名单</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=5"><span
+						href="${pageContext.request.contextPath}/navigation?page=7"><span
 							class="am-icon-fire am-icon-sm"></span> 回款管理</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=5"><span
+						href="${pageContext.request.contextPath}/navigation?page=8"><span
 							class="am-icon-search am-icon-sm"></span> 客户查询</a></li>
 				</ul>
 			</div>
