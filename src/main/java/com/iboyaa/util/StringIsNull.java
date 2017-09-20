@@ -8,10 +8,11 @@ public class StringIsNull {
 
     public static Boolean isNULL(String str) {
 
-        return str == null || str.trim().length() == 0;
+        return str == null || str.trim().length() == 0 || "null".equals(str) || "".equals(str);
     }
 
+
     public static Boolean isNotNull(String str) {
-        return str != null || str.trim().length() > 0;
+        return str != null || str.trim().length() > 0 || !("null".equals(str)) || !("".equals(str));
     }
 }

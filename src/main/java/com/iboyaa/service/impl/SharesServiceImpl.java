@@ -7,14 +7,17 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import com.iboyaa.dao.ISharesDao;
 import com.iboyaa.pojo.SharesInfo;
 import com.iboyaa.service.ISharesService;
+import com.iboyaa.util.StringIsNull;
 
 /**
  * @author 清水贤人
@@ -24,7 +27,7 @@ import com.iboyaa.service.ISharesService;
 public class SharesServiceImpl implements ISharesService {
 
     @Resource
-   private ISharesDao sharesDao;
+    private ISharesDao sharesDao;
 
     public SharesServiceImpl() {
 
@@ -79,26 +82,37 @@ public class SharesServiceImpl implements ISharesService {
 
     @Override
     public int deleteByPrimaryKey(Integer id) {
-        // TODO Auto-generated method stub
         return sharesDao.deleteByPrimaryKey(id);
     }
 
     @Override
     public int insertSelective(SharesInfo record) {
-        // TODO Auto-generated method stub
         return sharesDao.insertSelective(record);
     }
 
     @Override
     public SharesInfo selectByPrimaryKey(Integer id) {
-        // TODO Auto-generated method stub
         return sharesDao.selectByPrimaryKey(id);
     }
 
     @Override
     public int updateByPrimaryKeySelective(SharesInfo record) {
-        // TODO Auto-generated method stub
         return sharesDao.updateByPrimaryKeySelective(record);
+    }
+
+    @Override
+    public List<SharesInfo> getSharesDataByCondition(String startDate, String endDate,
+            String keyWord, String flag, String sort) {
+
+        DateTime nowTime = new DateTime();
+
+        //如果时间都为空，则查询当天的数据
+        if (StringIsNull.isNULL(startDate) && StringIsNull.isNULL(endDate)) {
+            startDate = nowTime.toString("yyyy-MM-dd");
+            endDate = nowTime.toString("yyyy-MM-dd");
+        }
+
+        return sharesDao.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort);
     }
 
 }

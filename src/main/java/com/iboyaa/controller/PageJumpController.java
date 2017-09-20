@@ -50,7 +50,7 @@ public class PageJumpController {
     @RequestMapping(value = "/navigation", method = RequestMethod.GET)
     public String navigationSearchPage(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(value = "page", required = true, defaultValue = "1") Integer page) {
-        
+
         switch (page) {
             case 1:
                 // 持仓界面

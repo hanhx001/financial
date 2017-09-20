@@ -212,8 +212,7 @@ body {
 			<div class="admin-content-body">
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
-						<strong class="am-text-primary am-text-lg">首页</strong> / <small>
-							黑名单</small>
+						<strong class="am-text-primary am-text-lg">黑名单</strong>  
 					</div>
 					<div class="am-fr am-cf"></div>
 				</div>

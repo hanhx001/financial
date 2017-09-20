@@ -1,7 +1,6 @@
-/**
- * 
- */
 package com.iboyaa.service;
+
+import java.util.List;
 
 import com.iboyaa.pojo.SharesInfo;
 
@@ -11,8 +10,8 @@ import com.iboyaa.pojo.SharesInfo;
  *
  */
 public interface ISharesService {
-    
-    
+
+
     /**
      * 查询股票名称
      * @param code 股票代码
@@ -21,7 +20,7 @@ public interface ISharesService {
      * @version 2017年9月18日  上午10:56:13
      */
     String getSharesName(String code);
-    
+
     /**
      * 根据主键删除股票信息
      * @param id
@@ -58,5 +57,20 @@ public interface ISharesService {
      */
     int updateByPrimaryKeySelective(SharesInfo record);
 
-    
+
+    /**
+     * 用于根据股票状态、时间、关键字查询股票数据
+     * @param startDate 开始时间
+     * @param endDate   结束时间
+     * @param keyWord   复合关键字，模糊查询该记录中所有匹配的记录
+     * @param flag      股票状态：分为持仓（1）、止盈（2）、止损（3）
+     * @param sort      排序规则：0 是按照总盈亏率倒叙；1 是按照日盈亏率排序
+     * @return          股票List
+     * @author 清水贤人
+     * @version 2017年9月20日  下午5:35:22
+     */
+    List<SharesInfo> getSharesDataByCondition(String startDate, String endDate, String keyWord,
+            String flag, String sort);
+
+
 }

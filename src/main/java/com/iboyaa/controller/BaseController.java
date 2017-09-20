@@ -4,6 +4,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.iboyaa.pojo.SharesInfo;
 import com.iboyaa.service.ISharesService;
 import com.iboyaa.util.StringIsNull;
@@ -22,8 +24,8 @@ import com.iboyaa.util.StringIsNull;
 @Controller
 public class BaseController {
 
-   @Resource
-   private  ISharesService sharesService;
+    @Resource
+    private ISharesService sharesService;
 
     /**
      * 新建股票 信息界面返回的数据，持久化到数据库
@@ -55,7 +57,7 @@ public class BaseController {
         String sharseName = sharesService.getSharesName(code);
         if ("failed;".equals(sharseName)) {
 
-           // return "errorNewGp404";
+            // return "errorNewGp404";
         }
 
         //初始化构造函数
@@ -66,13 +68,36 @@ public class BaseController {
         info.setTotalPrice(Double.parseDouble(num) * Double.parseDouble(costprice));
 
         info.setSharseName(sharseName);
-        
+
         //持久化数据
-       // sharesService.insertSelective(info);
+        sharesService.insertSelective(info);
 
         return "list_position";
+    }
 
+    /**
+     * 用于根据股票状态、时间、关键字查询股票数据
+     * @param startDate 开始时间
+     * @param endDate   结束时间
+     * @param keyWord   复合关键字，模糊查询该记录中所有匹配的记录
+     * @param flag      股票状态：分为持仓（1）、止盈（2）、止损（3）
+     * @param sort      排序规则：0 是按照总盈亏率倒叙；1 是按照日盈亏率排序
+     * @param request
+     * @param response
+     * @return          股票JSON数据
+     * @author 清水贤人
+     * @version 2017年9月20日  下午3:03:37
+     */
+    public String getSharesListData(
+            @RequestParam(value = "startDate", required = true, defaultValue = "") String startDate,
+            @RequestParam(value = "endDate", required = true, defaultValue = "") String endDate,
+            @RequestParam(value = "keyWord", required = true, defaultValue = "") String keyWord,
+            @RequestParam(value = "flag", required = true, defaultValue = "1") String flag,
+            @RequestParam(value = "sort", required = true, defaultValue = "0") String sort,
+            HttpServletRequest request, HttpServletResponse response) {
 
-
+        return JSON.toJSONString(
+                sharesService.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort),
+                SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty);
     }
 }

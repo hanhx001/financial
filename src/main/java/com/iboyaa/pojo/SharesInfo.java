@@ -14,9 +14,9 @@ import java.util.Date;
 public class SharesInfo implements Serializable {
 
     private static final long serialVersionUID = -1737236271975001200L;
-    
+
     private Integer id;
-    
+
     private String code;//股票代码
 
     private String num;//股票数量
@@ -48,11 +48,11 @@ public class SharesInfo implements Serializable {
     private Date createtime;//创建时间
 
     private Date updatetime;//更新时间
-    
+
     private String daypercent;
     private String percent;
-    
-    
+
+
     public Integer getId() {
         return id;
     }
@@ -176,7 +176,7 @@ public class SharesInfo implements Serializable {
     public static long getSerialversionuid() {
         return serialVersionUID;
     }
-    
+
     public Double getTotalPrice() {
         return totalPrice;
     }
@@ -184,7 +184,7 @@ public class SharesInfo implements Serializable {
     public void setTotalPrice(Double totalPrice) {
         this.totalPrice = totalPrice;
     }
-    
+
 
     public String getDaypercent() {
         return daypercent;
@@ -222,8 +222,6 @@ public class SharesInfo implements Serializable {
         super();
         // TODO Auto-generated constructor stub
     }
-
-    
 
 
 

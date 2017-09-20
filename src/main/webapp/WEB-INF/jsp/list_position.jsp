@@ -212,18 +212,37 @@ body {
 			<div class="admin-content-body">
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
-						<strong class="am-text-primary am-text-lg">首页</strong> / <small>
-							持仓数据</small>
+						<strong class="am-text-primary am-text-lg">持仓数据</strong>
 					</div>
 					<div class="am-fr am-cf"></div>
 				</div>
 				<hr>
 				<div class="am-g">
-					<div class="am-u-sm-12 am-u-md-3"></div>
+
+					<div class="am-u-sm-12 am-u-md-6">
+						<div class="am-btn-toolbar">
+							<div class="am-alert am-alert-danger" id="my-alert"
+								style="display: none">
+								<p>开始日期应小于结束日期！</p>
+							</div>
+							<div class="am-g">
+								<div class="am-u-sm-6">
+									<button type="button"
+										class="am-btn am-btn-default am-margin-right" id="my-start">开始日期</button>
+									<span id="my-startDate"></span>
+								</div>
+								<div class="am-u-sm-6">
+									<button type="button"
+										class="am-btn am-btn-default am-margin-right" id="my-end">结束日期</button>
+									<span id="my-endDate"></span>
+								</div>
+							</div>
+						</div>
+					</div>
 					<div class="am-u-sm-12 am-u-md-3">
 						<div class="am-input-group am-input-group-sm">
 							<input type="text" class="am-form-field" id="keyword"
-								placeholder="请输入微信号或手机号搜索"> <span
+								placeholder="输入关键字"> <span
 								class="am-input-group-btn">
 								<button class="am-btn am-btn-default" type="button"
 									onclick="keyword()">搜索</button>
@@ -276,7 +295,7 @@ body {
 		class="am-icon-btn am-icon-th-list am-show-sm-only admin-menu"
 		data-am-offcanvas="{target: '#admin-offcanvas'}"></a>
 
- 
+
 
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script
@@ -289,42 +308,60 @@ body {
 		src="${pageContext.request.contextPath}/assets/js/jquery.z-pager.js"
 		charset="utf-8"></script>
 	<script type="text/javascript">
-		function keyword() {
-			var $radios = $('[name="options"]');
-			statePage("", 1, $("#keyword").val());
-		}
-		//设置导出多少页设置jquery.z-pager.js中最下面的pageData值当前为50条数据
 		$(function() {
 
-			var $radios = $('[name="options"]');
-			statePage("", 1, $("#keyword").val());
-			$("#pager").click(
-					function() {
-						statePage("", $("#pager [class=current]").text(), $(
-								"#keyword").val());
+			var startDate = '';
+			var endDate = '';
+			var $alert = $('#my-alert');
+			$('#my-start').datepicker().on(
+					'changeDate.datepicker.amui',
+					function(event) {
 
+						$(".am-btn.am-btn-primary").removeClass("am-active");
+						if (endDate != ''
+								&& event.date.valueOf() > endDate.valueOf()) {
+							$alert.find('p').text('开始日期应小于结束日期！').end().show();
+						} else {
+							$alert.hide();
+							startDate = new Date(event.date);
+							$('#my-startDate')
+									.text($('#my-start').data('date'));
+						}
+						if ($('#my-startDate').text() != ""
+								&& $('#my-endDate').text() != "") {
+
+							$radios.removeAttr("checked");
+							statePage($('#my-startDate').text(), $(
+									'#my-endDate').text(), "", 1, byOtherSort,
+									$("#keyword").val());
+						}
+						$(this).datepicker('close');
 					});
-		});
-		function statePage(uid, pageNum, keyword) {
-			var pageSize = 50;//一页50条数据
-			var url = "./ableCleanList";
-			var data = {
-				"keyword" : keyword,
-				"pageNum" : pageNum,
-				"pageSize" : pageSize
-			};
-			if (uid != "" && uid != null && uid != "null" && uid != undefined
-					&& uid != "undefined") {
-				url = "./cleanByUid";
-				data = {
-					"uid" : uid,
-					"keyword" : keyword,
-					"pageNum" : pageNum,
-					"pageSize" : pageSize
-				};
-			}
 
-		}
+			$('#my-end').datepicker().on(
+					'changeDate.datepicker.amui',
+					function(event) {
+						$(".am-btn.am-btn-primary").removeClass("am-active");
+						if (startDate != ''
+								&& event.date.valueOf() < startDate.valueOf()) {
+							$alert.find('p').text('结束日期应大于开始日期！').end().show();
+						} else {
+							$alert.hide();
+							endDate = new Date(event.date);
+							$('#my-endDate').text($('#my-end').data('date'));
+						}
+						if ($('#my-startDate').text() != ""
+								&& $('#my-endDate').text() != "") {
+
+							$radios.removeAttr("checked");
+							statePage($('#my-startDate').text(), $(
+									'#my-endDate').text(), "", 1, byOtherSort,
+									$("#keyword").val());
+						}
+						$(this).datepicker('close');
+					});
+
+		});
 	</script>
 </body>
 </html>
