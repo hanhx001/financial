@@ -217,4 +217,44 @@
 		where id = #{id,jdbcType=INTEGER}
 	</update>
 
+	<!-- 查询股票数据，多条件 -->
+	<select id="getSharesDataByCondition" resultMap="BaseResultMap"
+		parameterType="com.iboyaa.pojo.SharesInfo">
+		<bind name="pattern" value="'%' + keyWord + '%'" />
+		select
+		<include refid="Base_Column_List" />
+		from sharesinfo
+		<where>
+			<if test="position != null">
+				and position = #{position,jdbcType=INTEGER}
+			</if>
+
+			<if test="startDate != null or endDate !=null ">
+				and DATE_FORMAT(createtime, '%Y-%m-%d')
+				between
+				DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+				and
+				DATE_FORMAT(#{endDate},
+				'%Y-%m-%d')
+			</if>
+			<if test="keyWord != null and keyWord !='' ">
+				and CONCAT(
+				IFNULL(sharseName,''),
+				IFNULL(code,''),
+				IFNULL(manager,''),
+				IFNULL(customer,''),
+				IFNULL(comment,'')
+				) LIKE
+				#{pattern}
+			</if>
+		</where>
+		<if test="sort != null and sort == 0">
+			ORDER BY percent DESC
+		</if>
+		<if test="sort != null and sort == 1">
+			ORDER BY daypercent DESC
+		</if>
+	</select>
+
+
 </mapper>

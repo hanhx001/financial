@@ -242,8 +242,7 @@ body {
 					<div class="am-u-sm-12 am-u-md-3">
 						<div class="am-input-group am-input-group-sm">
 							<input type="text" class="am-form-field" id="keyword"
-								placeholder="输入关键字"> <span
-								class="am-input-group-btn">
+								placeholder="输入关键字"> <span class="am-input-group-btn">
 								<button class="am-btn am-btn-default" type="button"
 									onclick="keyword()">搜索</button>
 							</span>
@@ -267,8 +266,15 @@ body {
 										<th class="table-author">成本价</th>
 										<th class="table-date ">金额</th>
 										<th class="table-set">现价</th>
-										<th class="table-set">日盈亏率</th>
-										<th class="table-set">总盈亏率</th>
+										<th class="table-set"><a class="paixu_0"
+											style="display: none;" url="#" style="cursor: pointer;"
+											onclick="paixu(0)"> <img src="./images/paixu_j.jpg"
+												style="height: 15px;" />
+										</a> 日盈亏率</th>
+										<th class="table-set"><a class="paixu_1" url="#"
+											style="cursor: pointer;" onclick="paixu(1)"> <img
+												src="./images/paixu_j.jpg" style="height: 15px;" />
+										</a> 总盈亏率</th>
 									</tr>
 								</thead>
 								<tbody class="statc_list">
@@ -309,7 +315,15 @@ body {
 		charset="utf-8"></script>
 	<script type="text/javascript">
 		$(function() {
+			//分页中 每页页签带点击事件
+			$("#pager").click(
+					function() {
+						initData($('#my-startDate').text(), $('#my-endDate')
+								.text(), $("#keyword").val(), "1", "", $(
+								".current").text());
 
+					});
+			// ------------------ 时间控件处理 开始  --------------------------
 			var startDate = '';
 			var endDate = '';
 			var $alert = $('#my-alert');
@@ -329,11 +343,9 @@ body {
 						}
 						if ($('#my-startDate').text() != ""
 								&& $('#my-endDate').text() != "") {
+							initData($('#my-startDate').text(),
+									$('#my-endDate').text(), "", "", "", 1);
 
-							$radios.removeAttr("checked");
-							statePage($('#my-startDate').text(), $(
-									'#my-endDate').text(), "", 1, byOtherSort,
-									$("#keyword").val());
 						}
 						$(this).datepicker('close');
 					});
@@ -353,15 +365,122 @@ body {
 						if ($('#my-startDate').text() != ""
 								&& $('#my-endDate').text() != "") {
 
-							$radios.removeAttr("checked");
-							statePage($('#my-startDate').text(), $(
-									'#my-endDate').text(), "", 1, byOtherSort,
-									$("#keyword").val());
+							initData($('#my-startDate').text(),
+									$('#my-endDate').text(), "", "", "", 1);
+
 						}
 						$(this).datepicker('close');
 					});
+			// ------------------ 时间控件处理 结束 ------------------
 
+			// 点击左侧菜单默认加载当前天的数据
+			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
+					"#keyword").val(), "", "", "1");
 		});
+	<%-- 
+			初始化数据
+			startTime 开始时间
+			endTime   结束时间
+			keyWord   关键字
+			flag      持仓状态
+			sort      排序
+		--%>
+		function initData(startDate, endDate, keyWord, flag, sort, pageNum) {
+			$
+					.ajax({
+						type : "POST",
+						url : "./getSharesListData",
+						data : {
+							"startDate" : startDate,
+							"endDate" : endDate,
+							"keyWord" : keyWord,
+							"flag" : flag,
+							"sort" : sort,
+							"pageNum" : pageNum
+						},
+						dataType : "json",
+						success : function(data) {
+							console.info(data);
+							var html = "";
+							// 声明 总数据条数
+							var totalData = 0
+							if (data != null) {
+								totalData = data.total;
+								if (data.list != null && data.list.length > 0) {
+									for (var i = 0; i < data.list.length; i++) {
+
+										html += '<tr>';
+										html += '<td>' + (50*(pageNum-1)+i+1) + '</td>';
+										html += '<td>'
+												+ data.list[i].createtime
+												+ '</td>';
+										html += '<td>' + data.list[i].code
+												+ '</td>';
+										html += '<td>'
+												+ data.list[i].sharseName
+												+ '</td>'
+
+										html += ' <td>' + data.list[i].num
+												+ '</td>';
+
+										html += ' <td>'
+												+ data.list[i].costPrice
+												+ '</td>';
+										html += ' <td>'
+												+ data.list[i].totalPrice
+												+ '</td>';
+										html += ' <td>'
+												+ data.list[i].currentPrice
+												+ '</td>';
+										html += ' <td>'
+												+ data.list[i].daypercent
+												+ '</td>';
+										html += ' <td>' + data.list[i].percent
+												+ '</td>';
+										html += '</tr>';
+									}
+								} else {
+									html = "<tr><td colspan='12'style='  text-align: center;'> 暂无数据！</td></tr>";
+								}
+							}
+							if (pageNum == 1) {
+
+								$("#totalData").text(totalData);
+								if (totalData == 0) {
+									totalData = 1;
+								}
+								$("#pager").zPager({
+									totalData : totalData
+								});
+							}
+							$(".statc_list").html(html);
+							$(".admin-content").scrollTop(0);
+						}
+					});
+		}
+		// 页面模糊搜索
+		function keyword() {
+			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
+					"#keyword").val(), "", "", 1);
+		}
+
+		// 字段排序函数
+		function paixu(paixuType) {
+			// 声明默认的排序规则为0 即按照总盈亏倒序排列
+			var defaultSort = 0;
+			if (paixuType == 0) {
+				$(".paixu_0").hide();
+				$(".paixu_1").show();
+			} else {
+				$(".paixu_1").hide();
+				$(".paixu_0").show();
+				// 切换为按照日盈亏率进行排序
+				defaultSort = paixuType;
+			}
+
+			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
+					"#keyword").val(), "", defaultSort, 1);
+		}
 	</script>
 </body>
 </html>

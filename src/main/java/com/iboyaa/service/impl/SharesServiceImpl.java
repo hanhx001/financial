@@ -14,6 +14,7 @@ import javax.annotation.Resource;
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
+import com.github.pagehelper.PageInfo;
 import com.iboyaa.dao.ISharesDao;
 import com.iboyaa.pojo.SharesInfo;
 import com.iboyaa.service.ISharesService;
@@ -101,8 +102,8 @@ public class SharesServiceImpl implements ISharesService {
     }
 
     @Override
-    public List<SharesInfo> getSharesDataByCondition(String startDate, String endDate,
-            String keyWord, String flag, String sort) {
+    public PageInfo getSharesDataByCondition(String startDate, String endDate, String keyWord,
+            String flag, String sort, Integer pageNum, Integer pageSize) {
 
         DateTime nowTime = new DateTime();
 
@@ -111,8 +112,20 @@ public class SharesServiceImpl implements ISharesService {
             startDate = nowTime.toString("yyyy-MM-dd");
             endDate = nowTime.toString("yyyy-MM-dd");
         }
+        //查询返回数据
+        List dataWithPage = sharesDao.getSharesDataByCondition(startDate, endDate, keyWord, flag,
+                sort, pageNum, pageSize);
+        Integer totalNum =
+                sharesDao.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort).size();
 
-        return sharesDao.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort);
+        //封装分页参数
+        PageInfo<SharesInfo> pageInfo = new PageInfo<SharesInfo>();
+        pageInfo.setList(dataWithPage);
+        pageInfo.setPageNum(pageNum);
+        pageInfo.setPageSize(pageSize);
+        pageInfo.setTotal(totalNum);
+
+        return pageInfo;
     }
 
 }

@@ -1,5 +1,7 @@
 package com.iboyaa.controller;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,11 +12,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.iboyaa.pojo.SharesInfo;
 import com.iboyaa.service.ISharesService;
+import com.iboyaa.util.CommonCode;
 import com.iboyaa.util.StringIsNull;
 
 /**
@@ -38,7 +44,7 @@ public class BaseController {
      * @version 2017年9月16日  下午9:13:04
      */
     @RequestMapping(value = "/addUiData", method = RequestMethod.POST)
-    public String addUiData(
+    public ModelAndView  addUiData(
             @RequestParam(value = "code", required = true, defaultValue = "") String code,
             @RequestParam(value = "num", required = true, defaultValue = "0") String num,
             @RequestParam(value = "customer", required = true, defaultValue = "") String customer,
@@ -71,8 +77,9 @@ public class BaseController {
 
         //持久化数据
         sharesService.insertSelective(info);
-
-        return "list_position";
+        
+        return new ModelAndView("redirect:/navigation?flag=1");
+      
     }
 
     /**
@@ -83,21 +90,24 @@ public class BaseController {
      * @param flag      股票状态：分为持仓（1）、止盈（2）、止损（3）
      * @param sort      排序规则：0 是按照总盈亏率倒叙；1 是按照日盈亏率排序
      * @param request
-     * @param response
+     * @param responseInteger pageNum, Integer pageSize
      * @return          股票JSON数据
      * @author 清水贤人
      * @version 2017年9月20日  下午3:03:37
      */
+    @RequestMapping(value = "/getSharesListData", method = RequestMethod.POST)
+    @ResponseBody
     public String getSharesListData(
             @RequestParam(value = "startDate", required = true, defaultValue = "") String startDate,
             @RequestParam(value = "endDate", required = true, defaultValue = "") String endDate,
             @RequestParam(value = "keyWord", required = true, defaultValue = "") String keyWord,
             @RequestParam(value = "flag", required = true, defaultValue = "1") String flag,
             @RequestParam(value = "sort", required = true, defaultValue = "0") String sort,
+            @RequestParam(value = "pageNum", required = true, defaultValue = "1") Integer pageNum,
             HttpServletRequest request, HttpServletResponse response) {
-
+       
         return JSON.toJSONString(
-                sharesService.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort),
+                sharesService.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort,pageNum,CommonCode.PAGESIZE),
                 SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty);
     }
 }

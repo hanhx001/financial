@@ -36,6 +36,8 @@ public class PageJumpController {
 
         return "newinfo";
     }
+    
+
 
     /**
      * 股票数据中心界面

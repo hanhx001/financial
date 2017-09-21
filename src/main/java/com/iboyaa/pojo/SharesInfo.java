@@ -6,6 +6,8 @@ package com.iboyaa.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * 股票基本信息实体
  * @author 清水贤人
@@ -44,7 +46,7 @@ public class SharesInfo implements Serializable {
     private String position; //持仓状况
 
     private String currentPrice;//现价
-
+    @JSONField(format = "yyyy-MM-dd")
     private Date createtime;//创建时间
 
     private Date updatetime;//更新时间
