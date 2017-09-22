@@ -9,8 +9,8 @@ package com.iboyaa.util;
  *
  */
 public class CommonCode {
- 
+
     /** 默认分页每页显示行数 */
-    public final static Integer PAGESIZE =50;
+    public final static Integer PAGESIZE = 50;
 
 }

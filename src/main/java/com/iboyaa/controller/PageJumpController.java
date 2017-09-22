@@ -106,7 +106,7 @@ public class PageJumpController {
      */
     @RequestMapping(value = "/errorPage", method = RequestMethod.GET)
     public String jump2ErrorPage(HttpServletRequest request, HttpServletResponse response) {
-       
+
         return "error404";
     }
 }

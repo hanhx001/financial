@@ -32,6 +32,7 @@ public interface ISharesDao {
             @Param("endDate") String endDate, @Param("keyWord") String keyWord,
             @Param("position") String position, @Param("sort") String sort,
             @Param("pageNum") Integer pageNum, @Param("pageSize") Integer pageSize);
+
     /**
      * 不带分页的查询股票详情接口
      * @param startDate
@@ -45,8 +46,7 @@ public interface ISharesDao {
      */
     List<SharesInfo> getSharesDataByCondition(@Param("startDate") String startDate,
             @Param("endDate") String endDate, @Param("keyWord") String keyWord,
-            @Param("position") String position, @Param("sort") String sort
-           );
+            @Param("position") String position, @Param("sort") String sort);
 
 
 }

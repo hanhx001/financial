@@ -22,20 +22,22 @@
 		<legend>查看股票基本信息</legend>
 	</fieldset>
 
-	<form class="layui-form" action="addUiData" method="POST">
+	<form class="layui-form" action="">
 		<div class="layui-form-item">
 			<label class="layui-form-label">股票代码</label>
 			<div class="layui-input-block">
 				<input type="text" name="code" lay-verify="required"
 					lay-verify="title" autocomplete="off" placeholder="请输入代码"
-					class="layui-input" value="${requestScope.data.code}">
+					class="layui-input" value="${requestScope.data.code}"
+					disabled="disabled">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">股票数量</label>
 			<div class="layui-input-block">
 				<input type="text" name="num" lay-verify="required|number"
-					placeholder="请输入数量" autocomplete="off" class="layui-input" value="${requestScope.data.num}">
+					placeholder="请输入数量" autocomplete="off" class="layui-input"
+					value="${requestScope.data.num}" disabled="disabled">
 			</div>
 		</div>
 
@@ -44,14 +46,16 @@
 			<div class="layui-input-block">
 				<input type="text" name="customer" lay-verify="required"
 					lay-verify="title" autocomplete="off" placeholder="请输入客户姓名"
-					class="layui-input" value="${requestScope.data.customer}">
+					class="layui-input" value="${requestScope.data.customer}"
+					disabled="disabled">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">客户经理</label>
 			<div class="layui-input-block">
 				<input type="text" name="manager" lay-verify="required"
-					placeholder="请输入客户经理" autocomplete="off" class="layui-input" value="${requestScope.data.manager}">
+					placeholder="请输入客户经理" autocomplete="off" class="layui-input"
+					value="${requestScope.data.manager}" disabled="disabled">
 			</div>
 		</div>
 
@@ -59,7 +63,8 @@
 			<label class="layui-form-label">成本价</label>
 			<div class="layui-input-block">
 				<input type="text" name="costprice" lay-verify="required|number"
-					placeholder="请输入成本价" autocomplete="off" class="layui-input" value="${requestScope.data.costPrice}">
+					placeholder="请输入成本价" autocomplete="off" class="layui-input"
+					value="${requestScope.data.costPrice}" disabled="disabled">
 			</div>
 		</div>
 
@@ -67,75 +72,28 @@
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
 				<input type="text" name="phone" placeholder="请输入电话"
-					autocomplete="off" class="layui-input" value="${requestScope.data.phone}">
+					autocomplete="off" class="layui-input"
+					value="${requestScope.data.phone}" disabled="disabled">
 			</div>
 		</div>
 
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">备注信息</label>
 			<div class="layui-input-block">
-				<textarea name="comment" placeholder="请输入内容" class="layui-textarea" >${requestScope.data.comment}</textarea>
+				<textarea name="comment" placeholder="请输入内容" class="layui-textarea"
+					disabled="disabled">${requestScope.data.comment}</textarea>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
-				<button class="layui-btn" lay-submit="" lay-filter="demo1"  onclick="javascript:history.back(-1);">返回</button>
-				 
+				<!-- 不弹出提示，直接关闭当前页面 -->
+				<button class="layui-btn" lay-submit="" lay-filter="demo1"
+					onclick="javascript:window.opener=null;window.open('','_self');window.close();">关闭</button>
+
 			</div>
 		</div>
 	</form>
 
 </body>
 </html>
-<script type="text/javascript" src="./layui.js" charset="utf-8"></script>
-<script>
-	layui
-			.use(
-					[ 'form', 'layedit', 'laydate' ],
-					function() {
-						var form = layui.form, layer = layui.layer, layedit = layui.layedit, laydate = layui.laydate;
 
-						//日期
-						laydate.render({
-							elem : '#date'
-						});
-						laydate.render({
-							elem : '#date1'
-						});
-
-						//创建一个编辑器
-						var editIndex = layedit.build('LAY_demo_editor');
-
-						//自定义验证规则
-						form.verify({
-							title : function(value) {
-								if (value.length < 5) {
-									return '标题至少得5个字符啊';
-								}
-							},
-							pass : [ /(.+){6,12}$/, '密码必须6到12位' ],
-							content : function(value) {
-								layedit.sync(editIndex);
-							}
-						});
-
-						//监听指定开关
-						form.on('switch(switchTest)', function(data) {
-							layer.msg('开关checked：'
-									+ (this.checked ? 'true' : 'false'), {
-								offset : '6px'
-							});
-							layer.tips('温馨提示：请注意开关状态的文字可以随意定义，而不仅仅是ON|OFF',
-									data.othis)
-						});
-
-						//监听提交
-						form.on('submit(demo1)', function(data) {
-							layer.alert(JSON.stringify(data.field), {
-								title : '最终的提交信息'
-							})
-							return false;
-						});
-
-					});
-</script>

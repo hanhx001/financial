@@ -465,7 +465,7 @@ body {
 							$(".codeDetail").click(function(){
 								var dataid=$(this).parent().attr("data-id");
 								
-								window.location.href="${pageContext.request.contextPath}/getOneSharesDetail?id="+dataid;
+								window.open("${pageContext.request.contextPath}/getOneSharesDetail?id="+dataid);
 								 
 							});
 							$(".modifyById").click(function(){

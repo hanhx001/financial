@@ -70,8 +70,8 @@ public interface ISharesService {
      * @author 清水贤人
      * @version 2017年9月20日  下午5:35:22
      */
-    PageInfo getSharesDataByCondition(String startDate, String endDate, String keyWord,
-            String flag, String sort,Integer pageNum, Integer pageSize);
+    PageInfo getSharesDataByCondition(String startDate, String endDate, String keyWord, String flag,
+            String sort, Integer pageNum, Integer pageSize);
 
 
 }
