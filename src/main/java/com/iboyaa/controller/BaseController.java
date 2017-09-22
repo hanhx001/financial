@@ -1,27 +1,19 @@
 package com.iboyaa.controller;
 
-import java.util.List;
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
-
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.iboyaa.pojo.SharesInfo;
 import com.iboyaa.service.ISharesService;
 import com.iboyaa.util.CommonCode;
-import com.iboyaa.util.StringIsNull;
 
 /**
  * @author 清水贤人
@@ -44,7 +36,7 @@ public class BaseController {
      * @version 2017年9月16日  下午9:13:04
      */
     @RequestMapping(value = "/addUiData", method = RequestMethod.POST)
-    public ModelAndView  addUiData(
+    public ModelAndView addUiData(
             @RequestParam(value = "code", required = true, defaultValue = "") String code,
             @RequestParam(value = "num", required = true, defaultValue = "0") String num,
             @RequestParam(value = "customer", required = true, defaultValue = "") String customer,
@@ -77,9 +69,9 @@ public class BaseController {
 
         //持久化数据
         sharesService.insertSelective(info);
-        
+
         return new ModelAndView("redirect:/navigation?flag=1");
-      
+
     }
 
     /**
@@ -105,9 +97,79 @@ public class BaseController {
             @RequestParam(value = "sort", required = true, defaultValue = "0") String sort,
             @RequestParam(value = "pageNum", required = true, defaultValue = "1") Integer pageNum,
             HttpServletRequest request, HttpServletResponse response) {
-       
+
         return JSON.toJSONString(
-                sharesService.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort,pageNum,CommonCode.PAGESIZE),
+                sharesService.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort,
+                        pageNum, CommonCode.PAGESIZE),
                 SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty);
     }
+
+    /**
+     * 查询股票详细 信息
+     * @param id 股票ID
+     * @param navigation 页面导航ID，用于返回时页面的跳转
+     * @param request
+     * @param response
+     * @return
+     * @author 清水贤人
+     * @version 2017年9月22日  下午2:55:45
+     */
+    @RequestMapping(value = "/getOneSharesDetail", method = RequestMethod.GET)
+    public ModelAndView getOneSharesDetail(
+            @RequestParam(value = "id", required = true, defaultValue = "") Integer id,
+            HttpServletRequest request, HttpServletResponse response) {
+
+        // 查询单条股票详细信息
+        SharesInfo sharesInfo = sharesService.selectByPrimaryKey(id);
+
+        //对错误输入的判断和页面跳转
+        if (null == sharesInfo) {
+
+            return new ModelAndView("redirect:/errorPage");
+        }
+
+        //返回的页面视图
+        ModelAndView modelAndView = new ModelAndView("detailShares");
+
+        // 返回查询到的数据
+        modelAndView.addObject("data", sharesInfo);
+
+        return modelAndView;
+
+
+    }
+
+
+    /**
+     * @RequestMapping(value = "/getOneSharesDetail", method = RequestMethod.GET)
+    public ModelAndView getOneSharesDetail(
+            @RequestParam(value = "id", required = true, defaultValue = "") Integer id,
+            @RequestParam(value = "navigation", required = true,
+                    defaultValue = "1") Integer navigation,
+            HttpServletRequest request, HttpServletResponse response) {
+    
+        // 查询单条股票详细信息
+        SharesInfo sharesInfo = sharesService.selectByPrimaryKey(id);
+    
+        //返回的页面视图
+        ModelAndView modelAndView = new ModelAndView("detailShares");
+    
+        // 根据页面提交的导航顺序，按照这个顺序返回页面，页面判断展示逻辑
+        modelAndView.addObject("pagetype", navigation);
+    
+        // 返回查询到的数据
+        modelAndView.addObject("data", sharesInfo);
+    
+        //对错误输入的判断和页面跳转
+        if (navigation < 1 || navigation > 8) {
+    
+            return new ModelAndView("redirect:/errorPage");
+        }
+    
+        return modelAndView;
+    
+    
+    }
+     */
+
 }

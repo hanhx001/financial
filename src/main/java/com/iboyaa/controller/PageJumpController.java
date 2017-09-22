@@ -36,7 +36,7 @@ public class PageJumpController {
 
         return "newinfo";
     }
-    
+
 
 
     /**
@@ -94,5 +94,19 @@ public class PageJumpController {
 
 
 
+    }
+
+    /**
+     * 跳转到错误页
+     * @param request
+     * @param response
+     * @return
+     * @author 清水贤人
+     * @version 2017年9月22日  下午3:12:43
+     */
+    @RequestMapping(value = "/errorPage", method = RequestMethod.GET)
+    public String jump2ErrorPage(HttpServletRequest request, HttpServletResponse response) {
+       
+        return "error404";
     }
 }

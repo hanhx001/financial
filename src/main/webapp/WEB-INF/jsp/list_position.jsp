@@ -34,7 +34,7 @@ body {
 }
 
 .am-btn {
-	padding: .5em .8em;
+	padding: .1em .7em;
 }
 
 .clearfix {
@@ -138,8 +138,12 @@ body {
 	border-color: transparent;
 }
 
-.cleanUser {
+.cleanUser ,.codeDetail{
 	cursor: pointer;
+}
+
+.thcolor {
+	color:#1E90FF;
 }
 </style>
 	<header class="am-topbar am-topbar-inverse admin-header">
@@ -275,6 +279,7 @@ body {
 											style="cursor: pointer;" onclick="paixu(1)"> <img
 												src="./images/paixu_j.jpg" style="height: 15px;" />
 										</a> 总盈亏率</th>
+										<th class="table-set thcolor">操作</th>
 									</tr>
 								</thead>
 								<tbody class="statc_list">
@@ -409,13 +414,13 @@ body {
 								if (data.list != null && data.list.length > 0) {
 									for (var i = 0; i < data.list.length; i++) {
 
-										html += '<tr>';
+										html += '<tr data-id='+data.list[i].id+'>';
 										html += '<td>' + (50*(pageNum-1)+i+1) + '</td>';
 										html += '<td>'
 												+ data.list[i].createtime
 												+ '</td>';
-										html += '<td>' + data.list[i].code
-												+ '</td>';
+										html += '<td class="codeDetail"><a title="查看股票详情">' + data.list[i].code
+												+ '</a></td>';
 										html += '<td>'
 												+ data.list[i].sharseName
 												+ '</td>'
@@ -437,6 +442,7 @@ body {
 												+ '</td>';
 										html += ' <td>' + data.list[i].percent
 												+ '</td>';
+												html += ' <td><button  class="am-btn am-btn-default am-icon-cog  modifyById" ></button> </td>';
 										html += '</tr>';
 									}
 								} else {
@@ -454,6 +460,18 @@ body {
 								});
 							}
 							$(".statc_list").html(html);
+							
+							// 点击股票代码查看详情
+							$(".codeDetail").click(function(){
+								var dataid=$(this).parent().attr("data-id");
+								
+								window.location.href="${pageContext.request.contextPath}/getOneSharesDetail?id="+dataid;
+								 
+							});
+							$(".modifyById").click(function(){
+								var dataid=$(this).parent().parent().attr("data-id");
+								alert(dataid);
+							});
 							$(".admin-content").scrollTop(0);
 						}
 					});

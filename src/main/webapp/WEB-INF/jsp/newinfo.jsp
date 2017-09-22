@@ -11,7 +11,8 @@
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1">
 <link rel="stylesheet" href="./css/layui.css" media="all">
-
+<link rel="icon" type="image/png"
+	href="${pageContext.request.contextPath}/assets/i/favicon.png">
 <!-- 注意：如果你直接复制所有代码到本地，上述css路径需要改成你本地的 -->
 </head>
 <body>
