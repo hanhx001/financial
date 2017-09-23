@@ -463,15 +463,19 @@ body {
 							
 							// 点击股票代码查看详情
 							$(".codeDetail").click(function(){
-								var dataid=$(this).parent().attr("data-id");
 								
-								window.open("${pageContext.request.contextPath}/getOneSharesDetail?id="+dataid);
-								 
+								var dataid=$(this).parent().attr("data-id");
+								//navigation 为1代表是查看详情界面，为2是更新界面
+								window.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=1&id="+dataid);
 							});
+							
 							$(".modifyById").click(function(){
+								
 								var dataid=$(this).parent().parent().attr("data-id");
-								alert(dataid);
+								//navigation 为1代表是查看详情界面，为2是更新界面
+								window.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=2&id="+dataid);
 							});
+							
 							$(".admin-content").scrollTop(0);
 						}
 					});

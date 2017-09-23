@@ -33,6 +33,8 @@ public class SharesInfo implements Serializable {
 
     private String comment;//备注信息
 
+
+
     // 以下为程序自动计算得出，非用户输入
 
     private String sharseName;//股票名称
@@ -204,6 +206,7 @@ public class SharesInfo implements Serializable {
         this.percent = percent;
     }
 
+
     //新建股票构造函数
     public SharesInfo(String code, String num, String customer, String manager, String costPrice,
             String phone, String comment, String position) {
@@ -218,6 +221,7 @@ public class SharesInfo implements Serializable {
         this.position = position;
         this.createtime = new Date();
         this.updatetime = new Date();
+
     }
 
     public SharesInfo() {

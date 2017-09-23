@@ -3,6 +3,7 @@
  */
 package com.iboyaa.controller;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -20,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
  */
 @Controller
 public class PageJumpController {
-
-
 
     /**
      * 跳转到录入股票信息界面
@@ -108,5 +107,19 @@ public class PageJumpController {
     public String jump2ErrorPage(HttpServletRequest request, HttpServletResponse response) {
 
         return "error404";
+    }
+
+    /**
+     * 跳转到成功页面
+     * @param request
+     * @param response
+     * @return
+     * @author 清水贤人
+     * @version 2017年9月23日  下午10:20:25
+     */
+    @RequestMapping(value = "/successPage", method = RequestMethod.GET)
+    public String jump2SuccessPage(HttpServletRequest request, HttpServletResponse response) {
+      
+        return "success";
     }
 }

@@ -1,5 +1,7 @@
 package com.iboyaa.controller;
 
+import java.util.Date;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,7 +14,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.iboyaa.pojo.SharesInfo;
+import com.iboyaa.pojo.UserInfo;
 import com.iboyaa.service.ISharesService;
+import com.iboyaa.service.IUserInfoService;
 import com.iboyaa.util.CommonCode;
 
 /**
@@ -24,6 +28,8 @@ public class BaseController {
 
     @Resource
     private ISharesService sharesService;
+    @Resource
+    private IUserInfoService userinfoService;
 
     /**
      * 新建股票 信息界面返回的数据，持久化到数据库
@@ -107,7 +113,7 @@ public class BaseController {
     /**
      * 查询股票详细 信息
      * @param id 股票ID
-     * @param navigation 页面导航ID，用于返回时页面的跳转
+     * @param navigation 页面导航ID，用于返回时页面的跳转   为1代表是查看详情界面，为2是更新界面
      * @param request
      * @param response
      * @return
@@ -117,59 +123,94 @@ public class BaseController {
     @RequestMapping(value = "/getOneSharesDetail", method = RequestMethod.GET)
     public ModelAndView getOneSharesDetail(
             @RequestParam(value = "id", required = true, defaultValue = "") Integer id,
+            @RequestParam(value = "navigation", required = true,
+                    defaultValue = "") Integer navigation,
             HttpServletRequest request, HttpServletResponse response) {
 
         // 查询单条股票详细信息
         SharesInfo sharesInfo = sharesService.selectByPrimaryKey(id);
 
+        //返回的页面视图
+        ModelAndView modelAndView = null;
+
+        // 返回查询到的数据
+        if (1 == navigation) {
+            modelAndView = new ModelAndView("detailShares");
+            modelAndView.addObject("data", sharesInfo);
+        } else if (2 == navigation) {
+            modelAndView = new ModelAndView("manageShares");
+            modelAndView.addObject("data", sharesInfo);
+        }
+
         //对错误输入的判断和页面跳转
-        if (null == sharesInfo) {
+        if (null == sharesInfo || null == modelAndView) {
 
             return new ModelAndView("redirect:/errorPage");
         }
 
-        //返回的页面视图
-        ModelAndView modelAndView = new ModelAndView("detailShares");
-
-        // 返回查询到的数据
-        modelAndView.addObject("data", sharesInfo);
 
         return modelAndView;
 
 
     }
-
 
     /**
-     * @RequestMapping(value = "/getOneSharesDetail", method = RequestMethod.GET)
-    public ModelAndView getOneSharesDetail(
+     * 更新股票数据信息
+     * @param id  　　　  股票ID
+     * @param num　　　　  股票数量
+     * @param costprice　  成本价
+     * @param phone　　　  电话号码
+     * @param comment　　  备注
+     * @param customer    客户名称
+     * @param manager     客户经理名称
+     * @param position　    股票状态
+     * @param blackstate　客户黑名单状态　0 是默认白名单，1是黑名单
+     * @param blackcommon 黑名单备注
+     * @param request
+     * @param response
+     * @return  返回到对应的页面导航
+     * @author 清水贤人
+     * @version 2017年9月22日  下午5:21:57
+     */
+    @RequestMapping(value = "/updateOneSharesDetail", method = RequestMethod.POST)
+    public ModelAndView updateOneSharesDetail(
             @RequestParam(value = "id", required = true, defaultValue = "") Integer id,
-            @RequestParam(value = "navigation", required = true,
-                    defaultValue = "1") Integer navigation,
+            @RequestParam(value = "num", required = true, defaultValue = "0") String num,
+            @RequestParam(value = "costprice", required = true,
+                    defaultValue = "0") String costprice,
+            @RequestParam(value = "customer", required = true, defaultValue = "") String customer,
+            @RequestParam(value = "manager", required = true, defaultValue = "") String manager,
+            @RequestParam(value = "phone", required = true, defaultValue = "") String phone,
+            @RequestParam(value = "comment", required = true, defaultValue = "") String comment,
+            @RequestParam(value = "position", required = true, defaultValue = "") String position,
+            @RequestParam(value = "close", required = true, defaultValue = "") String close,
+            @RequestParam(value = "blackcommon", required = true,
+                    defaultValue = "") String blackcommon,
             HttpServletRequest request, HttpServletResponse response) {
-    
+
         // 查询单条股票详细信息
         SharesInfo sharesInfo = sharesService.selectByPrimaryKey(id);
-    
-        //返回的页面视图
-        ModelAndView modelAndView = new ModelAndView("detailShares");
-    
-        // 根据页面提交的导航顺序，按照这个顺序返回页面，页面判断展示逻辑
-        modelAndView.addObject("pagetype", navigation);
-    
-        // 返回查询到的数据
-        modelAndView.addObject("data", sharesInfo);
-    
-        //对错误输入的判断和页面跳转
-        if (navigation < 1 || navigation > 8) {
-    
-            return new ModelAndView("redirect:/errorPage");
+        sharesInfo.setComment(comment);
+        sharesInfo.setCostPrice(costprice);
+        sharesInfo.setNum(num);
+        sharesInfo.setPhone(phone);
+        sharesInfo.setPosition(position);
+        sharesInfo.setTotalPrice(Double.parseDouble(num) * Double.parseDouble(costprice));
+        sharesInfo.setUpdatetime(new Date());
+        //更新股票基本信息
+        sharesService.updateByPrimaryKeySelective(sharesInfo);
+
+        //更新黑名单信息
+        if ("on".equals(close)) {
+            UserInfo userInfo =
+                    new UserInfo(customer, manager, phone, blackcommon, Byte.parseByte("4"));
+            userinfoService.insertSelective(userInfo);
         }
-    
-        return modelAndView;
-    
-    
+
+        return new ModelAndView("redirect:/successPage");
+
+
     }
-     */
+
 
 }
