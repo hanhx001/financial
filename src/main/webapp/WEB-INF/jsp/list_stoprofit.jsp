@@ -34,7 +34,7 @@ body {
 }
 
 .am-btn {
-	padding: .5em .8em;
+	padding: .1em .7em;
 }
 
 .clearfix {
@@ -138,8 +138,12 @@ body {
 	border-color: transparent;
 }
 
-.cleanUser {
+.cleanUser ,.codeDetail{
 	cursor: pointer;
+}
+
+.thcolor {
+	color:#1E90FF;
 }
 </style>
 	<header class="am-topbar am-topbar-inverse admin-header">
@@ -266,8 +270,16 @@ body {
 										<th class="table-author">成本价</th>
 										<th class="table-date ">金额</th>
 										<th class="table-set">现价</th>
-										<th class="table-set">日盈亏率</th>
-										<th class="table-set">总盈亏率</th>
+										<th class="table-set"><a class="paixu_0"
+											style="display: none;" url="#" style="cursor: pointer;"
+											onclick="paixu(0)"> <img src="./images/paixu_j.jpg"
+												style="height: 15px;" />
+										</a> 日盈亏率</th>
+										<th class="table-set"><a class="paixu_1" url="#"
+											style="cursor: pointer;" onclick="paixu(1)"> <img
+												src="./images/paixu_j.jpg" style="height: 15px;" />
+										</a> 总盈亏率</th>
+										<th class="table-set thcolor">操作</th>
 									</tr>
 								</thead>
 								<tbody class="statc_list">
@@ -308,7 +320,15 @@ body {
 		charset="utf-8"></script>
 	<script type="text/javascript">
 		$(function() {
+			//分页中 每页页签带点击事件
+			$("#pager").click(
+					function() {
+						initData($('#my-startDate').text(), $('#my-endDate')
+								.text(), $("#keyword").val(), "2", "", $(
+								".current").text());
 
+					});
+			// ------------------ 时间控件处理 开始  --------------------------
 			var startDate = '';
 			var endDate = '';
 			var $alert = $('#my-alert');
@@ -328,8 +348,9 @@ body {
 						}
 						if ($('#my-startDate').text() != ""
 								&& $('#my-endDate').text() != "") {
-							initData($('#my-startDate').text(), $('#my-endDate').text(), "", "", "");
-							  
+							initData($('#my-startDate').text(),
+									$('#my-endDate').text(), "", "2", "", 1);
+
 						}
 						$(this).datepicker('close');
 					});
@@ -349,15 +370,17 @@ body {
 						if ($('#my-startDate').text() != ""
 								&& $('#my-endDate').text() != "") {
 
-							initData($('#my-startDate').text(), $('#my-endDate').text(), "", "", "");
-							 
+							initData($('#my-startDate').text(),
+									$('#my-endDate').text(), "", "2", "", 1);
+
 						}
 						$(this).datepicker('close');
 					});
-			
+			// ------------------ 时间控件处理 结束 ------------------
+
 			// 点击左侧菜单默认加载当前天的数据
 			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
-					"#keyword").val(), "", "");
+					"#keyword").val(), "2", "", "1");
 		});
 	<%-- 
 			初始化数据
@@ -367,8 +390,7 @@ body {
 			flag      持仓状态
 			sort      排序
 		--%>
-		function initData(startDate, endDate, keyWord, flag, sort) {
-
+		function initData(startDate, endDate, keyWord, flag, sort, pageNum) {
 			$
 					.ajax({
 						type : "POST",
@@ -377,49 +399,109 @@ body {
 							"startDate" : startDate,
 							"endDate" : endDate,
 							"keyWord" : keyWord,
-							"flag" : "2",
-							"sort" : sort
+							"flag" : flag,
+							"sort" : sort,
+							"pageNum" : pageNum
 						},
 						dataType : "json",
 						success : function(data) {
 							console.info(data);
 							var html = "";
-
+							// 声明 总数据条数
+							var totalData = 0
 							if (data != null) {
+								totalData = data.total;
+								if (data.list != null && data.list.length > 0) {
+									for (var i = 0; i < data.list.length; i++) {
 
-								if (data != null && data.length > 0) {
-									for (var i = 0; i < data.length; i++) {
-
-										html += '<tr>';
-										html += '<td>' + (i + 1) + '</td>';
-										html += '<td>' + data[i].createtime
+										html += '<tr data-id='+data.list[i].id+'>';
+										html += '<td>' + (50*(pageNum-1)+i+1) + '</td>';
+										html += '<td>'
+												+ data.list[i].createtime
 												+ '</td>';
-										html += '<td>' + data[i].code + '</td>';
-										html += '<td>' + data[i].sharseName
+										html += '<td class="codeDetail"><a title="查看股票详情">' + data.list[i].code
+												+ '</a></td>';
+										html += '<td>'
+												+ data.list[i].sharseName
 												+ '</td>'
 
-										html += ' <td>' + data[i].num + '</td>';
+										html += ' <td>' + data.list[i].num
+												+ '</td>';
 
-										html += ' <td>' + data[i].costPrice
+										html += ' <td>'
+												+ data.list[i].costPrice
 												+ '</td>';
-										html += ' <td>' + data[i].totalPrice
+										html += ' <td>'
+												+ data.list[i].totalPrice
 												+ '</td>';
-										html += ' <td>' + data[i].daypercent
+										html += ' <td>'
+												+ data.list[i].currentPrice
 												+ '</td>';
-										html += ' <td>' + data[i].currentPrice
+										html += ' <td>'
+												+ data.list[i].daypercent
 												+ '</td>';
-										html += ' <td>' + data[i].percent
+										html += ' <td>' + data.list[i].percent
 												+ '</td>';
+												html += ' <td><button  class="am-btn am-btn-default am-icon-cog  modifyById" ></button> </td>';
 										html += '</tr>';
 									}
 								} else {
 									html = "<tr><td colspan='12'style='  text-align: center;'> 暂无数据！</td></tr>";
 								}
 							}
+							if (pageNum == 1) {
+
+								$("#totalData").text(totalData);
+								if (totalData == 0) {
+									totalData = 1;
+								}
+								$("#pager").zPager({
+									totalData : totalData
+								});
+							}
 							$(".statc_list").html(html);
+							
+							// 点击股票代码查看详情
+							$(".codeDetail").click(function(){
+								
+								var dataid=$(this).parent().attr("data-id");
+								//navigation 为1代表是查看详情界面，为2是更新界面
+								window.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=1&id="+dataid);
+							});
+							
+							$(".modifyById").click(function(){
+								
+								var dataid=$(this).parent().parent().attr("data-id");
+								//navigation 为1代表是查看详情界面，为2是更新界面
+								window.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=2&id="+dataid);
+							});
+							
 							$(".admin-content").scrollTop(0);
 						}
 					});
+		}
+		// 页面模糊搜索
+		function keyword() {
+			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
+					"#keyword").val(), "2", "", 1);
+		}
+
+		// 字段排序函数
+		function paixu(paixuType) {
+			// 声明默认的排序规则为0 即按照总盈亏倒序排列
+			var defaultSort = 0;
+			if (paixuType == 0) {
+				$(".paixu_0").hide();
+				$(".paixu_1").show();
+			} else {
+				$(".paixu_1").hide();
+				$(".paixu_0").show();
+				// 切换为按照日盈亏率进行排序
+				defaultSort = paixuType;
+			}
+
+			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
+					"#keyword").val(), "2", defaultSort, 1);
 		}
 	</script>
 </body>

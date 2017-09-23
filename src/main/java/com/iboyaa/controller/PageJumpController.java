@@ -119,7 +119,7 @@ public class PageJumpController {
      */
     @RequestMapping(value = "/successPage", method = RequestMethod.GET)
     public String jump2SuccessPage(HttpServletRequest request, HttpServletResponse response) {
-      
+
         return "success";
     }
 }
