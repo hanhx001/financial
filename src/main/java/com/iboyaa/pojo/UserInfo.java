@@ -108,6 +108,15 @@ public class UserInfo implements Serializable {
         this.createtime = new Date();
         this.updatetime = new Date();
     }
+    // 新建股票时，新建客户构造函数
+    public UserInfo(String customer, String manager, String phone ) {
+        super();
+        this.customer = customer;
+        this.manager = manager;
+        this.phone = phone;
+        this.createtime = new Date();
+        this.updatetime = new Date();
+    }
 
 
 

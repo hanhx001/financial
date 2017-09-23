@@ -52,6 +52,8 @@ public class SharesInfo implements Serializable {
     private Date createtime;//创建时间
 
     private Date updatetime;//更新时间
+    
+    private Integer customId;//客户ID
 
     private String daypercent;
     private String percent;
@@ -205,7 +207,15 @@ public class SharesInfo implements Serializable {
     public void setPercent(String percent) {
         this.percent = percent;
     }
+    
+    
+    public Integer getCustomId() {
+        return customId;
+    }
 
+    public void setCustomId(Integer customId) {
+        this.customId = customId;
+    }
 
     //新建股票构造函数
     public SharesInfo(String code, String num, String customer, String manager, String costPrice,

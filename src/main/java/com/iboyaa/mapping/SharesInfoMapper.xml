@@ -15,6 +15,7 @@
 		<result column="daypercent" property="daypercent" jdbcType="VARCHAR" />
 		<result column="percent" property="percent" jdbcType="VARCHAR" />
 		<result column="manager" property="manager" jdbcType="VARCHAR" />
+		<result column="customId" property="customId" jdbcType="INTEGER" />
 		<result column="customer" property="customer" jdbcType="VARCHAR" />
 		<result column="phone" property="phone" jdbcType="VARCHAR" />
 		<result column="num" property="num" jdbcType="INTEGER" />
@@ -27,7 +28,7 @@
 		costPrice,
 		position,
 		currentPrice, daypercent, percent, manager,
-		customer, phone, num, comment,
+		customer, phone, num, comment,customId,
 		createtime,
 		updatetime
 	</sql>
@@ -101,6 +102,9 @@
 			<if test="updatetime != null">
 				updatetime,
 			</if>
+			<if test="customId != null"> 
+				customId,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -157,6 +161,9 @@
 			<if test="updatetime != null">
 				#{updatetime,jdbcType=TIMESTAMP},
 			</if>
+			<if test="customId != null">
+				#{customId,jdbcType=INTEGER},
+			</if>
 		</trim>
 	</insert>
 	<update id="updateByPrimaryKeySelective" parameterType="com.iboyaa.pojo.SharesInfo">
@@ -212,6 +219,9 @@
 			</if>
 			<if test="updatetime != null">
 				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="customId != null">
+				customId = #{customId,jdbcType=INTEGER},
 			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}

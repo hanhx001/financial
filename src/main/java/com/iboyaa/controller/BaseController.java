@@ -63,8 +63,12 @@ public class BaseController {
 
             // return "errorNewGp404";
         }
+        //初始化人员构造函数
+        UserInfo userInfo = new UserInfo(customer, manager, phone);
+        //持久化人员数据
+        userinfoService.insertSelective(userInfo);
 
-        //初始化构造函数
+        //初始化股票构造函数
         SharesInfo info =
                 new SharesInfo(code, num, customer, manager, costprice, phone, comment, "1");
 
@@ -72,6 +76,9 @@ public class BaseController {
         info.setTotalPrice(Double.parseDouble(num) * Double.parseDouble(costprice));
 
         info.setSharseName(sharseName);
+
+        // 设置人员ID
+        info.setCustomId(userInfo.getId());
 
         //持久化数据
         sharesService.insertSelective(info);
@@ -202,9 +209,15 @@ public class BaseController {
 
         //更新黑名单信息
         if ("on".equals(close)) {
-            UserInfo userInfo =
-                    new UserInfo(customer, manager, phone, blackcommon, Byte.parseByte("4"));
-            userinfoService.insertSelective(userInfo);
+            
+            // 根据股票信息返回的客户ID查询客户详细信息
+            UserInfo userInfo = userinfoService.selectByPrimaryKey(sharesInfo.getCustomId());
+            userInfo.setComment(blackcommon);
+            userInfo.setPhone(phone);
+            //4 代表黑名单状态
+            userInfo.setState(Byte.parseByte("4"));
+            userinfoService.updateByPrimaryKeySelective(userInfo);
+
         }
 
         return new ModelAndView("redirect:/successPage");
