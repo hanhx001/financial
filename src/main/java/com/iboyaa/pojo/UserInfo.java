@@ -3,6 +3,8 @@ package com.iboyaa.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 /**
  * 客户信息实体类
  * @author 清水贤人
@@ -19,9 +21,9 @@ public class UserInfo implements Serializable {
     private String manager; //经理名称
 
     private String phone;//电话
-
+    @JSONField(format = "yyyy-MM-dd")
     private Date createtime;//开始时间
-
+    @JSONField(format = "yyyy-MM-dd")
     private Date updatetime;//更新时间
 
     private String comment;//黑名单备注

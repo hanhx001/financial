@@ -303,26 +303,7 @@ body {
 
 					});
 		});
-		function statePage(uid, pageNum, keyword) {
-			var pageSize = 50;//一页50条数据
-			var url = "./ableCleanList";
-			var data = {
-				"keyword" : keyword,
-				"pageNum" : pageNum,
-				"pageSize" : pageSize
-			};
-			if (uid != "" && uid != null && uid != "null" && uid != undefined
-					&& uid != "undefined") {
-				url = "./cleanByUid";
-				data = {
-					"uid" : uid,
-					"keyword" : keyword,
-					"pageNum" : pageNum,
-					"pageSize" : pageSize
-				};
-			}
-
-		}
+		
 	</script>
 </body>
 </html>

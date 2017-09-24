@@ -138,4 +138,37 @@
 		where id
 		= #{id,jdbcType=INTEGER}
 	</update>
+
+	<!-- 查询股票数据，多条件 -->
+	<select id="getUserInfoByCondition" resultMap="BaseResultMap"
+		parameterType="com.iboyaa.pojo.UserInfo">
+		<bind name="pattern" value="'%' + keyWord + '%'" />
+		select
+		<include refid="Base_Column_List" />
+		from userinfo
+		<where>
+			<if test="state != null">
+				and state = #{state,jdbcType=INTEGER}
+			</if>
+
+			<if test="startDate != null or endDate !=null ">
+				and DATE_FORMAT(updatetime, '%Y-%m-%d')
+				between
+				DATE_FORMAT(#{startDate}, '%Y-%m-%d')
+				and
+				DATE_FORMAT(#{endDate},
+				'%Y-%m-%d')
+			</if>
+			<if test="keyWord != null and keyWord !='' ">
+				and CONCAT(
+				IFNULL(customer,''),
+				IFNULL(manager,''),
+				IFNULL(phone,''),
+				IFNULL(comment,'')
+				) LIKE
+				#{pattern}
+			</if>
+		</where>
+
+	</select>
 </mapper>
