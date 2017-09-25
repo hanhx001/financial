@@ -69,7 +69,7 @@
 			<label class="layui-form-label">黑名单备注</label>
 			<div class="layui-input-block">
 				<textarea name="comment" placeholder="请输入将此用户加入黑名单的原因"
-					class="layui-textarea"></textarea>
+					class="layui-textarea">${requestScope.data.comment}</textarea>
 			</div>
 		</div>
 

@@ -31,21 +31,22 @@
 					disabled="disabled">
 			</div>
 		</div>
-<input type="hidden" value="${requestScope.data.id}" name="id">
+		<input type="hidden" value="${requestScope.data.id}" name="id">
 		<div class="layui-form-item">
 			<label class="layui-form-label">股票状态</label>
 			<div class="layui-input-block">
-				<select classs="sharestate" name="position" lay-filter="aihao" lay-verify="required">
+				<select classs="sharestate" name="position" lay-filter="aihao"
+					lay-verify="required">
 					<option value="" selected=""></option>
 					<option value="1">持仓</option>
 					<option value="2">止盈</option>
 					<option value="3">止损</option>
 					<option value="4">停用</option>
-					
+
 				</select>
 			</div>
 		</div>
-	  
+
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">股票数量</label>
@@ -61,7 +62,8 @@
 			<div class="layui-input-block">
 				<input type="text" name="customer" lay-verify="required"
 					lay-verify="title" autocomplete="off" placeholder="请输入客户姓名"
-					class="layui-input" value="${requestScope.data.customer}" disabled="disabled">
+					class="layui-input" value="${requestScope.data.customer}"
+					disabled="disabled">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -92,30 +94,39 @@
 		</div>
 
 		<div class="layui-form-item">
-			<label class="layui-form-label">拉黑本客户</label>
+			<label class="layui-form-label">关联操作</label>
 			<div class="layui-input-block">
-				<input type="checkbox" name="close" lay-skin="switch"
-					lay-text="ON|OFF">
+				<input type="checkbox" name="blacklist" title="拉黑"> 
+				<!--  只有止盈的时候才显示这个回款恩扭 -->
+				<c:if test="${requestScope.data.position == 2}">
+                <input type="checkbox" name="payment" title="回款" >
+                </c:if>
+				
 			</div>
 		</div>
+
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">黑名单备注</label>
 			<div class="layui-input-block">
-				<textarea name="blackcommon" placeholder="请输入将此用户加入黑名单的原因" class="layui-textarea"></textarea>
+				<textarea name="blackcommon" placeholder="请输入将此用户加入黑名单的原因"
+					class="layui-textarea"></textarea>
 			</div>
 		</div>
-		
+
+
 		<div class="layui-form-item layui-form-text">
 			<label class="layui-form-label">股票备注</label>
 			<div class="layui-input-block">
-				<textarea name="comment" placeholder="请输入股票的备注信息" class="layui-textarea">${requestScope.data.comment}</textarea>
+				<textarea name="comment" placeholder="请输入股票的备注信息"
+					class="layui-textarea">${requestScope.data.comment}</textarea>
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<div class="layui-input-block">
-			<button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
+				<button class="layui-btn" lay-submit="" lay-filter="demo1">立即提交</button>
 				<!-- 不弹出提示，直接关闭当前页面 -->
-				<button class="layui-btn layui-btn-primary" lay-submit="" lay-filter="demo1"
+				<button class="layui-btn layui-btn-primary" lay-submit=""
+					lay-filter="demo1"
 					onclick="javascript:window.opener=null;window.open('','_self');window.close();">关闭</button>
 
 			</div>
@@ -171,12 +182,11 @@
 
 						//监听提交
 						// form.on('submit(demo1)', function(data) {
-						 	//layer.alert(JSON.stringify(data.field), {
-						 	//	title : '最终的提交信息'
-						 	//})
-						 	//return false;
+						//layer.alert(JSON.stringify(data.field), {
+						//	title : '最终的提交信息'
+					//	})
+						//return false;
 						// });
 
 					});
-	   
 </script>

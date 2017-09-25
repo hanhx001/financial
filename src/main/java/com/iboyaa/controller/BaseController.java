@@ -1,10 +1,13 @@
 package com.iboyaa.controller;
 
 import java.util.Date;
+import java.util.Locale;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -171,11 +174,14 @@ public class BaseController {
      * @param customer    客户名称
      * @param manager     客户经理名称
      * @param position　    股票状态
-     * @param blackstate　客户黑名单状态　0 是默认白名单，1是黑名单
+     * @param payment　      是否回款 
+     * @param blacklist　  是否拉黑
      * @param blackcommon 黑名单备注
      * @param request
      * @param response
      * @return  返回到对应的页面导航
+     *          如果没有选回款恩扭，跳转到数据提交成功界面
+     *          如果选择了回款恩扭，跳转到回款编辑界面
      * @author 清水贤人
      * @version 2017年9月22日  下午5:21:57
      */
@@ -190,7 +196,8 @@ public class BaseController {
             @RequestParam(value = "phone", required = true, defaultValue = "") String phone,
             @RequestParam(value = "comment", required = true, defaultValue = "") String comment,
             @RequestParam(value = "position", required = true, defaultValue = "") String position,
-            @RequestParam(value = "close", required = true, defaultValue = "") String close,
+            @RequestParam(value = "payment", required = true, defaultValue = "") String payment,
+            @RequestParam(value = "blacklist", required = true, defaultValue = "") String blacklist,
             @RequestParam(value = "blackcommon", required = true,
                     defaultValue = "") String blackcommon,
             HttpServletRequest request, HttpServletResponse response) {
@@ -208,7 +215,7 @@ public class BaseController {
         sharesService.updateByPrimaryKeySelective(sharesInfo);
 
         //更新黑名单信息
-        if ("on".equals(close)) {
+        if ("on".equals(blacklist)) {
 
             // 根据股票信息返回的客户ID查询客户详细信息
             UserInfo userInfo = userinfoService.selectByPrimaryKey(sharesInfo.getCustomId());
@@ -218,6 +225,17 @@ public class BaseController {
             //4 代表黑名单状态
             userInfo.setState(Byte.parseByte("4"));
             userinfoService.updateByPrimaryKeySelective(userInfo);
+        }
+
+        //回款级联跳转
+        if ("on".equals(payment)) {
+            // 跳转到回款界面
+            ModelAndView modelAndView = new ModelAndView("manage_payment");
+            //对时间进行格式化
+            sharesInfo.setUpdatetime2String(new DateTime(sharesInfo.getUpdatetime())
+                    .toString("yyyy年MM月dd日 HH:mm:ss", Locale.CHINESE));
+            modelAndView.addObject("data", sharesInfo);
+            return modelAndView;
         }
 
         return new ModelAndView("redirect:/successPage");

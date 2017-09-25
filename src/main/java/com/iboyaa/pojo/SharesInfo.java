@@ -50,13 +50,15 @@ public class SharesInfo implements Serializable {
     private String currentPrice;//现价
     @JSONField(format = "yyyy-MM-dd")
     private Date createtime;//创建时间
-
+    @JSONField(format = "yyyy-MM-dd")
     private Date updatetime;//更新时间
     
     private Integer customId;//客户ID
 
     private String daypercent;
     private String percent;
+    
+    private String updatetime2String;//更新时间字符串格式化
 
 
     public Integer getId() {
@@ -215,6 +217,13 @@ public class SharesInfo implements Serializable {
 
     public void setCustomId(Integer customId) {
         this.customId = customId;
+    }
+    public String getUpdatetime2String() {
+        return updatetime2String;
+    }
+
+    public void setUpdatetime2String(String updatetime2String) {
+        this.updatetime2String = updatetime2String;
     }
 
     //新建股票构造函数

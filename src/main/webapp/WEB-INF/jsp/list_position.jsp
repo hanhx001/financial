@@ -266,6 +266,7 @@ body {
 										<th class="table-phone">建仓日期</th>
 										<th class="table-weixin">股票代码</th>
 										<th class="table-set">股票名称</th>
+										<th class="table-set">客户经理</th>
 										<th class="table-set">股票数量</th>
 										<th class="table-author">成本价</th>
 										<th class="table-date ">金额</th>
@@ -423,8 +424,10 @@ body {
 												+ '</a></td>';
 										html += '<td>'
 												+ data.list[i].sharseName
-												+ '</td>'
+												+ '</td>';
 
+									html += ' <td>' + data.list[i].manager
+												+ '</td>';
 										html += ' <td>' + data.list[i].num
 												+ '</td>';
 
