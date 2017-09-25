@@ -247,10 +247,11 @@ public class BaseController {
             HttpServletRequest request, HttpServletResponse response) {
 
         return JSON.toJSONString(
-                userinfoService.getUserInfo(startDate, endDate, keyWord, state, pageNum, CommonCode.PAGESIZE),
+                userinfoService.getUserInfo(startDate, endDate, keyWord, state, pageNum,
+                        CommonCode.PAGESIZE),
                 SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty);
     }
-    
+
     /**
      * 查询人员详细信息，跳转到对应界面
      * @param id           人员ID
@@ -267,26 +268,70 @@ public class BaseController {
             @RequestParam(value = "navigation", required = true,
                     defaultValue = "") Integer navigation,
             HttpServletRequest request, HttpServletResponse response) {
-      
+
         // 根据ID查询人员详细信息
-       UserInfo userInfo =  userinfoService.selectByPrimaryKey(id);
-        
-       ModelAndView modelAndView = null;
-       
-       // 返回查询到的数据 2代表跳转到更新界面
-       if (1 == navigation) {
-         
-       } else if (2 == navigation) {
-           modelAndView = new ModelAndView("manage_UserInfo");
-           modelAndView.addObject("data", userInfo);
-       }
+        UserInfo userInfo = userinfoService.selectByPrimaryKey(id);
 
-       //对错误输入的判断和页面跳转
-       if (null == userInfo || null == modelAndView) {
+        ModelAndView modelAndView = null;
 
-           return new ModelAndView("redirect:/errorPage");
-       }
-        
+        // 返回查询到的数据 2代表跳转到更新界面
+        if (1 == navigation) {
+
+        } else if (2 == navigation) {
+            modelAndView = new ModelAndView("manage_UserInfo");
+            modelAndView.addObject("data", userInfo);
+        }
+
+        //对错误输入的判断和页面跳转
+        if (null == userInfo || null == modelAndView) {
+
+            return new ModelAndView("redirect:/errorPage");
+        }
+
         return modelAndView;
+    }
+
+    /**
+     * 更新人员基本信息 
+     * @param id       人员ID
+     * @param state    人状态
+     * @param customer 客户名称
+     * @param manager  客户经理
+     * @param phone    客户电话
+     * @param comment  备注
+     * @param request
+     * @param response
+     * @return
+     * @author 清水贤人
+     * @version 2017年9月25日  下午2:58:30
+     */
+    @RequestMapping(value = "/updateUserInfo", method = RequestMethod.POST)
+    public ModelAndView updateUserInfo(
+            @RequestParam(value = "id", required = true, defaultValue = "") Integer id,
+            @RequestParam(value = "state", required = true, defaultValue = "") Integer state,
+            @RequestParam(value = "customer", required = true, defaultValue = "") String customer,
+            @RequestParam(value = "manager", required = true, defaultValue = "") String manager,
+            @RequestParam(value = "phone", required = true, defaultValue = "") String phone,
+            @RequestParam(value = "comment", required = true, defaultValue = "") String comment,
+            HttpServletRequest request, HttpServletResponse response) {
+
+        // 根据ID查询人员详细信息
+        UserInfo userInfo = userinfoService.selectByPrimaryKey(id);
+        userInfo.setComment(comment);
+        userInfo.setUpdatetime(new Date());
+        userInfo.setCustomer(customer);
+        userInfo.setManager(manager);
+        userInfo.setPhone(phone);
+        userInfo.setState(state.byteValue());
+        // 更新人员基本信息
+        userinfoService.updateByPrimaryKeySelective(userInfo);
+
+        //对错误输入的判断和页面跳转
+        if (null == userInfo.getId()) {
+            return new ModelAndView("redirect:/errorPage");
+        }
+
+        return new ModelAndView("redirect:/successPage");
+
     }
 }

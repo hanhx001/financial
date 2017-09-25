@@ -21,7 +21,7 @@
 		<legend>更新客户基本信息</legend>
 	</fieldset>
 
-	<form class="layui-form" action="updateOneSharesDetail" method="POST">
+	<form class="layui-form" action="updateUserInfo" method="POST">
 		<div class="layui-form-item">
 			<label class="layui-form-label">客户名称</label>
 			<div class="layui-input-block">
@@ -41,13 +41,9 @@
 					<option value="1">意向</option>
 					<option value="4">拉黑</option>
 					<option value="2">停用</option>
-
 				</select>
 			</div>
 		</div>
-
-
-
 		<div class="layui-form-item">
 			<label class="layui-form-label">客户经理</label>
 			<div class="layui-input-block">
@@ -138,12 +134,12 @@
 						});
 
 						//监听提交
-						form.on('submit(demo1)', function(data) {
-							layer.alert(JSON.stringify(data.field), {
-								title : '最终的提交信息'
-							})
-							return false;
-						});
+					//	form.on('submit(demo1)', function(data) {
+						//	layer.alert(JSON.stringify(data.field), {
+						//		title : '最终的提交信息'
+						//	})
+						//	return false;
+						//});
 
 					});
 </script>
