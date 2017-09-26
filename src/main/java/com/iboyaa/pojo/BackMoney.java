@@ -40,7 +40,9 @@ public class BackMoney {
     private Date updatetime;
 
     private String state;
-
+    
+    private String updatetime2String;//更新时间字符串格式化
+    
     public Integer getId() {
         return id;
     }
@@ -193,6 +195,14 @@ public class BackMoney {
         this.state = state == null ? null : state.trim();
     }
     
+    public String getUpdatetime2String() {
+        return updatetime2String;
+    }
+
+    public void setUpdatetime2String(String updatetime2String) {
+        this.updatetime2String = updatetime2String;
+    }
+
     // 保存回款信息 构造函数
     public BackMoney(String code, String sharseName, String customId, String customer,
             String manager, String phone, String sendtime, String percent, String sendoutprice,
@@ -216,6 +226,11 @@ public class BackMoney {
         this.custompercent = custompercent;
         this.updatetime =new Date();
         this.createtime= new Date();
+    }
+
+    public BackMoney() {
+        super();
+        // TODO Auto-generated constructor stub
     }
     
     

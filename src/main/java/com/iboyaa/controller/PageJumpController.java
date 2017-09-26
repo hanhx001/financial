@@ -74,11 +74,11 @@ public class PageJumpController {
 
             case 6:
                 //黑名单
-                return "blacklist";
+                return "list_blacklist";
 
             case 7:
                 //回款管理
-                return "back_payment";
+                return "list_payment";
 
             case 8:
                 //客户查询
