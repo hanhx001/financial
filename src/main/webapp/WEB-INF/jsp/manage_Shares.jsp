@@ -28,7 +28,7 @@
 				<input type="text" name="code" lay-verify="required"
 					lay-verify="title" autocomplete="off" placeholder="请输入代码"
 					class="layui-input" value="${requestScope.data.code}"
-					disabled="disabled">
+					 readonly = "readonly">
 			</div>
 		</div>
 		<input type="hidden" value="${requestScope.data.id}" name="id">
@@ -63,7 +63,7 @@
 				<input type="text" name="customer" lay-verify="required"
 					lay-verify="title" autocomplete="off" placeholder="请输入客户姓名"
 					class="layui-input" value="${requestScope.data.customer}"
-					disabled="disabled">
+					 readonly = "readonly">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -71,7 +71,7 @@
 			<div class="layui-input-block">
 				<input type="text" name="manager" lay-verify="required"
 					placeholder="请输入客户经理" autocomplete="off" class="layui-input"
-					value="${requestScope.data.manager}" disabled="disabled">
+					value="${requestScope.data.manager}" readonly = "readonly">
 			</div>
 		</div>
 

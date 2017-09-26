@@ -24,23 +24,24 @@
 		<legend>提交回款管理信息</legend>
 	</fieldset>
 
-	<form class="layui-form" action="addUiData" method="POST">
+	<form class="layui-form" action="addBackMoney" method="POST" >
+		<input type="hidden" value="${requestScope.data.customId}" name="customId">
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">股票代码</label>
 			<div class="layui-input-block">
-				<input type="text" name="costprice" lay-verify="required|number"
+				<input type="text" name="code" lay-verify="required"
 					placeholder="请输入股票代码" autocomplete="off" class="layui-input"
-					disabled="disabled"  value="${requestScope.data.code}">
+					 value="${requestScope.data.code}"   readonly = "readonly" >
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">股票名称</label>
 			<div class="layui-input-block">
-				<input type="text" name="costprice" lay-verify="required|number"
+				<input type="text" name="sharseName" lay-verify="required"
 					placeholder="请输入股票名称" autocomplete="off" class="layui-input"
-					disabled="disabled"  value="${requestScope.data.sharseName}">
+					 readonly = "readonly"  value="${requestScope.data.sharseName}">
 			</div>
 		</div>
 
@@ -51,7 +52,7 @@
 			<div class="layui-input-block">
 				<input type="text" name="customer" lay-verify="required"
 					lay-verify="title" autocomplete="off" placeholder="请输入客户姓名"
-					class="layui-input" disabled="disabled"  value="${requestScope.data.customer}">
+					class="layui-input"  readonly = "readonly"  value="${requestScope.data.customer}">
 			</div>
 		</div>
 		<div class="layui-form-item">
@@ -59,7 +60,7 @@
 			<div class="layui-input-block">
 				<input type="text" name="manager" lay-verify="required"
 					placeholder="请输入客户经理" autocomplete="off" class="layui-input"
-					disabled="disabled"  value="${requestScope.data.manager}">
+					 readonly = "readonly"  value="${requestScope.data.manager}">
 			</div>
 		</div>
 
@@ -68,24 +69,24 @@
 			<label class="layui-form-label">电话</label>
 			<div class="layui-input-block">
 				<input type="text" name="phone" placeholder="请输入电话"
-					autocomplete="off" class="layui-input" disabled="disabled" value="${requestScope.data.phone}">
+					autocomplete="off" class="layui-input"  readonly = "readonly" value="${requestScope.data.phone}">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">止盈时间</label>
 			<div class="layui-input-block">
-				<input type="text" name="costprice" lay-verify="required|number"
+				<input type="text" name="sendtime" lay-verify="required"
 					placeholder="请输入止盈时间" autocomplete="off" class="layui-input"
-					disabled="disabled" value="${requestScope.data.updatetime2String}">
+					 readonly = "readonly" value="${requestScope.data.updatetime2String}">
 			</div>
 		</div>
 
 		<div class="layui-form-item">
 			<label class="layui-form-label">总盈亏</label>
 			<div class="layui-input-block">
-				<input type="text" name="phone" placeholder="请输入总盈亏"
-					autocomplete="off" class="layui-input" disabled="disabled" value="${requestScope.data.percent}">
+				<input type="text" name="percent" placeholder="请输入总盈亏"
+					autocomplete="off" class="layui-input"  readonly = "readonly" value="${requestScope.data.percent}">
 			</div>
 		</div>
 
@@ -93,7 +94,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label"> 卖出价</label>
 			<div class="layui-input-block">
-				<input type="text" name="phone" placeholder="请输入卖出价"
+				<input type="text" name="sendoutprice" placeholder="请输入卖出价"
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -103,7 +104,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">客户盈亏</label>
 			<div class="layui-input-block">
-				<input type="text" name="phone" placeholder="请输入客户盈亏"
+				<input type="text" name="custompercent" placeholder="请输入客户盈亏"
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -112,14 +113,14 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">分成比例</label>
 			<div class="layui-input-block">
-				<input type="text" name="phone" placeholder="请输入分成比例"
+				<input type="text" name="devidepoint" placeholder="请输入分成比例"
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">分成次数</label>
 			<div class="layui-input-block">
-				<input type="text" name="costprice" lay-verify="required|number"
+				<input type="text" name="devidenum" lay-verify="required|number"
 					placeholder="请输入分成次数" autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -127,14 +128,14 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">回款金额</label>
 			<div class="layui-input-block">
-				<input type="text" name="phone" placeholder="请输入回款金额"
+				<input type="text" name="backmoney" placeholder="请输入回款金额"
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
 		<div class="layui-form-item">
 			<label class="layui-form-label">回款银行</label>
 			<div class="layui-input-block">
-				<input type="text" name="phone" placeholder="请输入回款银行"
+				<input type="text" name="backbank" placeholder="请输入回款银行"
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -201,12 +202,12 @@
 							});
 
 							//监听提交
-							form.on('submit(demo1)', function(data) {
-								layer.alert(JSON.stringify(data.field), {
-									title : '最终的提交信息'
-								})
-								return false;
-							});
+						//	form.on('submit(demo1)', function(data) {
+						//	//layer.alert(JSON.stringify(data.field), {
+							//	title : '最终的提交信息'
+					//	})
+						//		return false;
+						//	});
 
 						});
 	</script>

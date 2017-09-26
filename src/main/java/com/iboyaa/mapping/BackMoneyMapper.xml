@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.iboyaa.dao.IBackMoneyDao" >
+  <resultMap id="BaseResultMap" type="com.iboyaa.pojo.BackMoney" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="code" property="code" jdbcType="VARCHAR" />
+    <result column="sharseName" property="sharseName" jdbcType="VARCHAR" />
+    <result column="customId" property="customId" jdbcType="VARCHAR" />
+    <result column="customer" property="customer" jdbcType="VARCHAR" />
+    <result column="manager" property="manager" jdbcType="VARCHAR" />
+    <result column="phone" property="phone" jdbcType="VARCHAR" />
+    <result column="sendtime" property="sendtime" jdbcType="TIMESTAMP" />
+    <result column="percent" property="percent" jdbcType="VARCHAR" />
+    <result column="sendoutprice" property="sendoutprice" jdbcType="VARCHAR" />
+    <result column="devidepoint" property="devidepoint" jdbcType="VARCHAR" />
+    <result column="devidenum" property="devidenum" jdbcType="INTEGER" />
+    <result column="backmoney" property="backmoney" jdbcType="VARCHAR" />
+    <result column="backbank" property="backbank" jdbcType="VARCHAR" />
+    <result column="common" property="common" jdbcType="VARCHAR" />
+    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+    <result column="custompercent" property="custompercent" jdbcType="VARCHAR" />
+    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, code, sharseName, customId, customer, manager, phone, sendtime, percent, sendoutprice, 
+    devidepoint, devidenum, backmoney, backbank, common, createtime, custompercent, updatetime, 
+    state
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from backmoney
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from backmoney
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.iboyaa.pojo.BackMoney" >
+    insert into backmoney (id, code, sharseName, 
+      customId, customer, manager, 
+      phone, sendtime, percent, 
+      sendoutprice, devidepoint, devidenum, 
+      backmoney, backbank, common, 
+      createtime, custompercent, updatetime, 
+      state)
+    values (#{id,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR}, #{sharseName,jdbcType=VARCHAR}, 
+      #{customId,jdbcType=VARCHAR}, #{customer,jdbcType=VARCHAR}, #{manager,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{sendtime,jdbcType=TIMESTAMP}, #{percent,jdbcType=VARCHAR}, 
+      #{sendoutprice,jdbcType=VARCHAR}, #{devidepoint,jdbcType=VARCHAR}, #{devidenum,jdbcType=INTEGER}, 
+      #{backmoney,jdbcType=VARCHAR}, #{backbank,jdbcType=VARCHAR}, #{common,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{custompercent,jdbcType=VARCHAR}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{state,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.iboyaa.pojo.BackMoney" >
+    insert into backmoney
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="code != null" >
+        code,
+      </if>
+      <if test="sharseName != null" >
+        sharseName,
+      </if>
+      <if test="customId != null" >
+        customId,
+      </if>
+      <if test="customer != null" >
+        customer,
+      </if>
+      <if test="manager != null" >
+        manager,
+      </if>
+      <if test="phone != null" >
+        phone,
+      </if>
+      <if test="sendtime != null" >
+        sendtime,
+      </if>
+      <if test="percent != null" >
+        percent,
+      </if>
+      <if test="sendoutprice != null" >
+        sendoutprice,
+      </if>
+      <if test="devidepoint != null" >
+        devidepoint,
+      </if>
+      <if test="devidenum != null" >
+        devidenum,
+      </if>
+      <if test="backmoney != null" >
+        backmoney,
+      </if>
+      <if test="backbank != null" >
+        backbank,
+      </if>
+      <if test="common != null" >
+        common,
+      </if>
+      <if test="createtime != null" >
+        createtime,
+      </if>
+      <if test="custompercent != null" >
+        custompercent,
+      </if>
+      <if test="updatetime != null" >
+        updatetime,
+      </if>
+      <if test="state != null" >
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="code != null" >
+        #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="sharseName != null" >
+        #{sharseName,jdbcType=VARCHAR},
+      </if>
+      <if test="customId != null" >
+        #{customId,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null" >
+        #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="percent != null" >
+        #{percent,jdbcType=VARCHAR},
+      </if>
+      <if test="sendoutprice != null" >
+        #{sendoutprice,jdbcType=VARCHAR},
+      </if>
+      <if test="devidepoint != null" >
+        #{devidepoint,jdbcType=VARCHAR},
+      </if>
+      <if test="devidenum != null" >
+        #{devidenum,jdbcType=INTEGER},
+      </if>
+      <if test="backmoney != null" >
+        #{backmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="backbank != null" >
+        #{backbank,jdbcType=VARCHAR},
+      </if>
+      <if test="common != null" >
+        #{common,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custompercent != null" >
+        #{custompercent,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.iboyaa.pojo.BackMoney" >
+    update backmoney
+    <set >
+      <if test="code != null" >
+        code = #{code,jdbcType=VARCHAR},
+      </if>
+      <if test="sharseName != null" >
+        sharseName = #{sharseName,jdbcType=VARCHAR},
+      </if>
+      <if test="customId != null" >
+        customId = #{customId,jdbcType=VARCHAR},
+      </if>
+      <if test="customer != null" >
+        customer = #{customer,jdbcType=VARCHAR},
+      </if>
+      <if test="manager != null" >
+        manager = #{manager,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="sendtime != null" >
+        sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="percent != null" >
+        percent = #{percent,jdbcType=VARCHAR},
+      </if>
+      <if test="sendoutprice != null" >
+        sendoutprice = #{sendoutprice,jdbcType=VARCHAR},
+      </if>
+      <if test="devidepoint != null" >
+        devidepoint = #{devidepoint,jdbcType=VARCHAR},
+      </if>
+      <if test="devidenum != null" >
+        devidenum = #{devidenum,jdbcType=INTEGER},
+      </if>
+      <if test="backmoney != null" >
+        backmoney = #{backmoney,jdbcType=VARCHAR},
+      </if>
+      <if test="backbank != null" >
+        backbank = #{backbank,jdbcType=VARCHAR},
+      </if>
+      <if test="common != null" >
+        common = #{common,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custompercent != null" >
+        custompercent = #{custompercent,jdbcType=VARCHAR},
+      </if>
+      <if test="updatetime != null" >
+        updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.iboyaa.pojo.BackMoney" >
+    update backmoney
+    set code = #{code,jdbcType=VARCHAR},
+      sharseName = #{sharseName,jdbcType=VARCHAR},
+      customId = #{customId,jdbcType=VARCHAR},
+      customer = #{customer,jdbcType=VARCHAR},
+      manager = #{manager,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      sendtime = #{sendtime,jdbcType=TIMESTAMP},
+      percent = #{percent,jdbcType=VARCHAR},
+      sendoutprice = #{sendoutprice,jdbcType=VARCHAR},
+      devidepoint = #{devidepoint,jdbcType=VARCHAR},
+      devidenum = #{devidenum,jdbcType=INTEGER},
+      backmoney = #{backmoney,jdbcType=VARCHAR},
+      backbank = #{backbank,jdbcType=VARCHAR},
+      common = #{common,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      custompercent = #{custompercent,jdbcType=VARCHAR},
+      updatetime = #{updatetime,jdbcType=TIMESTAMP},
+      state = #{state,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
