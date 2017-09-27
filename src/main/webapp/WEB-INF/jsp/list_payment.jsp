@@ -444,6 +444,8 @@ body {
 
 										html += '</tr>';
 									}
+									html += "<tr><td colspan='12'style='  text-align: left;'>总回款额："+data.totalCount+"</td></tr>";
+
 								} else {
 									html = "<tr><td colspan='12'style='  text-align: center;'> 暂无数据！</td></tr>";
 								}

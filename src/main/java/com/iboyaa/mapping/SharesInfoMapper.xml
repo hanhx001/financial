@@ -240,7 +240,7 @@
 			</if>
 
 			<if test="startDate != null or endDate !=null ">
-				and DATE_FORMAT(createtime, '%Y-%m-%d')
+				and DATE_FORMAT(updatetime, '%Y-%m-%d')
 				between
 				DATE_FORMAT(#{startDate}, '%Y-%m-%d')
 				and

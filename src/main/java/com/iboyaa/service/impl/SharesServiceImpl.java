@@ -18,7 +18,10 @@ import com.github.pagehelper.PageInfo;
 import com.iboyaa.dao.ISharesDao;
 import com.iboyaa.pojo.SharesInfo;
 import com.iboyaa.service.ISharesService;
+import com.iboyaa.util.DoubleWith2Point;
+import com.iboyaa.util.PageInfoExtend;
 import com.iboyaa.util.StringIsNull;
+
 
 /**
  * @author 清水贤人
@@ -113,17 +116,32 @@ public class SharesServiceImpl implements ISharesService {
             endDate = nowTime.toString("yyyy-MM-dd");
         }
         //查询返回数据
-        List dataWithPage = sharesDao.getSharesDataByCondition(startDate, endDate, keyWord, flag,
+        List <SharesInfo> dataWithPage = sharesDao.getSharesDataByCondition(startDate, endDate, keyWord, flag,
                 sort, pageNum, pageSize);
+        
+        //用来存储 股票总金额
+        double totalCount = 0;
+       
+        if(dataWithPage.size()>0) {
+            
+            for(SharesInfo  sharesInfo: dataWithPage) {
+                totalCount+=sharesInfo.getTotalPrice();
+                
+            }
+        }
+        
         Integer totalNum =
                 sharesDao.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort).size();
 
-        //封装分页参数
-        PageInfo<SharesInfo> pageInfo = new PageInfo<SharesInfo>();
+        //封装分页参数，集成的原始分页类
+        PageInfoExtend<SharesInfo> pageInfo = new PageInfoExtend<SharesInfo>();
         pageInfo.setList(dataWithPage);
         pageInfo.setPageNum(pageNum);
         pageInfo.setPageSize(pageSize);
-        pageInfo.setTotal(totalNum);
+        pageInfo.setTotal(totalNum) ;
+        // 统计股票价格总和
+        pageInfo.setTotalCount(DoubleWith2Point.noForFive(totalCount));
+         
 
         return pageInfo;
     }

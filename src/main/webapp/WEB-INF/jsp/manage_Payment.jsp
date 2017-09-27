@@ -94,7 +94,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label"> 卖出价</label>
 			<div class="layui-input-block">
-				<input type="text" name="sendoutprice" placeholder="请输入卖出价"
+				<input type="text" name="sendoutprice" placeholder="请输入卖出价" required|number
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>
@@ -128,7 +128,7 @@
 		<div class="layui-form-item">
 			<label class="layui-form-label">回款金额</label>
 			<div class="layui-input-block">
-				<input type="text" name="backmoney" placeholder="请输入回款金额"
+				<input type="text" name="backmoney" placeholder="请输入回款金额" required|number
 					autocomplete="off" class="layui-input">
 			</div>
 		</div>

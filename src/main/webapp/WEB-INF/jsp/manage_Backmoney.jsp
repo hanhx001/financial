@@ -137,7 +137,7 @@
 			<label class="layui-form-label">回款金额</label>
 			<div class="layui-input-block">
 				<input type="text" name="backmoney" placeholder="请输入回款金额"
-					autocomplete="off" class="layui-input" readonly="readonly"
+					autocomplete="off" class="layui-input" readonly="readonly" required|number
 					value="${requestScope.data.sendoutprice}">
 			</div>
 		</div>

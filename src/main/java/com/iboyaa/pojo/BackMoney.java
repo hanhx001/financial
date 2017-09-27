@@ -27,7 +27,7 @@ public class BackMoney {
 
     private String devidenum;
 
-    private String backmoney;
+    private Double backmoney;
 
     private String backbank;
 
@@ -138,13 +138,14 @@ public class BackMoney {
     public void setDevidenum(String devidenum) {
         this.devidenum = devidenum;
     }
+ 
 
-    public String getBackmoney() {
+    public Double getBackmoney() {
         return backmoney;
     }
 
-    public void setBackmoney(String backmoney) {
-        this.backmoney = backmoney == null ? null : backmoney.trim();
+    public void setBackmoney(Double backmoney) {
+        this.backmoney = backmoney;
     }
 
     public String getBackbank() {
@@ -206,7 +207,7 @@ public class BackMoney {
     // 保存回款信息 构造函数
     public BackMoney(String code, String sharseName, String customId, String customer,
             String manager, String phone, String sendtime, String percent, String sendoutprice,
-            String devidepoint, String devidenum, String backmoney, String backbank, String common,
+            String devidepoint, String devidenum, Double backmoney, String backbank, String common,
             String custompercent) {
         super();
         this.code = code;

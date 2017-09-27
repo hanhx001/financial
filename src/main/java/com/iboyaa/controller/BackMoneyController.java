@@ -77,7 +77,7 @@ public class BackMoneyController {
             @RequestParam(value = "devidepoint", required = true,
                     defaultValue = "") String devidepoint,
             @RequestParam(value = "devidenum", required = true, defaultValue = "") String devidenum,
-            @RequestParam(value = "backmoney", required = true, defaultValue = "") String backmoney,
+            @RequestParam(value = "backmoney", required = true, defaultValue = "") Double backmoney,
             @RequestParam(value = "backbank", required = true, defaultValue = "") String backbank,
             @RequestParam(value = "comment", required = true, defaultValue = "") String comment,
             @RequestParam(value = "customId", required = true, defaultValue = "") String customId,

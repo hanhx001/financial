@@ -449,6 +449,8 @@ body {
 												html += ' <td><button  class="am-btn am-btn-default am-icon-cog  modifyById" ></button> </td>';
 										html += '</tr>';
 									}
+									html += "<tr><td colspan='12'style='  text-align: left;'>总建仓量："+data.totalCount+"</td></tr>";
+
 								} else {
 									html = "<tr><td colspan='12'style='  text-align: center;'> 暂无数据！</td></tr>";
 								}
