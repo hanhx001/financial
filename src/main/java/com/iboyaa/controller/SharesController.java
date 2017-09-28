@@ -69,7 +69,7 @@ public class SharesController {
         String sharseName = sharesService.getSharesName(code);
         if ("failed;".equals(sharseName)) {
 
-            // return "errorNewGp404";
+             return new ModelAndView("redirect:/navigation?page=9");
         }
         //初始化人员构造函数
         UserInfo userInfo = new UserInfo(customer, manager, phone);

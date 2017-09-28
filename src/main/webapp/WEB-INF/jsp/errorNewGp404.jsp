@@ -34,13 +34,10 @@
 
 					 
 				</div>
-				<a href="${pageContext.request.contextPath}/add" title="返回上一页">
+				<a href="${pageContext.request.contextPath}/navigation?page=1" title="返回上一页">
 					<div class="link" id="home"></div>
 				</a>
-				<a href="http://www.cssmoban.com/" title="返回列表">
-					<div class="link" id="contact"></div>
-
-				</a>
+				 
 			</div>
 		</div>
 	</body>

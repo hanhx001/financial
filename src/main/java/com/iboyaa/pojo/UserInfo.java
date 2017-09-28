@@ -29,6 +29,8 @@ public class UserInfo implements Serializable {
     private String comment;//黑名单备注
 
     private Byte state; //人员状态
+    
+    private String lastimecommen;//最后一次沟通内容
 
     public Integer getId() {
         return id;
@@ -93,6 +95,15 @@ public class UserInfo implements Serializable {
     public void setState(Byte state) {
         this.state = state;
     }
+    
+    
+    public String getLastimecommen() {
+        return lastimecommen;
+    }
+
+    public void setLastimecommen(String lastimecommen) {
+        this.lastimecommen = lastimecommen;
+    }
 
     public UserInfo() {
         super();
@@ -116,6 +127,19 @@ public class UserInfo implements Serializable {
         this.customer = customer;
         this.manager = manager;
         this.phone = phone;
+        this.createtime = new Date();
+        this.updatetime = new Date();
+    }
+//新建意向用户 构造函数
+    public UserInfo(String customer, String manager, String phone, String comment, Byte state,
+            String lastimecommen) {
+        super();
+        this.customer = customer;
+        this.manager = manager;
+        this.phone = phone;
+        this.comment = comment;
+        this.state = state;
+        this.lastimecommen = lastimecommen;
         this.createtime = new Date();
         this.updatetime = new Date();
     }

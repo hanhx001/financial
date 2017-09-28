@@ -145,5 +145,25 @@ public class UserInfoController {
 
         return new ModelAndView("redirect:/successPage");
     }
+    
+    
+    @RequestMapping(value = "/addUserInfoData", method = RequestMethod.POST)
+    public ModelAndView addUserInfo(
+            @RequestParam(value = "state", required = true, defaultValue = "1") Integer state,
+            @RequestParam(value = "customer", required = true, defaultValue = "") String customer,
+            @RequestParam(value = "manager", required = true, defaultValue = "") String manager,
+            @RequestParam(value = "phone", required = true, defaultValue = "") String phone,
+            @RequestParam(value = "comment", required = true, defaultValue = "") String comment,
+            @RequestParam(value = "lastimecommen", required = true, defaultValue = "") String lastimecommen,
+            HttpServletRequest request, HttpServletResponse response) {
+            
+        UserInfo userInfo = new UserInfo(customer, manager, phone, comment, state.byteValue(), lastimecommen);
+       
+        userinfoService.insertSelective(userInfo);
+       
+        return new ModelAndView("redirect:/navigation?page=4");
+        
+        
+    }
 
 }

@@ -10,10 +10,11 @@
 		<result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
 		<result column="comment" property="comment" jdbcType="VARCHAR" />
 		<result column="state" property="state" jdbcType="TINYINT" />
+		<result column="lastimecommen" property="lastimecommen" jdbcType="VARCHAR" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id, customer, manager, phone, createtime, updatetime,
-		comment, state
+		comment, lastimecommen,state
 	</sql>
 	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
 		parameterType="java.lang.Integer">
@@ -68,6 +69,9 @@
 			<if test="state != null">
 				state,
 			</if>
+			<if test="lastimecommen != null">
+				lastimecommen,
+			</if>
 		</trim>
 		<trim prefix="values (" suffix=")" suffixOverrides=",">
 			<if test="id != null">
@@ -93,6 +97,9 @@
 			</if>
 			<if test="state != null">
 				#{state,jdbcType=TINYINT},
+			</if>
+			<if test="lastimecommen != null">
+				#{lastimecommen,jdbcType=VARCHAR},
 			</if>
 		</trim>
 	</insert>
@@ -120,6 +127,9 @@
 			<if test="state != null">
 				state = #{state,jdbcType=TINYINT},
 			</if>
+			<if test="lastimecommen != null">
+				lastimecommen = #{lastimecommen,jdbcType=VARCHAR},
+			</if>
 		</set>
 		where id = #{id,jdbcType=INTEGER}
 	</update>
@@ -139,7 +149,7 @@
 		= #{id,jdbcType=INTEGER}
 	</update>
 
-	<!-- 查询股票数据，多条件 -->
+	<!-- 查询用户数据，多条件 -->
 	<select id="getUserInfoByCondition" resultMap="BaseResultMap"
 		parameterType="com.iboyaa.pojo.UserInfo">
 		<bind name="pattern" value="'%' + keyWord + '%'" />
@@ -164,7 +174,8 @@
 				IFNULL(customer,''),
 				IFNULL(manager,''),
 				IFNULL(phone,''),
-				IFNULL(comment,'')
+				IFNULL(comment,''),
+				IFNULL(lastimecommen,'')
 				) LIKE
 				#{pattern}
 			</if>

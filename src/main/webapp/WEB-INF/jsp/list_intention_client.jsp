@@ -216,8 +216,10 @@ body {
 			<div class="admin-content-body">
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
-						<strong class="am-text-primary am-text-lg">意向客户数据</strong>
+						<strong class="am-text-primary am-text-lg"><a href="${pageContext.request.contextPath}/addUserinfoUi"><span
+								class="am-icon-edit"></span> 新建客户</a></strong>
 					</div>
+					 
 					<div class="am-fr am-cf"></div>
 				</div>
 				<hr>
@@ -243,6 +245,10 @@ body {
 							</div>
 						</div>
 					</div>
+					
+					
+					
+					
 					<div class="am-u-sm-12 am-u-md-3">
 						<div class="am-input-group am-input-group-sm">
 							<input type="text" class="am-form-field" id="keyword"

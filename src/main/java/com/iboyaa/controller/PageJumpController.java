@@ -29,12 +29,25 @@ public class PageJumpController {
      * @author 清水贤人
      * @version 2017年9月15日  下午6:39:59
      */
-    @RequestMapping("/add")
-    public String jump2AddUi(HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping("/addShares")
+    public String jump2AddSharesUi(HttpServletRequest request, HttpServletResponse response) {
 
-        return "newinfo";
+        return "newsharesinfo";
     }
 
+    /**
+     * 跳转到录入人员信息界面
+     * @param request
+     * @param response
+     * @return
+     * @author 清水贤人
+     * @version 2017年9月28日  下午5:51:53
+     */
+    @RequestMapping("/addUserinfoUi")
+    public String jump2AddUserInfoUi(HttpServletRequest request, HttpServletResponse response) {
+        return "newuserinfo";
+
+    }
 
 
     /**
@@ -83,6 +96,9 @@ public class PageJumpController {
             case 8:
                 //客户查询
                 return "custom_serach";
+            case 9:
+                //客户查询
+                return "errorNewGp404";
 
 
             default:
@@ -121,4 +137,5 @@ public class PageJumpController {
 
         return "success";
     }
+     
 }

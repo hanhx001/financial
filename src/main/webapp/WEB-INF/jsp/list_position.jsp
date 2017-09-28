@@ -216,7 +216,8 @@ body {
 			<div class="admin-content-body">
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
-						<strong class="am-text-primary am-text-lg">持仓数据</strong>
+						<strong class="am-text-primary am-text-lg"><a href="${pageContext.request.contextPath}/addShares" ><span
+								class="am-icon-edit"></span> 新建股票</a></strong>
 					</div>
 					<div class="am-fr am-cf"></div>
 				</div>
