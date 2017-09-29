@@ -48,6 +48,12 @@ public class PageJumpController {
         return "newuserinfo";
 
     }
+    
+    @RequestMapping("/addloginUserUi")
+    public String addloginUserUi(HttpServletRequest request, HttpServletResponse response) {
+        return "newloginuser";
+
+    }
 
 
     /**
@@ -99,8 +105,13 @@ public class PageJumpController {
             case 9:
                 //客户查询
                 return "errorNewGp404";
-
-
+            case 10:
+                //系统用户
+                return "list_loginuser";
+            case 11:
+                //没有权限的用户跳转
+                return "list_intention_client_noauth";
+            
             default:
                 return "error404";
 
@@ -137,5 +148,5 @@ public class PageJumpController {
 
         return "success";
     }
-     
+
 }

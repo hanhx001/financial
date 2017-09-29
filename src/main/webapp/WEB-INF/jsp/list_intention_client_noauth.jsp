@@ -182,33 +182,11 @@ body {
 		<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
 			<div class="am-offcanvas-bar admin-offcanvas-bar">
 				<ul class="am-list admin-sidebar-list">
-					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=1"><span
-							class="am-icon-bar-chart-o am-icon-sm"></span> 持仓</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=2"><span
-							class="am-icon-line-chart am-icon-sm"></span> 止盈</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=3"><span
-							class="am-icon-area-chart am-icon-sm"></span> 止损</a></li>
-					<li><a
+					
+					<li class="active"><a
 						href="${pageContext.request.contextPath}/navigation?page=4"><span
 							class="am-icon-star-half-o am-icon-sm"></span> 意向客户</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=5"><span
-							class="am-icon-star am-icon-sm"></span> 合作客户</a></li>
-					<li class="active"><a
-						href="${pageContext.request.contextPath}/navigation?page=6"><span
-							class="am-icon-bell-slash am-icon-sm"></span> 黑名单</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=7"><span
-							class="am-icon-fire am-icon-sm"></span> 回款管理</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/navigation?page=8"><span
-							class="am-icon-search am-icon-sm"></span> 客户查询</a></li>
-							<li><a
-						href="${pageContext.request.contextPath}/navigation?page=10"><span
-							class="am-icon-user-plus am-icon-sm"></span> 系统用户</a></li>
+					
 				</ul>
 			</div>
 		</div>
@@ -219,8 +197,10 @@ body {
 			<div class="admin-content-body">
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
-						<strong class="am-text-primary am-text-lg">黑名单数据</strong>
+						<strong class="am-text-primary am-text-lg"><a href="${pageContext.request.contextPath}/addUserinfoUi"><span
+								class="am-icon-edit"></span> 新建客户</a></strong>
 					</div>
+					 
 					<div class="am-fr am-cf"></div>
 				</div>
 				<hr>
@@ -246,6 +226,10 @@ body {
 							</div>
 						</div>
 					</div>
+					
+					
+					
+					
 					<div class="am-u-sm-12 am-u-md-3">
 						<div class="am-input-group am-input-group-sm">
 							<input type="text" class="am-form-field" id="keyword"
@@ -266,10 +250,10 @@ body {
 								<thead>
 									<tr>
 										<th>序号</th>
-										<th class="table-phone">拉黑日期</th>
+										<th class="table-phone">创建日期</th>
 										<th class="table-weixin">客户名称</th>
 										<th class="table-set">客户电话</th>
-										<th class="table-set">拉黑备注</th>
+										<th class="table-set">备注</th>
 										<th class="table-set">客户经理</th>
 										<th class="table-set thcolor">操作</th>
 									</tr>
@@ -316,7 +300,7 @@ body {
 			$("#pager").click(
 					function() {
 						initData($('#my-startDate').text(), $('#my-endDate')
-								.text(), $("#keyword").val(), "4",
+								.text(), $("#keyword").val(), "1",
 								$(".current").text());
 
 					});
@@ -341,7 +325,7 @@ body {
 						if ($('#my-startDate').text() != ""
 								&& $('#my-endDate').text() != "") {
 							initData($('#my-startDate').text(),
-									$('#my-endDate').text(), "", "4", 1);
+									$('#my-endDate').text(), "", "1", 1);
 
 						}
 						$(this).datepicker('close');
@@ -363,7 +347,7 @@ body {
 								&& $('#my-endDate').text() != "") {
 
 							initData($('#my-startDate').text(),
-									$('#my-endDate').text(), "", "4", 1);
+									$('#my-endDate').text(), "", "1", 1);
 
 						}
 						$(this).datepicker('close');
@@ -372,7 +356,7 @@ body {
 
 			// 点击左侧菜单默认加载当前天的数据
 			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
-					"#keyword").val(), "4", "1");
+					"#keyword").val(), "1", "1");
 		});
 	<%-- 
 			初始化数据
@@ -463,11 +447,11 @@ body {
 		// 页面模糊搜索
 		function keyword() {
 			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
-					"#keyword").val(), "4", 1);
+					"#keyword").val(), "1", 1);
 		}
 
 		initData($('#my-startDate').text(), $('#my-endDate').text(), $(
-				"#keyword").val(), "4", 1);
+				"#keyword").val(), "1", 1);
 	</script>
 </body>
 </html>

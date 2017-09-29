@@ -138,12 +138,12 @@ body {
 	border-color: transparent;
 }
 
-.cleanUser, .codeDetail {
+.cleanUser ,.codeDetail{
 	cursor: pointer;
 }
 
 .thcolor {
-	color: #1E90FF;
+	color:#1E90FF;
 }
 </style>
 	<header class="am-topbar am-topbar-inverse admin-header">
@@ -182,10 +182,10 @@ body {
 		<div class="admin-sidebar am-offcanvas" id="admin-offcanvas">
 			<div class="am-offcanvas-bar admin-offcanvas-bar">
 				<ul class="am-list admin-sidebar-list">
-					<li><a
+					<li ><a
 						href="${pageContext.request.contextPath}/navigation?page=1"><span
 							class="am-icon-bar-chart-o am-icon-sm"></span> 持仓</a></li>
-					<li><a
+					<li ><a
 						href="${pageContext.request.contextPath}/navigation?page=2"><span
 							class="am-icon-line-chart am-icon-sm"></span> 止盈</a></li>
 					<li><a
@@ -197,7 +197,7 @@ body {
 					<li><a
 						href="${pageContext.request.contextPath}/navigation?page=5"><span
 							class="am-icon-star am-icon-sm"></span> 合作客户</a></li>
-					<li class="active"><a
+					<li><a
 						href="${pageContext.request.contextPath}/navigation?page=6"><span
 							class="am-icon-bell-slash am-icon-sm"></span> 黑名单</a></li>
 					<li><a
@@ -206,7 +206,7 @@ body {
 					<li><a
 						href="${pageContext.request.contextPath}/navigation?page=8"><span
 							class="am-icon-search am-icon-sm"></span> 客户查询</a></li>
-							<li><a
+				<li class="active"><a
 						href="${pageContext.request.contextPath}/navigation?page=10"><span
 							class="am-icon-user-plus am-icon-sm"></span> 系统用户</a></li>
 				</ul>
@@ -219,7 +219,9 @@ body {
 			<div class="admin-content-body">
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
-						<strong class="am-text-primary am-text-lg">黑名单数据</strong>
+						<strong class="am-text-primary am-text-lg"><a
+							href="${pageContext.request.contextPath}/addloginUserUi"><span
+								class="am-icon-edit"></span> 新建登陆用户</a></strong>
 					</div>
 					<div class="am-fr am-cf"></div>
 				</div>
@@ -266,11 +268,13 @@ body {
 								<thead>
 									<tr>
 										<th>序号</th>
-										<th class="table-phone">拉黑日期</th>
-										<th class="table-weixin">客户名称</th>
-										<th class="table-set">客户电话</th>
-										<th class="table-set">拉黑备注</th>
-										<th class="table-set">客户经理</th>
+										<th class="table-phone">创建时间</th>
+										<th class="table-weixin">登录名</th>
+										<th class="table-set">人员名称</th>
+										<th class="table-set">人员权限</th>
+										<th class="table-set">人员状态</th>
+										<th class="table-author">备注</th>
+										 
 										<th class="table-set thcolor">操作</th>
 									</tr>
 								</thead>
@@ -316,8 +320,8 @@ body {
 			$("#pager").click(
 					function() {
 						initData($('#my-startDate').text(), $('#my-endDate')
-								.text(), $("#keyword").val(), "4",
-								$(".current").text());
+								.text(), $("#keyword").val(), $(
+								".current").text());
 
 					});
 			// ------------------ 时间控件处理 开始  --------------------------
@@ -341,7 +345,7 @@ body {
 						if ($('#my-startDate').text() != ""
 								&& $('#my-endDate').text() != "") {
 							initData($('#my-startDate').text(),
-									$('#my-endDate').text(), "", "4", 1);
+									$('#my-endDate').text(), "", 1);
 
 						}
 						$(this).datepicker('close');
@@ -363,7 +367,7 @@ body {
 								&& $('#my-endDate').text() != "") {
 
 							initData($('#my-startDate').text(),
-									$('#my-endDate').text(), "", "4", 1);
+									$('#my-endDate').text(), "", 1);
 
 						}
 						$(this).datepicker('close');
@@ -372,7 +376,7 @@ body {
 
 			// 点击左侧菜单默认加载当前天的数据
 			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
-					"#keyword").val(), "4", "1");
+					"#keyword").val(),  "1");
 		});
 	<%-- 
 			初始化数据
@@ -382,16 +386,16 @@ body {
 			flag      持仓状态
 			sort      排序
 		--%>
-		function initData(startDate, endDate, keyWord, state, pageNum) {
+		function initData(startDate, endDate, keyWord, pageNum) {
 			$
 					.ajax({
 						type : "POST",
-						url : "./getUserinfoList",
+						url : "./getLoginUserDatas",
 						data : {
 							"startDate" : startDate,
 							"endDate" : endDate,
 							"keyWord" : keyWord,
-							"state" : state,
+							 
 							"pageNum" : pageNum
 						},
 						dataType : "json",
@@ -406,27 +410,48 @@ body {
 									for (var i = 0; i < data.list.length; i++) {
 
 										html += '<tr data-id='+data.list[i].id+'>';
+										html += '<td>' + (50*(pageNum-1)+i+1) + '</td>';
 										html += '<td>'
-												+ (50 * (pageNum - 1) + i + 1)
+												+ data.list[i].createtime
 												+ '</td>';
+										html += '<td class="codeDetail"><a title="查看人员">' + data.list[i].loginname
+												+ '</a></td>';
 										html += '<td>'
-												+ data.list[i].updatetime
+												+ data.list[i].username
 												+ '</td>';
 
-										html += '<td>' + data.list[i].customer
-												+ '</td>'
+										html += ' <td>'  
+															 
+															if (data.list[i].author == 0) {
+																html += "普通";
+															} else if (data.list[i].author == 1) {
+																html += "超级";
+															} else {
+																html += "";
+															}		
+															
+															
+															'</td>';
+									  html += ' <td>'   
+															  
+									  if (data.list[i].state == 0) {
+											html += "正常";
+										} else if (data.list[i].state == 1) {
+											html += "停用";
+										} else {
+											html += "";
+										}		
+										
+									  
+									  '</td>';
 
-										html += ' <td>' + data.list[i].phone
+										html += ' <td>' + data.list[i].common
 												+ '</td>';
-
-										html += ' <td>' + data.list[i].comment
-												+ '</td>';
-										html += ' <td>' + data.list[i].manager
-												+ '</td>';
-
-										html += ' <td><button  class="am-btn am-btn-default am-icon-cog  modifyById" ></button> </td>';
+ 
+												html += ' <td><button  class="am-btn am-btn-default am-icon-cog  modifyById" ></button> </td>';
 										html += '</tr>';
 									}
+
 								} else {
 									html = "<tr><td colspan='12'style='  text-align: center;'> 暂无数据！</td></tr>";
 								}
@@ -442,20 +467,22 @@ body {
 								});
 							}
 							$(".statc_list").html(html);
-
-							$(".modifyById")
-									.click(
-											function() {
-
-												var dataid = $(this).parent()
-														.parent().attr(
-																"data-id");
-												//navigation 为1代表是查看详情界面，为2是更新界面
-												window
-														.open("${pageContext.request.contextPath}/getOneUserInfoDetail?navigation=2&id="
-																+ dataid);
-											});
-
+							
+							// 点击股票代码查看详情
+							$(".codeDetail").click(function(){
+								
+								var dataid=$(this).parent().attr("data-id");
+								//navigation 为1代表是查看详情界面，为2是更新界面
+								window.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=1&id="+dataid);
+							});
+							
+							$(".modifyById").click(function(){
+								
+								var dataid=$(this).parent().parent().attr("data-id");
+								//navigation 为1代表是查看详情界面，为2是更新界面
+								window.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=2&id="+dataid);
+							});
+							
 							$(".admin-content").scrollTop(0);
 						}
 					});
@@ -463,11 +490,10 @@ body {
 		// 页面模糊搜索
 		function keyword() {
 			initData($('#my-startDate').text(), $('#my-endDate').text(), $(
-					"#keyword").val(), "4", 1);
+					"#keyword").val(),  1);
 		}
 
-		initData($('#my-startDate').text(), $('#my-endDate').text(), $(
-				"#keyword").val(), "4", 1);
+		
 	</script>
 </body>
 </html>

@@ -206,6 +206,9 @@ body {
 					<li class="active"><a
 						href="${pageContext.request.contextPath}/navigation?page=8"><span
 							class="am-icon-search am-icon-sm"></span> 客户查询</a></li>
+							<li  ><a
+						href="${pageContext.request.contextPath}/navigation?page=10"><span
+							class="am-icon-user-plus am-icon-sm"></span> 系统用户</a></li>
 				</ul>
 			</div>
 		</div>

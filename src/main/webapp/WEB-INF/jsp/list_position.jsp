@@ -138,12 +138,12 @@ body {
 	border-color: transparent;
 }
 
-.cleanUser ,.codeDetail{
+.cleanUser, .codeDetail {
 	cursor: pointer;
 }
 
 .thcolor {
-	color:#1E90FF;
+	color: #1E90FF;
 }
 </style>
 	<header class="am-topbar am-topbar-inverse admin-header">
@@ -206,6 +206,9 @@ body {
 					<li><a
 						href="${pageContext.request.contextPath}/navigation?page=8"><span
 							class="am-icon-search am-icon-sm"></span> 客户查询</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/navigation?page=10"><span
+							class="am-icon-user-plus am-icon-sm"></span> 系统用户</a></li>
 				</ul>
 			</div>
 		</div>
@@ -216,7 +219,8 @@ body {
 			<div class="admin-content-body">
 				<div class="am-cf am-padding am-padding-bottom-0">
 					<div class="am-fl am-cf">
-						<strong class="am-text-primary am-text-lg"><a href="${pageContext.request.contextPath}/addShares" ><span
+						<strong class="am-text-primary am-text-lg"><a
+							href="${pageContext.request.contextPath}/addShares"><span
 								class="am-icon-edit"></span> 新建股票</a></strong>
 					</div>
 					<div class="am-fr am-cf"></div>
@@ -283,7 +287,7 @@ body {
 										</a> 总盈亏率</th>
 										<th class="table-set thcolor">操作</th>
 									</tr>
-									 
+
 								</thead>
 								<tbody class="statc_list">
 								</tbody>
@@ -418,17 +422,20 @@ body {
 									for (var i = 0; i < data.list.length; i++) {
 
 										html += '<tr data-id='+data.list[i].id+'>';
-										html += '<td>' + (50*(pageNum-1)+i+1) + '</td>';
+										html += '<td>'
+												+ (50 * (pageNum - 1) + i + 1)
+												+ '</td>';
 										html += '<td>'
 												+ data.list[i].createtime
 												+ '</td>';
-										html += '<td class="codeDetail"><a title="查看股票详情">' + data.list[i].code
+										html += '<td class="codeDetail"><a title="查看股票详情">'
+												+ data.list[i].code
 												+ '</a></td>';
 										html += '<td>'
 												+ data.list[i].sharseName
 												+ '</td>';
 
-									html += ' <td>' + data.list[i].manager
+										html += ' <td>' + data.list[i].manager
 												+ '</td>';
 										html += ' <td>' + data.list[i].num
 												+ '</td>';
@@ -447,11 +454,12 @@ body {
 												+ '</td>';
 										html += ' <td>' + data.list[i].percent
 												+ '</td>';
-												html += ' <td><button  class="am-btn am-btn-default am-icon-cog  modifyById" ></button> </td>';
+										html += ' <td><button  class="am-btn am-btn-default am-icon-cog  modifyById" ></button> </td>';
 										html += '</tr>';
 
 									}
-									html += "<tr><td colspan='12'style='  text-align: left;'>总建仓量："+data.totalCount+"</td></tr>";
+									html += "<tr><td colspan='12'style='  text-align: left;'>总建仓量："
+											+ data.totalCount + "</td></tr>";
 
 								} else {
 									html = "<tr><td colspan='12'style='  text-align: center;'> 暂无数据！</td></tr>";
@@ -468,22 +476,33 @@ body {
 								});
 							}
 							$(".statc_list").html(html);
-							
+
 							// 点击股票代码查看详情
-							$(".codeDetail").click(function(){
-								
-								var dataid=$(this).parent().attr("data-id");
-								//navigation 为1代表是查看详情界面，为2是更新界面
-								window.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=1&id="+dataid);
-							});
-							
-							$(".modifyById").click(function(){
-								
-								var dataid=$(this).parent().parent().attr("data-id");
-								//navigation 为1代表是查看详情界面，为2是更新界面
-								window.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=2&id="+dataid);
-							});
-							
+							$(".codeDetail")
+									.click(
+											function() {
+
+												var dataid = $(this).parent()
+														.attr("data-id");
+												//navigation 为1代表是查看详情界面，为2是更新界面
+												window
+														.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=1&id="
+																+ dataid);
+											});
+
+							$(".modifyById")
+									.click(
+											function() {
+
+												var dataid = $(this).parent()
+														.parent().attr(
+																"data-id");
+												//navigation 为1代表是查看详情界面，为2是更新界面
+												window
+														.open("${pageContext.request.contextPath}/getOneSharesDetail?navigation=2&id="
+																+ dataid);
+											});
+
 							$(".admin-content").scrollTop(0);
 						}
 					});
