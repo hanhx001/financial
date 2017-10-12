@@ -3,6 +3,7 @@
  */
 package com.iboyaa.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -11,6 +12,7 @@ import org.joda.time.DateTime;
 import org.springframework.stereotype.Service;
 
 import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.dialect.AbstractDialect;
 import com.iboyaa.dao.loginUserDao;
 import com.iboyaa.pojo.SharesInfo;
 import com.iboyaa.pojo.loginUser;
@@ -38,7 +40,22 @@ public class ILoginUserServiceImpl implements ILoginUserService {
     @Override
     public int insertSelective(loginUser record) {
         // TODO Auto-generated method stub
-        return loginUserDao.insertSelective(record);
+        
+        loginUser alreadyData =  loginUserDao.userlogin(record.getUsername(), record.getPassword());
+        
+        if(null == alreadyData) {
+            return loginUserDao.insertSelective(record);
+        }else {
+            alreadyData.setAuthor(record.getAuthor());
+            alreadyData.setCommon(record.getCommon());
+            alreadyData.setLoginname(record.getUsername());
+            alreadyData.setPassword(record.getPassword());
+            alreadyData.setUpdatetime(new Date());
+            alreadyData.setUsername(record.getUsername());
+            return loginUserDao.updateByPrimaryKey(alreadyData);
+        }
+        
+       
     }
 
     /* (non-Javadoc)
@@ -85,6 +102,12 @@ public class ILoginUserServiceImpl implements ILoginUserService {
         pageInfo.setTotal(totalNum) ;
         
         return pageInfo;
+    }
+
+    @Override
+    public loginUser login(String username, String password) {
+       
+        return loginUserDao.userlogin(username, password);
     }
 
 }

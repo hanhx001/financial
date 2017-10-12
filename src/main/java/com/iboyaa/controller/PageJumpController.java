@@ -111,6 +111,9 @@ public class PageJumpController {
             case 11:
                 //没有权限的用户跳转
                 return "list_intention_client_noauth";
+            case 12:
+                //没有权限的用户跳转
+                return "index";
             
             default:
                 return "error404";

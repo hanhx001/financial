@@ -6,6 +6,7 @@ package com.iboyaa.controller;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,6 +21,7 @@ import com.iboyaa.dao.loginUserDao;
 import com.iboyaa.pojo.loginUser;
 import com.iboyaa.service.ILoginUserService;
 import com.iboyaa.util.CommonCode;
+import com.iboyaa.util.MD5Util;
 
 /**
  * 登陆用户管理
@@ -46,7 +48,7 @@ public class LoginUserController {
      * @version 2017年9月29日  下午2:42:53
      */
     @RequestMapping(value = "/addLoginUser", method = RequestMethod.POST)
-    
+
     public ModelAndView addLoginUser(
             @RequestParam(value = "loginname", required = true, defaultValue = "") String loginname,
             @RequestParam(value = "username", required = true, defaultValue = "") String username,
@@ -54,15 +56,16 @@ public class LoginUserController {
             @RequestParam(value = "author", required = true, defaultValue = "") String author,
             @RequestParam(value = "common", required = true, defaultValue = "") String common,
             HttpServletRequest request, HttpServletResponse response) {
-       
+
         // 权限字符转换
         Integer authNum = 0;
-        if("ON" .equalsIgnoreCase(author)) {
+        if ("ON".equalsIgnoreCase(author)) {
             authNum = 1;
         }
         // 初始化构造函数
-        loginUser loginUser = new loginUser(loginname, username, password, authNum, common);
-        
+        loginUser loginUser =
+                new loginUser(loginname, username, MD5Util.convertMD5(password), authNum, common);
+
         //持久化数据
         loginUserService.insertSelective(loginUser);
 
@@ -81,6 +84,41 @@ public class LoginUserController {
 
         return JSON.toJSONString(
                 loginUserService.getLoginUserInfoByCondition(startDate, endDate, keyWord, pageNum,
-                        CommonCode.PAGESIZE),SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty);
+                        CommonCode.PAGESIZE),
+                SerializerFeature.WriteMapNullValue, SerializerFeature.WriteNullStringAsEmpty);
+    }
+
+    /**
+     * 用户登录
+     * @param username
+     * @param password
+     * @param request
+     * @param response
+     * @return
+     * @author 清水贤人
+     * @version 2017年10月11日  下午5:01:24
+     */
+    @RequestMapping(value = "/loginloading", method = RequestMethod.POST)
+    public ModelAndView loginloading(
+            @RequestParam(value = "username", required = true, defaultValue = "") String username,
+            @RequestParam(value = "password", required = true, defaultValue = "") String password,
+            HttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {
+
+        loginUser userData = loginUserService.login(username, MD5Util.convertMD5(password));
+
+        if(null == userData) {
+            return new ModelAndView("redirect:/navigation?page=12");
+        }
+        
+        httpSession.setAttribute("username", userData.getUsername());
+        httpSession.setAttribute("author", userData.getAuthor());
+        
+        if (0==userData.getAuthor()) {
+            return new ModelAndView("redirect:/navigation?page=11");
+        }
+        
+        return new ModelAndView("redirect:/navigation?page=1");
+
+
     }
 }

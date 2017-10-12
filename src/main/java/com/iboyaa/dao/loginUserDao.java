@@ -26,4 +26,6 @@ public interface loginUserDao {
     List<loginUser> getLoginUserInfoByCondition(@Param("startDate") String startDate,
             @Param("endDate") String endDate, @Param("keyWord") String keyWord
             );
+    
+    loginUser userlogin( @Param("username")String username, @Param("password")String password);
 }

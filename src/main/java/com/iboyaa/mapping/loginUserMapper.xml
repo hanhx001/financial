@@ -1,145 +1,159 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.iboyaa.dao.loginUserDao" >
-  <resultMap id="BaseResultMap" type="com.iboyaa.pojo.loginUser" >
-    <id column="id" property="id" jdbcType="INTEGER" />
-    <result column="loginname" property="loginname" jdbcType="VARCHAR" />
-    <result column="username" property="username" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="author" property="author" jdbcType="INTEGER" />
-    <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="common" property="common" jdbcType="VARCHAR" />
-    <result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
-    <result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, loginname, username, password, author, state, common, createtime, updatetime
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select 
-    <include refid="Base_Column_List" />
-    from loginuser
-    where id = #{id,jdbcType=INTEGER}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
-    delete from loginuser
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.iboyaa.pojo.loginUser" >
-    insert into loginuser (id, loginname, username, 
-      password, author, state, 
-      common, createtime, updatetime
-      )
-    values (#{id,jdbcType=INTEGER}, #{loginname,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{author,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
-      #{common,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.iboyaa.pojo.loginUser" >
-    insert into loginuser
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="loginname != null" >
-        loginname,
-      </if>
-      <if test="username != null" >
-        username,
-      </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="author != null" >
-        author,
-      </if>
-      <if test="state != null" >
-        state,
-      </if>
-      <if test="common != null" >
-        common,
-      </if>
-      <if test="createtime != null" >
-        createtime,
-      </if>
-      <if test="updatetime != null" >
-        updatetime,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="loginname != null" >
-        #{loginname,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null" >
-        #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="author != null" >
-        #{author,jdbcType=INTEGER},
-      </if>
-      <if test="state != null" >
-        #{state,jdbcType=INTEGER},
-      </if>
-      <if test="common != null" >
-        #{common,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null" >
-        #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatetime != null" >
-        #{updatetime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.iboyaa.pojo.loginUser" >
-    update loginuser
-    <set >
-      <if test="loginname != null" >
-        loginname = #{loginname,jdbcType=VARCHAR},
-      </if>
-      <if test="username != null" >
-        username = #{username,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="author != null" >
-        author = #{author,jdbcType=INTEGER},
-      </if>
-      <if test="state != null" >
-        state = #{state,jdbcType=INTEGER},
-      </if>
-      <if test="common != null" >
-        common = #{common,jdbcType=VARCHAR},
-      </if>
-      <if test="createtime != null" >
-        createtime = #{createtime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="updatetime != null" >
-        updatetime = #{updatetime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.iboyaa.pojo.loginUser" >
-    update loginuser
-    set loginname = #{loginname,jdbcType=VARCHAR},
-      username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      author = #{author,jdbcType=INTEGER},
-      state = #{state,jdbcType=INTEGER},
-      common = #{common,jdbcType=VARCHAR},
-      createtime = #{createtime,jdbcType=TIMESTAMP},
-      updatetime = #{updatetime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  
-  <!-- 查询用户数据，多条件 -->
+<mapper namespace="com.iboyaa.dao.loginUserDao">
+	<resultMap id="BaseResultMap" type="com.iboyaa.pojo.loginUser">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="loginname" property="loginname" jdbcType="VARCHAR" />
+		<result column="username" property="username" jdbcType="VARCHAR" />
+		<result column="password" property="password" jdbcType="VARCHAR" />
+		<result column="author" property="author" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="common" property="common" jdbcType="VARCHAR" />
+		<result column="createtime" property="createtime" jdbcType="TIMESTAMP" />
+		<result column="updatetime" property="updatetime" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<sql id="Base_Column_List">
+		id, loginname, username, password, author, state, common,
+		createtime,
+		updatetime
+	</sql>
+	<select id="selectByPrimaryKey" resultMap="BaseResultMap"
+		parameterType="java.lang.Integer">
+		select
+		<include refid="Base_Column_List" />
+		from loginuser
+		where id = #{id,jdbcType=INTEGER}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+		delete from
+		loginuser
+		where id = #{id,jdbcType=INTEGER}
+	</delete>
+	<insert id="insert" parameterType="com.iboyaa.pojo.loginUser">
+		insert into loginuser (id,
+		loginname, username,
+		password, author, state,
+		common, createtime,
+		updatetime
+		)
+		values (#{id,jdbcType=INTEGER},
+		#{loginname,jdbcType=VARCHAR},
+		#{username,jdbcType=VARCHAR},
+		#{password,jdbcType=VARCHAR}, #{author,jdbcType=INTEGER},
+		#{state,jdbcType=INTEGER},
+		#{common,jdbcType=VARCHAR},
+		#{createtime,jdbcType=TIMESTAMP},
+		#{updatetime,jdbcType=TIMESTAMP}
+		)
+	</insert>
+	<insert id="insertSelective" parameterType="com.iboyaa.pojo.loginUser">
+		insert into loginuser
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				id,
+			</if>
+			<if test="loginname != null">
+				loginname,
+			</if>
+			<if test="username != null">
+				username,
+			</if>
+			<if test="password != null">
+				password,
+			</if>
+			<if test="author != null">
+				author,
+			</if>
+			<if test="state != null">
+				state,
+			</if>
+			<if test="common != null">
+				common,
+			</if>
+			<if test="createtime != null">
+				createtime,
+			</if>
+			<if test="updatetime != null">
+				updatetime,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null">
+				#{id,jdbcType=INTEGER},
+			</if>
+			<if test="loginname != null">
+				#{loginname,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				#{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				#{password,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				#{author,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+			<if test="common != null">
+				#{common,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				#{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				#{updatetime,jdbcType=TIMESTAMP},
+			</if>
+		</trim>
+	</insert>
+	<update id="updateByPrimaryKeySelective" parameterType="com.iboyaa.pojo.loginUser">
+		update loginuser
+		<set>
+			<if test="loginname != null">
+				loginname = #{loginname,jdbcType=VARCHAR},
+			</if>
+			<if test="username != null">
+				username = #{username,jdbcType=VARCHAR},
+			</if>
+			<if test="password != null">
+				password = #{password,jdbcType=VARCHAR},
+			</if>
+			<if test="author != null">
+				author = #{author,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				state = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="common != null">
+				common = #{common,jdbcType=VARCHAR},
+			</if>
+			<if test="createtime != null">
+				createtime = #{createtime,jdbcType=TIMESTAMP},
+			</if>
+			<if test="updatetime != null">
+				updatetime = #{updatetime,jdbcType=TIMESTAMP},
+			</if>
+		</set>
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.iboyaa.pojo.loginUser">
+		update loginuser
+		set loginname = #{loginname,jdbcType=VARCHAR},
+		username =
+		#{username,jdbcType=VARCHAR},
+		password = #{password,jdbcType=VARCHAR},
+		author = #{author,jdbcType=INTEGER},
+		state = #{state,jdbcType=INTEGER},
+		common = #{common,jdbcType=VARCHAR},
+		createtime =
+		#{createtime,jdbcType=TIMESTAMP},
+		updatetime =
+		#{updatetime,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=INTEGER}
+	</update>
+
+	<!-- 查询用户数据，多条件 -->
 	<select id="getLoginUserInfoByCondition" resultMap="BaseResultMap"
 		parameterType="com.iboyaa.pojo.loginUser">
 		<bind name="pattern" value="'%' + keyWord + '%'" />
@@ -147,7 +161,7 @@
 		<include refid="Base_Column_List" />
 		from loginuser
 		<where>
-			 
+
 			<if test="startDate != null or endDate !=null ">
 				and DATE_FORMAT(updatetime, '%Y-%m-%d')
 				between
@@ -161,10 +175,39 @@
 				IFNULL(loginname,''),
 				IFNULL(username,''),
 				IFNULL(common,'')
-				 
+
 				) LIKE
 				#{pattern}
 			</if>
+
+			<if test="username != null and username !='' ">
+				and username = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="password != null and password !='' ">
+				and password = #{password,jdbcType=VARCHAR}
+			</if>
+
+		</where>
+
+	</select>
+
+
+
+	<!-- 登陆查询 -->
+	<select id="userlogin" resultMap="BaseResultMap" parameterType="com.iboyaa.pojo.loginUser">
+
+		select
+		<include refid="Base_Column_List" />
+		from loginuser
+		<where>
+
+			<if test="username != null and username !='' ">
+				and username = #{username,jdbcType=VARCHAR}
+			</if>
+			<if test="password != null and password !='' ">
+				and password = #{password,jdbcType=VARCHAR}
+			</if>
+
 		</where>
 
 	</select>

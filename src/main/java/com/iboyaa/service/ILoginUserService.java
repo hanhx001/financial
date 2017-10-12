@@ -26,5 +26,5 @@ public interface ILoginUserService {
     PageInfo<loginUser> getLoginUserInfoByCondition(String startDate, String endDate,
             String keyWord, Integer pageNum, Integer pageSize);
 
-
+    loginUser login(String username,String password);
 }
