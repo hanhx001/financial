@@ -55,8 +55,8 @@ public class SharesInfo implements Serializable {
 
     private Integer customId;//客户ID
 
-    private String daypercent;
-    private String percent;
+    private Double daypercent;
+    private Double percent;
 
     private String updatetime2String;//更新时间字符串格式化
 
@@ -194,22 +194,21 @@ public class SharesInfo implements Serializable {
     }
 
 
-    public String getDaypercent() {
+    public Double getDaypercent() {
         return daypercent;
     }
 
-    public void setDaypercent(String daypercent) {
+    public void setDaypercent(Double daypercent) {
         this.daypercent = daypercent;
     }
 
-    public String getPercent() {
+    public Double getPercent() {
         return percent;
     }
 
-    public void setPercent(String percent) {
+    public void setPercent(Double percent) {
         this.percent = percent;
     }
-
 
     public Integer getCustomId() {
         return customId;

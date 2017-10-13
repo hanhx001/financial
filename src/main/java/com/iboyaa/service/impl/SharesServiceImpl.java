@@ -146,4 +146,10 @@ public class SharesServiceImpl implements ISharesService {
         return pageInfo;
     }
 
+    @Override
+    public List<SharesInfo> getAllpreData(String flag) {
+        // TODO Auto-generated method stub
+        return sharesDao.getAllpreData(flag);
+    }
+
 }

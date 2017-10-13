@@ -102,7 +102,7 @@
 			<if test="updatetime != null">
 				updatetime,
 			</if>
-			<if test="customId != null"> 
+			<if test="customId != null">
 				customId,
 			</if>
 		</trim>
@@ -265,6 +265,23 @@
 			ORDER BY daypercent DESC
 		</if>
 	</select>
+
+
+
+
+	<!-- 查询不同持仓状态数据，主要用于更新新浪股票数据 -->
+	<select id="getAllpreData" resultMap="BaseResultMap"
+		parameterType="com.iboyaa.pojo.SharesInfo">
+		select
+		<include refid="Base_Column_List" />
+		from sharesinfo
+		<where>
+			<if test="position != null">
+				and position = #{position,jdbcType=INTEGER}
+			</if>
+		</where>
+	</select>
+
 
 
 </mapper>

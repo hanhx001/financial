@@ -73,5 +73,5 @@ public interface ISharesService {
     PageInfo getSharesDataByCondition(String startDate, String endDate, String keyWord, String flag,
             String sort, Integer pageNum, Integer pageSize);
 
-
+    List<SharesInfo> getAllpreData(String flag);
 }

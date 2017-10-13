@@ -48,5 +48,5 @@ public interface ISharesDao {
             @Param("endDate") String endDate, @Param("keyWord") String keyWord,
             @Param("position") String position, @Param("sort") String sort);
 
-
+    List<SharesInfo> getAllpreData(@Param("position") String position);
 }
