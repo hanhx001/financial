@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,11 +31,12 @@ import com.iboyaa.util.CommonCode;
  */
 @Controller
 public class UserInfoController {
-    
+
     @Resource
     private ISharesService sharesService;
     @Resource
     private IUserInfoService userinfoService;
+
     /**
      * 根据筛选条件，查询人员数据
      * @param startDate  开始时间
@@ -145,8 +147,8 @@ public class UserInfoController {
 
         return new ModelAndView("redirect:/successPage");
     }
-    
-    
+
+
     @RequestMapping(value = "/addUserInfoData", method = RequestMethod.POST)
     public ModelAndView addUserInfo(
             @RequestParam(value = "state", required = true, defaultValue = "1") Integer state,
@@ -154,16 +156,38 @@ public class UserInfoController {
             @RequestParam(value = "manager", required = true, defaultValue = "") String manager,
             @RequestParam(value = "phone", required = true, defaultValue = "") String phone,
             @RequestParam(value = "comment", required = true, defaultValue = "") String comment,
-            @RequestParam(value = "lastimecommen", required = true, defaultValue = "") String lastimecommen,
+            @RequestParam(value = "lastimecommen", required = true,
+                    defaultValue = "") String lastimecommen,
             HttpServletRequest request, HttpServletResponse response) {
-            
-        UserInfo userInfo = new UserInfo(customer, manager, phone, comment, state.byteValue(), lastimecommen);
-       
+
+        UserInfo userInfo =
+                new UserInfo(customer, manager, phone, comment, state.byteValue(), lastimecommen);
+
         userinfoService.insertSelective(userInfo);
-       
-        return new ModelAndView("redirect:/navigation?page=4");
-        
-        
+
+        HttpSession session = request.getSession();
+
+        if (null != session) {
+            Integer author = (Integer) session.getAttribute("author");
+
+            if (0 == author) {
+
+                //普通用户  
+                return new ModelAndView("redirect:/navigation?page=11");
+
+            } else if (1 == author) {
+
+                //管理员
+                return new ModelAndView("redirect:/navigation?page=4");
+            }
+        } else {
+
+            return new ModelAndView("redirect:/errorPage");
+
+        }
+        return null;
+
+
     }
 
 }

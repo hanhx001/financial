@@ -108,9 +108,9 @@ public class loginUser {
         this.password = password;
         this.author = author;
         this.common = common;
-        this.updatetime=new Date();
-        this.createtime=new Date();
+        this.updatetime = new Date();
+        this.createtime = new Date();
     }
-    
-    
+
+
 }

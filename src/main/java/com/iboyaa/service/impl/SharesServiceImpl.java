@@ -116,20 +116,20 @@ public class SharesServiceImpl implements ISharesService {
             endDate = nowTime.toString("yyyy-MM-dd");
         }
         //查询返回数据
-        List <SharesInfo> dataWithPage = sharesDao.getSharesDataByCondition(startDate, endDate, keyWord, flag,
-                sort, pageNum, pageSize);
-        
+        List<SharesInfo> dataWithPage = sharesDao.getSharesDataByCondition(startDate, endDate,
+                keyWord, flag, sort, pageNum, pageSize);
+
         //用来存储 股票总金额
         double totalCount = 0;
-       
-        if(dataWithPage.size()>0) {
-            
-            for(SharesInfo  sharesInfo: dataWithPage) {
-                totalCount+=sharesInfo.getTotalPrice();
-                
+
+        if (dataWithPage.size() > 0) {
+
+            for (SharesInfo sharesInfo : dataWithPage) {
+                totalCount += sharesInfo.getTotalPrice();
+
             }
         }
-        
+
         Integer totalNum =
                 sharesDao.getSharesDataByCondition(startDate, endDate, keyWord, flag, sort).size();
 
@@ -138,10 +138,10 @@ public class SharesServiceImpl implements ISharesService {
         pageInfo.setList(dataWithPage);
         pageInfo.setPageNum(pageNum);
         pageInfo.setPageSize(pageSize);
-        pageInfo.setTotal(totalNum) ;
+        pageInfo.setTotal(totalNum);
         // 统计股票价格总和
         pageInfo.setTotalCount(DoubleWith2Point.noForFive(totalCount));
-         
+
 
         return pageInfo;
     }

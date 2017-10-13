@@ -9,6 +9,7 @@ import java.util.Locale;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.joda.time.DateTime;
 import org.springframework.stereotype.Controller;
@@ -69,7 +70,7 @@ public class SharesController {
         String sharseName = sharesService.getSharesName(code);
         if ("failed;".equals(sharseName)) {
 
-             return new ModelAndView("redirect:/navigation?page=9");
+            return new ModelAndView("redirect:/navigation?page=9");
         }
         //初始化人员构造函数
         UserInfo userInfo = new UserInfo(customer, manager, phone);
@@ -163,8 +164,24 @@ public class SharesController {
             return new ModelAndView("redirect:/errorPage");
         }
 
+        //权限判断
+        HttpSession session = request.getSession();
+        Integer author = (Integer) session.getAttribute("author");
 
-        return modelAndView;
+        if (null != author) {
+            if (0 == author) {
+                //普通用户  
+                return new ModelAndView("redirect:/navigation?page=12");
+            } else if (1 == author) {
+                //管理员
+                return modelAndView;
+            } else {
+                return new ModelAndView("redirect:/navigation?page=12");
+            }
+        } else {
+            return new ModelAndView("redirect:/navigation?page=12");
+        }
+
 
 
     }

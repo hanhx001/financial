@@ -56,7 +56,7 @@ public class BackMoneyServiceImpl implements IBackMoneyService {
     @Override
     public PageInfo<BackMoney> getBackMoneyDatas(String startDate, String endDate, String keyWord,
             Integer pageNum, Integer pageSize) {
-        
+
         DateTime nowTime = new DateTime();
 
         //如果时间都为空，则查询当天的数据
@@ -64,18 +64,19 @@ public class BackMoneyServiceImpl implements IBackMoneyService {
             startDate = nowTime.toString("yyyy-MM-dd");
             endDate = nowTime.toString("yyyy-MM-dd");
         }
-        
-        List<BackMoney> backMoneys = backMoneyDao.getBackMoneyDatas(startDate, endDate, keyWord, pageNum, pageSize);
+
+        List<BackMoney> backMoneys =
+                backMoneyDao.getBackMoneyDatas(startDate, endDate, keyWord, pageNum, pageSize);
         Integer totalNum = backMoneyDao.getBackMoneyDatas(startDate, endDate, keyWord).size();
-        
+
 
         //用来存储 股票总金额
         double totalCount = 0;
-       
-        if(backMoneys.size()>0) {
-            
-            for(BackMoney  backMoneyTemp: backMoneys) {
-                totalCount+= backMoneyTemp.getBackmoney();
+
+        if (backMoneys.size() > 0) {
+
+            for (BackMoney backMoneyTemp : backMoneys) {
+                totalCount += backMoneyTemp.getBackmoney();
             }
         }
 
@@ -86,7 +87,7 @@ public class BackMoneyServiceImpl implements IBackMoneyService {
         pageInfo.setPageSize(pageSize);
         pageInfo.setTotal(totalNum);
         pageInfo.setTotalCount(DoubleWith2Point.noForFive(totalCount));
-        
+
         return pageInfo;
     }
 

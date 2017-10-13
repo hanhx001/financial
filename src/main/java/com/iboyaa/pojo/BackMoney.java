@@ -40,9 +40,9 @@ public class BackMoney {
     private Date updatetime;
 
     private String state;
-    
+
     private String updatetime2String;//更新时间字符串格式化
-    
+
     public Integer getId() {
         return id;
     }
@@ -138,7 +138,7 @@ public class BackMoney {
     public void setDevidenum(String devidenum) {
         this.devidenum = devidenum;
     }
- 
+
 
     public Double getBackmoney() {
         return backmoney;
@@ -195,7 +195,7 @@ public class BackMoney {
     public void setState(String state) {
         this.state = state == null ? null : state.trim();
     }
-    
+
     public String getUpdatetime2String() {
         return updatetime2String;
     }
@@ -225,14 +225,14 @@ public class BackMoney {
         this.backbank = backbank;
         this.common = common;
         this.custompercent = custompercent;
-        this.updatetime =new Date();
-        this.createtime= new Date();
+        this.updatetime = new Date();
+        this.createtime = new Date();
     }
 
     public BackMoney() {
         super();
         // TODO Auto-generated constructor stub
     }
-    
-    
+
+
 }

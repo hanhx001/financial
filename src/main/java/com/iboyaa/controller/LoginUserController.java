@@ -106,22 +106,22 @@ public class LoginUserController {
 
         loginUser userData = loginUserService.login(username, MD5Util.convertMD5(password));
 
-        if(null == userData) {
+        if (null == userData) {
             return new ModelAndView("redirect:/navigation?page=12");
         }
-        
+
         httpSession.setAttribute("username", userData.getUsername());
         httpSession.setAttribute("author", userData.getAuthor());
-        
-        if (0==userData.getAuthor()) {
+
+        if (0 == userData.getAuthor()) {
             return new ModelAndView("redirect:/navigation?page=11");
         }
-        
+
         return new ModelAndView("redirect:/navigation?page=1");
 
 
     }
-    
+
     /**
      * 客户端退出
      * @param httpSession
@@ -129,9 +129,9 @@ public class LoginUserController {
      * @author 清水贤人
      * @version 2017年10月13日  上午10:15:53
      */
-    @RequestMapping("/clientLoginOut")  
-    public ModelAndView loginOut(HttpSession httpSession){  
-        httpSession.invalidate();  
+    @RequestMapping("/clientLoginOut")
+    public ModelAndView loginOut(HttpSession httpSession) {
+        httpSession.invalidate();
         return new ModelAndView("redirect:/navigation?page=12");
     }
 }

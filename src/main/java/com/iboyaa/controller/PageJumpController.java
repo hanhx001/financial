@@ -48,7 +48,7 @@ public class PageJumpController {
         return "newuserinfo";
 
     }
-    
+
     @RequestMapping("/addloginUserUi")
     public String addloginUserUi(HttpServletRequest request, HttpServletResponse response) {
         return "newloginuser";
@@ -114,7 +114,7 @@ public class PageJumpController {
             case 12:
                 //登陆界面
                 return "index";
-            
+
             default:
                 return "error404";
 

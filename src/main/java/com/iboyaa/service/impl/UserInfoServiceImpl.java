@@ -101,7 +101,7 @@ public class UserInfoServiceImpl implements IUserInfoService {
         Integer totalNum =
                 userInfoDao.getUserInfoByCondition(startDate, endDate, keyWord, state).size();
 
-      //封装分页参数
+        //封装分页参数
         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>();
         pageInfo.setList(dataWithPage);
         pageInfo.setPageNum(pageNum);

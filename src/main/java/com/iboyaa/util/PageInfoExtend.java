@@ -61,9 +61,9 @@ public class PageInfoExtend<T> extends PageInfo<T> {
     private int navigateLastPage;
     //  新加入   list中的某个元素的数据和
     private double totalCount;
-    
-    
-    
+
+
+
     public int getPageNum() {
         return pageNum;
     }

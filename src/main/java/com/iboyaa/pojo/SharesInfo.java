@@ -52,12 +52,12 @@ public class SharesInfo implements Serializable {
     private Date createtime;//创建时间
     @JSONField(format = "yyyy-MM-dd")
     private Date updatetime;//更新时间
-    
+
     private Integer customId;//客户ID
 
     private String daypercent;
     private String percent;
-    
+
     private String updatetime2String;//更新时间字符串格式化
 
 
@@ -209,8 +209,8 @@ public class SharesInfo implements Serializable {
     public void setPercent(String percent) {
         this.percent = percent;
     }
-    
-    
+
+
     public Integer getCustomId() {
         return customId;
     }
@@ -218,6 +218,7 @@ public class SharesInfo implements Serializable {
     public void setCustomId(Integer customId) {
         this.customId = customId;
     }
+
     public String getUpdatetime2String() {
         return updatetime2String;
     }

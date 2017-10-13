@@ -40,12 +40,12 @@ public class ILoginUserServiceImpl implements ILoginUserService {
     @Override
     public int insertSelective(loginUser record) {
         // TODO Auto-generated method stub
-        
-        loginUser alreadyData =  loginUserDao.userlogin(record.getUsername(), record.getPassword());
-        
-        if(null == alreadyData) {
+
+        loginUser alreadyData = loginUserDao.userlogin(record.getUsername(), record.getPassword());
+
+        if (null == alreadyData) {
             return loginUserDao.insertSelective(record);
-        }else {
+        } else {
             alreadyData.setAuthor(record.getAuthor());
             alreadyData.setCommon(record.getCommon());
             alreadyData.setLoginname(record.getUsername());
@@ -54,8 +54,8 @@ public class ILoginUserServiceImpl implements ILoginUserService {
             alreadyData.setUsername(record.getUsername());
             return loginUserDao.updateByPrimaryKey(alreadyData);
         }
-        
-       
+
+
     }
 
     /* (non-Javadoc)
@@ -99,14 +99,14 @@ public class ILoginUserServiceImpl implements ILoginUserService {
         pageInfo.setList(totalData);
         pageInfo.setPageNum(pageNum);
         pageInfo.setPageSize(pageSize);
-        pageInfo.setTotal(totalNum) ;
-        
+        pageInfo.setTotal(totalNum);
+
         return pageInfo;
     }
 
     @Override
     public loginUser login(String username, String password) {
-       
+
         return loginUserDao.userlogin(username, password);
     }
 

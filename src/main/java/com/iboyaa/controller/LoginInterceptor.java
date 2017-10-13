@@ -20,16 +20,16 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) throws Exception {
-        
-        String requestURI = request.getRequestURI(); 
-       
-       //登陆验证
-        if(requestURI.indexOf("loginloading")>=0) {
+
+        String requestURI = request.getRequestURI();
+
+        //登陆验证
+        if (requestURI.indexOf("loginloading") >= 0) {
             return true;
-        } 
-         
+        }
+
         HttpSession session = request.getSession();
- 
+
         if (null != session) {
             String author = (String) session.getAttribute("author");
 
