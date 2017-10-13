@@ -112,7 +112,7 @@ public class PageJumpController {
                 //没有权限的用户跳转
                 return "list_intention_client_noauth";
             case 12:
-                //没有权限的用户跳转
+                //登陆界面
                 return "index";
             
             default:

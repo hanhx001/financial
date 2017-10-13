@@ -121,4 +121,17 @@ public class LoginUserController {
 
 
     }
+    
+    /**
+     * 客户端退出
+     * @param httpSession
+     * @return
+     * @author 清水贤人
+     * @version 2017年10月13日  上午10:15:53
+     */
+    @RequestMapping("/clientLoginOut")  
+    public ModelAndView loginOut(HttpSession httpSession){  
+        httpSession.invalidate();  
+        return new ModelAndView("redirect:/navigation?page=12");
+    }
 }
