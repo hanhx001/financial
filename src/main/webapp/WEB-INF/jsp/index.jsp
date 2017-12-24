@@ -21,17 +21,17 @@
 				<div id="large-header" class="large-header">
 					<canvas id="demo-canvas"></canvas>
 					<div class="logo_box">
-						<h3> 欢迎 </h3>
+						<h3> 欢迎您 </h3>
 						<form action="${pageContext.request.contextPath}/loginloading" id="f" method="POST">
 							<div class="input_outer">
 								<span class="u_user"></span>
-								<input name="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="写下你的登录名">
+								<input name="username" class="text" style="color: #FFFFFF !important" type="text" placeholder="告诉我你的名字">
 							</div>
 							<div class="input_outer">
 								<span class="us_uer"></span>
 								<input name="password" class="text" style="color: #FFFFFF !important; position:absolute; z-index:100;"value="" type="password" placeholder="请输入密码">
 							</div>
-							<div class="mb2"><a class="act-but submit" href="#"  onclick="document.getElementById('f').submit();" style="color: #FFFFFF">登陆</a></div>
+							<div class="mb2"><a class="act-but submit" href="#"  onclick="document.getElementById('f').submit();" style="color: #FFFFFF">登 录</a></div>
 						</form>
 					</div>
 				</div>

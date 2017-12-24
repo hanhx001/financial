@@ -240,7 +240,7 @@
 			</if>
 
 			<if test="startDate != null or endDate !=null ">
-				and DATE_FORMAT(updatetime, '%Y-%m-%d')
+				and DATE_FORMAT(createtime, '%Y-%m-%d')
 				between
 				DATE_FORMAT(#{startDate}, '%Y-%m-%d')
 				and
@@ -259,10 +259,13 @@
 			</if>
 		</where>
 		<if test="sort != null and sort == 0">
-			ORDER BY percent DESC
+			ORDER BY percent DESC, createtime desc
 		</if>
 		<if test="sort != null and sort == 1">
-			ORDER BY daypercent DESC
+			ORDER BY daypercent DESC ,createtime desc
+		</if>
+		<if test="sort != null and sort == 1">
+			 
 		</if>
 	</select>
 

@@ -61,8 +61,10 @@ public class ScheduledTask {
                                     / Double.parseDouble(temp.getCostPrice()) * 100));
 
 
-                    temp.setDaypercent(DoubleWith2Point.noForFive(currentPrice - closePrice)
-                            / closePrice * 100);// 当日盈亏比率
+                    temp.setDaypercent(DoubleWith2Point
+                            .noForFive((currentPrice - closePrice) / closePrice * 100
+
+                    ));// 当日盈亏比率
                     sharesService.updateByPrimaryKeySelective(temp);
 
                 }

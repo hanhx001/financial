@@ -5,11 +5,13 @@ package com.iboyaa.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 /**
  * 主要用于视图之间的跳转，没有具体业务逻辑、
@@ -69,7 +71,26 @@ public class PageJumpController {
     @RequestMapping(value = "/navigation", method = RequestMethod.GET)
     public String navigationSearchPage(HttpServletRequest request, HttpServletResponse response,
             @RequestParam(value = "page", required = true, defaultValue = "1") Integer page) {
+        
+        HttpSession session = request.getSession();
+        Integer author = (Integer) session.getAttribute("author");
 
+        if (null != author) {
+            if (0 == author) {
+                //普通用户  
+                page=11;
+            } else if (1 == author) {
+               
+            } else {
+                page=12;
+            }
+        } else {
+            page=12;
+        }
+        
+        
+        
+        
         switch (page) {
             case 1:
                 // 持仓界面

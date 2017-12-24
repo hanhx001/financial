@@ -100,10 +100,11 @@ public class LoginUserController {
      */
     @RequestMapping(value = "/loginloading", method = RequestMethod.POST)
     public ModelAndView loginloading(
-            @RequestParam(value = "username", required = true, defaultValue = "") String username,
-            @RequestParam(value = "password", required = true, defaultValue = "") String password,
+            @RequestParam(value = "username", required = true, defaultValue = "abc") String username,
+            @RequestParam(value = "password", required = true, defaultValue = "abc") String password,
             HttpServletRequest request, HttpServletResponse response, HttpSession httpSession) {
-
+        
+        
         loginUser userData = loginUserService.login(username, MD5Util.convertMD5(password));
 
         if (null == userData) {
