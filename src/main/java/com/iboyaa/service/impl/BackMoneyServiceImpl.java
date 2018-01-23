@@ -61,7 +61,7 @@ public class BackMoneyServiceImpl implements IBackMoneyService {
 
         //如果时间都为空，则查询当天的数据
         if (StringIsNull.isNULL(startDate) && StringIsNull.isNULL(endDate)) {
-            startDate = nowTime.toString("yyyy-MM-dd");
+            startDate =  new DateTime("2017-08-10").toString("yyyy-MM-dd"); 
             endDate = nowTime.toString("yyyy-MM-dd");
         }
 
