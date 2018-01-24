@@ -24,7 +24,7 @@
 		<legend>提交回款管理信息</legend>
 	</fieldset>
 
-	<form class="layui-form" action="addBackMoney" method="POST">
+	<form class="layui-form" action="" method="POST">
 		<input type="hidden" value="${requestScope.data.customId}"
 			name="customId">
 

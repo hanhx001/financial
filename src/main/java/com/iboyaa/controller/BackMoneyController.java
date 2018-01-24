@@ -158,7 +158,7 @@ public class BackMoneyController {
                 return new ModelAndView("redirect:/navigation?page=12");
             } else if (1 == author) {
                 //管理员
-                return modelAndView;
+              return modelAndView;
             } else {
                 return new ModelAndView("redirect:/navigation?page=12");
             }

@@ -76,7 +76,7 @@ public class BackMoneyServiceImpl implements IBackMoneyService {
         if (backMoneys.size() > 0) {
 
             for (BackMoney backMoneyTemp : backMoneys) {
-                totalCount += backMoneyTemp.getBackmoney();
+                totalCount += backMoneyTemp.getBackmoney() ==null ? 0 :backMoneyTemp.getBackmoney();
             }
         }
 

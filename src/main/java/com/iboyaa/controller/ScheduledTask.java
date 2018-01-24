@@ -30,7 +30,7 @@ public class ScheduledTask {
     @Resource
     private ISharesService sharesService;
 
-    @Scheduled(cron = "0/5 * *  * * ? ")
+    @Scheduled(cron = "0/9 * *  * * ? ")
     public void updateSinaData() {
 
         List<SharesInfo> data = (List<SharesInfo>) sharesService.getAllpreData("1");
